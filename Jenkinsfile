@@ -11,23 +11,22 @@ pipeline {
       agent {
         docker {
           image 'gobuild:1.18'
-          args '--network ${networkName} -e HOME=${WORKSPACE} -v /var/lib/jenkins/go:/go'
+          args '-e HOME=${WORKSPACE} -v /var/lib/jenkins/go:/go'
           reuseNode true
         }
       }
       steps {
         script {
-          //withCredentials([
-          //  string(credentialsId: 'codecov-feditools-g-lib', variable: 'CODECOV_TOKEN')
-          //]) {
+          withCredentials([
+            string(credentialsId: 'codecov-feditools-go-lib', variable: 'CODECOV_TOKEN')
+          ]) {
             sh """#!/bin/bash
             go test -race -coverprofile=coverage.txt -covermode=atomic ./...
             RESULT=\$?
-            #bash <(curl -s https://codecov.io/bash)
+            bash <(curl -s https://codecov.io/bash)
             exit \$RESULT
             """
-          //}
-          // junit allowEmptyResults: true, checksName: 'Security', testResults: "gosec.xml"
+          }
         }
       }
     }
