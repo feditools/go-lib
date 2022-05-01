@@ -24,18 +24,16 @@ other = "Dashboards"
 
 [Description]
 description = "the common phrase for description"
-other = "Description"
+one = "Description"
+other = "Descriptions"
 
 [HomeShort]
 description = "a single word representation of home, as in home page."
-other = "Home"
+one = "Home"
+other = "Homes"
 
 [Login]
 description = "the common phrase for logging in"
-other = "Login"
-
-[LoginShort]
-description = "a single word representation of logging in"
 other = "Login"
 
 [Oauth]

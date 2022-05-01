@@ -6,7 +6,7 @@ import (
 	"testing"
 )
 
-func TestLocalizer_TextAccount(t *testing.T) {
+func TestLocalizer_TextDashboard(t *testing.T) {
 	langMod, _ := New()
 
 	tables := []struct {
@@ -15,8 +15,8 @@ func TestLocalizer_TextAccount(t *testing.T) {
 		n string
 		l language.Tag
 	}{
-		{language.English, 1, "Account", language.English},
-		{language.English, 2, "Accounts", language.English},
+		{language.English, 1, "Dashboard", language.English},
+		{language.English, 2, "Dashboards", language.English},
 	}
 
 	for i, table := range tables {
@@ -33,7 +33,7 @@ func TestLocalizer_TextAccount(t *testing.T) {
 				return
 			}
 
-			result := localizer.TextAccount(table.c)
+			result := localizer.TextDashboard(table.c)
 			if result.String() != table.n {
 				t.Errorf("[%d] got invalid translation for %s, got: %v, want: %v,", i, table.x, result.String(), table.n)
 			}
@@ -44,7 +44,7 @@ func TestLocalizer_TextAccount(t *testing.T) {
 	}
 }
 
-func TestLocalizer_TextAddOauth20Client(t *testing.T) {
+func TestLocalizer_TextDescription(t *testing.T) {
 	langMod, _ := New()
 
 	tables := []struct {
@@ -53,8 +53,8 @@ func TestLocalizer_TextAddOauth20Client(t *testing.T) {
 		n string
 		l language.Tag
 	}{
-		{language.English, 1, "Add OAuth 2.0 Client", language.English},
-		{language.English, 2, "Add OAuth 2.0 Clients", language.English},
+		{language.English, 1, "Description", language.English},
+		{language.English, 2, "Descriptions", language.English},
 	}
 
 	for i, table := range tables {
@@ -71,7 +71,7 @@ func TestLocalizer_TextAddOauth20Client(t *testing.T) {
 				return
 			}
 
-			result := localizer.TextAddOauth20Client(table.c)
+			result := localizer.TextDescription(table.c)
 			if result.String() != table.n {
 				t.Errorf("[%d] got invalid translation for %s, got: %v, want: %v,", i, table.x, result.String(), table.n)
 			}
