@@ -24,6 +24,28 @@ func (l *Localizer) TextClient(count int) *LocalizedString {
 	}
 }
 
+// TextClientID returns a translated phrase
+func (l *Localizer) TextClientID(count int) *LocalizedString {
+	lg := logger.WithField("func", "TextClientID")
+
+	text, tag, err := l.localizer.LocalizeWithTag(&i18n.LocalizeConfig{
+		DefaultMessage: &i18n.Message{
+			ID:          "ClientID",
+			Description: "the common phrase for client IDs",
+			One:         "Client ID",
+			Other:       "Client IDs",
+		},
+		PluralCount: count,
+	})
+	if err != nil {
+		lg.Warningf("missing translation: %s", err.Error())
+	}
+	return &LocalizedString{
+		language: tag,
+		string:   text,
+	}
+}
+
 // TextCreate returns a translated phrase
 func (l *Localizer) TextCreate() *LocalizedString {
 	lg := logger.WithField("func", "TextCreate")
