@@ -2,6 +2,26 @@ package language
 
 import "github.com/nicksnyder/go-i18n/v2/i18n"
 
+// TextRequired returns a translated phrase
+func (l *Localizer) TextRequired() *LocalizedString {
+	lg := logger.WithField("func", "TextRequired")
+
+	text, tag, err := l.localizer.LocalizeWithTag(&i18n.LocalizeConfig{
+		DefaultMessage: &i18n.Message{
+			ID:          "Required",
+			Description: "the common phrase for required",
+			Other:       "Required",
+		},
+	})
+	if err != nil {
+		lg.Warningf("missing translation: %s", err.Error())
+	}
+	return &LocalizedString{
+		language: tag,
+		string:   text,
+	}
+}
+
 // TextReturnURI returns a translated phrase
 func (l *Localizer) TextReturnURI() *LocalizedString {
 	lg := logger.WithField("func", "TextReturnURI")
