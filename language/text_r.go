@@ -22,16 +22,18 @@ func (l *Localizer) TextRequired() *LocalizedString {
 	}
 }
 
-// TextReturnURI returns a translated phrase
-func (l *Localizer) TextReturnURI() *LocalizedString {
-	lg := logger.WithField("func", "TextReturnURI")
+// TextRedirectURI returns a translated phrase
+func (l *Localizer) TextRedirectURI(count int) *LocalizedString {
+	lg := logger.WithField("func", "TextRedirectURI")
 
 	text, tag, err := l.localizer.LocalizeWithTag(&i18n.LocalizeConfig{
 		DefaultMessage: &i18n.Message{
-			ID:          "ReturnURI",
+			ID:          "RedirectURI",
 			Description: "the common phrase for return uri",
-			Other:       "Return URI",
+			One:         "Redirect URI",
+			Other:       "Redirect URIs",
 		},
+		PluralCount: count,
 	})
 	if err != nil {
 		lg.Warningf("missing translation: %s", err.Error())

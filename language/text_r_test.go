@@ -42,15 +42,17 @@ func TestLocalizer_TextRequired(t *testing.T) {
 	}
 }
 
-func TestLocalizer_TextReturnURI(t *testing.T) {
+func TestLocalizer_TextRedirectURI(t *testing.T) {
 	langMod, _ := New()
 
 	tables := []struct {
 		x language.Tag
+		c int
 		n string
 		l language.Tag
 	}{
-		{language.English, "Return URI", language.English},
+		{language.English, 1, "Redirect URI", language.English},
+		{language.English, 2, "Redirect URIs", language.English},
 	}
 
 	for i, table := range tables {
@@ -67,7 +69,7 @@ func TestLocalizer_TextReturnURI(t *testing.T) {
 				return
 			}
 
-			result := localizer.TextReturnURI()
+			result := localizer.TextRedirectURI(table.c)
 			if result.String() != table.n {
 				t.Errorf("[%d] got invalid translation for %s, got: %v, want: %v,", i, table.x, result.String(), table.n)
 			}
