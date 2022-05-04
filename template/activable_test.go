@@ -41,30 +41,6 @@ func (s *testActivableSlices) Len() int {
 // tests
 
 func TestSetActive(t *testing.T) {
-	slices := testActivableSlices{
-		{
-			Matcher: regexp.MustCompile(`^/test1$`),
-			Active:  false,
-		},
-		{
-			Matcher: regexp.MustCompile(`^/test2`),
-			Active:  false,
-		},
-		{
-			Matcher: regexp.MustCompile(`^/test3`),
-			Active:  false,
-			Children: testActivableSlices{
-				{
-					Matcher: regexp.MustCompile(`^/test3/sub1$`),
-					Active:  false,
-				},
-				{
-					Matcher: regexp.MustCompile(`^/test3/sub2`),
-					Active:  false,
-				},
-			},
-		},
-	}
 
 	tables := []struct {
 		mastchStr string
@@ -218,7 +194,7 @@ func TestSetActive(t *testing.T) {
 			},
 		},
 		{
-			"/test2/sub1",
+			"/test3/sub2",
 			[]map[bool]interface{}{
 				{
 					false: nil,
@@ -264,15 +240,37 @@ func TestSetActive(t *testing.T) {
 	for i, table := range tables {
 		i := i
 		table := table
-		var localSlice testActivableSlices
-		copy(localSlice, slices)
+		slices := testActivableSlices{
+			{
+				Matcher: regexp.MustCompile(`^/test1$`),
+				Active:  false,
+			},
+			{
+				Matcher: regexp.MustCompile(`^/test2`),
+				Active:  false,
+			},
+			{
+				Matcher: regexp.MustCompile(`^/test3`),
+				Active:  false,
+				Children: testActivableSlices{
+					{
+						Matcher: regexp.MustCompile(`^/test3/sub1$`),
+						Active:  false,
+					},
+					{
+						Matcher: regexp.MustCompile(`^/test3/sub2`),
+						Active:  false,
+					},
+				},
+			},
+		}
 
 		name := fmt.Sprintf("[%d] Running activation test on %s", i, table.mastchStr)
 		t.Run(name, func(t *testing.T) {
-			t.Parallel()
+			//t.Parallel()
 
-			SetActive(&localSlice, table.mastchStr)
-			testSlices(t, localSlice, table.results, table.mastchStr, i, 0, 0)
+			SetActive(&slices, table.mastchStr)
+			testSlices(t, slices, table.results, table.mastchStr, i, 0, 0)
 		})
 	}
 }

@@ -7,30 +7,6 @@ import (
 )
 
 func TestSidebar_ActivateFromPath(t *testing.T) {
-	slices := Sidebar{
-		{
-			Matcher: regexp.MustCompile(`^/test1$`),
-			Active:  false,
-		},
-		{
-			Matcher: regexp.MustCompile(`^/test2`),
-			Active:  false,
-		},
-		{
-			Matcher: regexp.MustCompile(`^/test3`),
-			Active:  false,
-			Children: Sidebar{
-				{
-					Matcher: regexp.MustCompile(`^/test3/sub1$`),
-					Active:  false,
-				},
-				{
-					Matcher: regexp.MustCompile(`^/test3/sub2`),
-					Active:  false,
-				},
-			},
-		},
-	}
 
 	tables := []struct {
 		mastchStr string
@@ -184,7 +160,7 @@ func TestSidebar_ActivateFromPath(t *testing.T) {
 			},
 		},
 		{
-			"/test2/sub1",
+			"/test3/sub2",
 			[]map[bool]interface{}{
 				{
 					false: nil,
@@ -230,15 +206,37 @@ func TestSidebar_ActivateFromPath(t *testing.T) {
 	for i, table := range tables {
 		i := i
 		table := table
-		var localSlice Sidebar
-		copy(localSlice, slices)
+		sidebar := Sidebar{
+			{
+				Matcher: regexp.MustCompile(`^/test1$`),
+				Active:  false,
+			},
+			{
+				Matcher: regexp.MustCompile(`^/test2`),
+				Active:  false,
+			},
+			{
+				Matcher: regexp.MustCompile(`^/test3`),
+				Active:  false,
+				Children: Sidebar{
+					{
+						Matcher: regexp.MustCompile(`^/test3/sub1$`),
+						Active:  false,
+					},
+					{
+						Matcher: regexp.MustCompile(`^/test3/sub2`),
+						Active:  false,
+					},
+				},
+			},
+		}
 
 		name := fmt.Sprintf("[%d] Running activation test on %s", i, table.mastchStr)
 		t.Run(name, func(t *testing.T) {
-			t.Parallel()
+			//t.Parallel()
 
-			SetActive(&localSlice, table.mastchStr)
-			testSidebar(t, localSlice, table.results, table.mastchStr, i, 0, 0)
+			SetActive(&sidebar, table.mastchStr)
+			testSidebar(t, sidebar, table.results, table.mastchStr, i, 0, 0)
 		})
 	}
 }
