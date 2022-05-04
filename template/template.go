@@ -9,9 +9,9 @@ import (
 
 const templateDir = "templates"
 
-// Templates contains template files required by the application
+// templateFS contains template files required by the application
 //go:embed templates/*.gohtml
-var Templates embed.FS
+var templateFS embed.FS
 
 // New creates a new template
 func New(f template.FuncMap) (*template.Template, error) {
@@ -28,9 +28,9 @@ func New(f template.FuncMap) (*template.Template, error) {
 	}
 	tpl.Funcs(tmplFuncs)
 
-	dir, err := Templates.ReadDir(templateDir)
+	dir, err := templateFS.ReadDir(templateDir)
 	if err != nil {
-		panic(err)
+		return nil, err
 	}
 	for _, d := range dir {
 		filePath := templateDir + "/" + d.Name()
@@ -39,7 +39,7 @@ func New(f template.FuncMap) (*template.Template, error) {
 		}
 
 		// open it
-		file, err := Templates.Open(filePath)
+		file, err := templateFS.Open(filePath)
 		if err != nil {
 			return nil, err
 		}
