@@ -14,15 +14,15 @@ const templateDir = "templates"
 var Templates embed.FS
 
 // New creates a new template
-func New(f *template.FuncMap) (*template.Template, error) {
+func New(f template.FuncMap) (*template.Template, error) {
 	tpl := template.New("")
 
 	tmplFuncs := template.FuncMap{}
 	for k, v := range defaultFunctions {
 		tmplFuncs[k] = v
 	}
-	if f != nil {
-		for k, v := range *f {
+	if len(f) > 0 {
+		for k, v := range f {
 			tmplFuncs[k] = v
 		}
 	}

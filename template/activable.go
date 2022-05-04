@@ -1,7 +1,6 @@
 package template
 
 import (
-	"fmt"
 	"regexp"
 )
 
@@ -22,7 +21,6 @@ func SetActive(a ActivableSlice, s string) {
 			if matcherFound {
 				a.SetActive(i, true)
 			}
-			fmt.Printf("matcher: %s string: %s matcherFound: %v\n", matcher.String(), s, matcherFound)
 		}
 		children := a.GetChildren(i)
 		if children != nil {

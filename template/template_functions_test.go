@@ -6,14 +6,9 @@ import (
 )
 
 func TestTemplateFunctions(t *testing.T) {
-	templates, err := New(nil)
+	templates, err := testNewTestTemplates()
 	if err != nil {
 		t.Errorf("init: %s", err.Error())
-		return
-	}
-	err = addTestTemplates(templates)
-	if err != nil {
-		t.Errorf("adding tests: %s", err.Error())
 		return
 	}
 
