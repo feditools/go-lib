@@ -154,6 +154,111 @@ func TestSetActive(t *testing.T) {
 				},
 			},
 		},
+		{
+			"/test3",
+			[]map[bool]interface{}{
+				{
+					false: nil,
+				},
+				{
+					false: nil,
+				},
+				{
+					true: []map[bool]interface{}{
+						{
+							false: nil,
+						},
+						{
+							false: nil,
+						},
+					},
+				},
+			},
+		},
+		{
+			"/test3/sub1",
+			[]map[bool]interface{}{
+				{
+					false: nil,
+				},
+				{
+					false: nil,
+				},
+				{
+					true: []map[bool]interface{}{
+						{
+							true: nil,
+						},
+						{
+							false: nil,
+						},
+					},
+				},
+			},
+		},
+		{
+			"/test3/sub1/foo",
+			[]map[bool]interface{}{
+				{
+					false: nil,
+				},
+				{
+					false: nil,
+				},
+				{
+					true: []map[bool]interface{}{
+						{
+							false: nil,
+						},
+						{
+							false: nil,
+						},
+					},
+				},
+			},
+		},
+		{
+			"/test2/sub1",
+			[]map[bool]interface{}{
+				{
+					false: nil,
+				},
+				{
+					false: nil,
+				},
+				{
+					true: []map[bool]interface{}{
+						{
+							false: nil,
+						},
+						{
+							true: nil,
+						},
+					},
+				},
+			},
+		},
+		{
+			"/test3/sub2/foo",
+			[]map[bool]interface{}{
+				{
+					false: nil,
+				},
+				{
+					false: nil,
+				},
+				{
+					true: []map[bool]interface{}{
+						{
+							false: nil,
+						},
+						{
+							true: nil,
+						},
+					},
+				},
+			},
+		},
 	}
 
 	for i, table := range tables {
@@ -166,6 +271,7 @@ func TestSetActive(t *testing.T) {
 		t.Logf("slices memloc %p", &localSlice)
 		t.Run(name, func(t *testing.T) {
 			t.Parallel()
+
 			SetActive(&localSlice, table.mastchStr)
 			testSlices(t, localSlice, table.results, table.mastchStr, i, 0, 0)
 		})
