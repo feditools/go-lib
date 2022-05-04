@@ -27,5 +27,4 @@ func SetActive(a ActivableSlice, s string) {
 			SetActive(children, s)
 		}
 	}
-	return
 }

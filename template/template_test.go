@@ -38,7 +38,7 @@ func testExecuteTemplate(templates *template.Template, name string, tmplVars int
 	if err != nil {
 		return "", err
 	}
-	return string(b.Bytes()), nil
+	return b.String(), nil
 }
 
 func testNewTestTemplates() (*template.Template, error) {
