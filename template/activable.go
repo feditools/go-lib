@@ -1,6 +1,9 @@
 package template
 
-import "regexp"
+import (
+	"fmt"
+	"regexp"
+)
 
 // ActivableSlice a slice where each element has an active bit which can be set based on a string
 type ActivableSlice interface {
@@ -11,24 +14,20 @@ type ActivableSlice interface {
 }
 
 // SetActive sets an active bit in a slice
-func SetActive(a ActivableSlice, s string) bool {
-	found := false
+func SetActive(a ActivableSlice, s string) {
 	for i := 0; i < a.Len(); i++ {
 		matcher := a.GetMatcher(i)
 		if matcher != nil {
-			if matcher.Match([]byte(s)) {
+			matcherFound := matcher.Match([]byte(s))
+			if matcherFound {
 				a.SetActive(i, true)
-				found = true
 			}
+			fmt.Printf("matcher: %s string: %s matcherFound: %v\n", matcher.String(), s, matcherFound)
 		}
 		children := a.GetChildren(i)
 		if children != nil {
-			foundChild := SetActive(children, s)
-			if foundChild {
-				a.SetActive(i, true)
-				found = true
-			}
+			SetActive(children, s)
 		}
 	}
-	return found
+	return
 }

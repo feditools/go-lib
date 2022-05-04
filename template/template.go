@@ -7,16 +7,26 @@ import (
 	"strings"
 )
 
-const templateDir = "template"
+const templateDir = "templates"
 
 // Templates contains template files required by the application
 //go:embed templates/*.gohtml
 var Templates embed.FS
 
 // New creates a new template
-func New(f template.FuncMap) (*template.Template, error) {
+func New(f *template.FuncMap) (*template.Template, error) {
 	tpl := template.New("")
-	tpl.Funcs(f)
+
+	tmplFuncs := template.FuncMap{}
+	for k, v := range defaultFunctions {
+		tmplFuncs[k] = v
+	}
+	if f != nil {
+		for k, v := range *f {
+			tmplFuncs[k] = v
+		}
+	}
+	tpl.Funcs(tmplFuncs)
 
 	dir, err := Templates.ReadDir(templateDir)
 	if err != nil {

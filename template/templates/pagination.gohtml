@@ -5,11 +5,11 @@
     <li class="page-item{{if .Active}} active{{end}}{{if .Disabled}} disabled{{end}}"{{if .Active}} aria-current="page"{{end}}>
     {{- if .HRef }}
       <a class="page-link" href="{{.HRef}}">
-          {{if .DisplayHTML}}<span aria-hidden="true">{{.DisplayHTML | htmlSafe}}</span>{{else}}{{.Text}}{{end}}{{if .Active}} <span class="sr-only">(current)</span>{{end}}
+          {{if .Icon}}<span aria-hidden="true">{<i class="fas fa-{{ .Icon }}"></i></span>{{else}}{{.Text}}{{end}}{{if .Active}} <span class="sr-only">(current)</span>{{end}}
       </a>
     {{- else }}
       <span class="page-link"{{if .DisplayHTML}} aria-label="{{.Text}}"{{end}}>
-        {{if .DisplayHTML}}<span aria-hidden="true">{{.DisplayHTML | htmlSafe}}</span>{{else}}{{.Text}}{{end}}{{if .Active}} <span class="sr-only">(current)</span>{{end}}
+        {{if .Icon}}<span aria-hidden="true"><i class="fas fa-{{ .Icon }}"></i></span>{{else}}{{.Text}}{{end}}{{if .Active}} <span class="sr-only">(current)</span>{{end}}
       </span>
     {{- end }}
     </li>
