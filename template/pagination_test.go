@@ -85,6 +85,46 @@ const testPaginationResult2 = `<nav>
   </ul>
 </nav>`
 
+const testPaginationResult3 = `<nav>
+  <ul class="pagination">
+    <li class="page-item">
+      <a class="page-link" href="/test3?page=49">
+        <span aria-hidden="true"><i class="fas fa-caret-left"></i></span>
+      </a>
+    </li>
+    <li class="page-item">
+      <a class="page-link" href="/test3?page=46">
+        46
+      </a>
+    </li>
+    <li class="page-item">
+      <a class="page-link" href="/test3?page=47">
+        47
+      </a>
+    </li>
+    <li class="page-item">
+      <a class="page-link" href="/test3?page=48">
+        48
+      </a>
+    </li>
+    <li class="page-item">
+      <a class="page-link" href="/test3?page=49">
+        49
+      </a>
+    </li>
+    <li class="page-item active" aria-current="page">
+      <span class="page-link" aria-label="50">
+        50 <span class="sr-only">(current)</span>
+      </span>
+    </li>
+    <li class="page-item disabled">
+      <span class="page-link" aria-label="Next">
+        <span aria-hidden="true"><i class="fas fa-caret-right"></i></span>
+      </span>
+    </li>
+  </ul>
+</nav>`
+
 func TestMakePagination(t *testing.T) {
 	templates, err := New(nil)
 	if err != nil {
@@ -120,6 +160,16 @@ func TestMakePagination(t *testing.T) {
 				Page:          17,
 			},
 			testPaginationResult2,
+		},
+		{
+			&PaginationConfig{
+				Count:         1000,
+				DisplayCount:  20,
+				HRef:          "/test3",
+				MaxPagination: 5,
+				Page:          50,
+			},
+			testPaginationResult3,
 		},
 	}
 

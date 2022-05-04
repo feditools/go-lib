@@ -83,7 +83,7 @@ func MakePagination(c *PaginationConfig) Pagination {
 		Text: "Next",
 		Icon: "caret-right",
 	}
-	if c.Page == c.Count {
+	if c.Page == pages {
 		nextItem.Disabled = true
 	} else if c.HRefCount > 0 {
 		nextItem.HRef = fmt.Sprintf("%s?page=%d&count=%d", c.HRef, c.Page+1, c.HRefCount)
