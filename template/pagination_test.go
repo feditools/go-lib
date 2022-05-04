@@ -175,6 +175,26 @@ const testPaginationResult4 = `<nav>
   </ul>
 </nav>`
 
+const testPaginationResult5 = `<nav>
+  <ul class="pagination">
+    <li class="page-item disabled">
+      <span class="page-link" aria-label="Previous">
+        <span aria-hidden="true"><i class="fas fa-caret-left"></i></span>
+      </span>
+    </li>
+    <li class="page-item active" aria-current="page">
+      <span class="page-link" aria-label="1">
+        1 <span class="sr-only">(current)</span>
+      </span>
+    </li>
+    <li class="page-item disabled">
+      <span class="page-link" aria-label="Next">
+        <span aria-hidden="true"><i class="fas fa-caret-right"></i></span>
+      </span>
+    </li>
+  </ul>
+</nav>`
+
 func TestMakePagination(t *testing.T) {
 	templates, err := New(nil)
 	if err != nil {
@@ -231,6 +251,16 @@ func TestMakePagination(t *testing.T) {
 				Page:          6,
 			},
 			testPaginationResult4,
+		},
+		{
+			&PaginationConfig{
+				Count:         10,
+				DisplayCount:  10,
+				HRef:          "/test5",
+				MaxPagination: 10,
+				Page:          1,
+			},
+			testPaginationResult5,
 		},
 	}
 
