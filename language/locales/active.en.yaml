@@ -20,9 +20,7 @@ Dashboard:
 Description:
   one: Description
   other: Descriptions
-Home:
-  one: Home
-  other: Homes
+HomeWeb: Home
 InvalidURI:
   one: Invalid URI
   other: Invalid URIs
