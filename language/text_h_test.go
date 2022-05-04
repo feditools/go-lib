@@ -6,17 +6,15 @@ import (
 	"testing"
 )
 
-func TestLocalizer_TextHome(t *testing.T) {
+func TestLocalizer_TextHomeWeb(t *testing.T) {
 	langMod, _ := New()
 
 	tables := []struct {
 		x language.Tag
-		c int
 		n string
 		l language.Tag
 	}{
-		{language.English, 1, "Home", language.English},
-		{language.English, 2, "Homes", language.English},
+		{language.English, "Home", language.English},
 	}
 
 	for i, table := range tables {
@@ -33,7 +31,7 @@ func TestLocalizer_TextHome(t *testing.T) {
 				return
 			}
 
-			result := localizer.TextHome(table.c)
+			result := localizer.TextHomeWeb()
 			if result.String() != table.n {
 				t.Errorf("[%d] got invalid translation for %s, got: %v, want: %v,", i, table.x, result.String(), table.n)
 			}
