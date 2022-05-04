@@ -235,7 +235,7 @@ func TestSidebar_ActivateFromPath(t *testing.T) {
 		t.Run(name, func(t *testing.T) {
 			//t.Parallel()
 
-			SetActive(&sidebar, table.mastchStr)
+			sidebar.ActivateFromPath(table.mastchStr)
 			testSidebar(t, sidebar, table.results, table.mastchStr, i, 0, 0)
 		})
 	}
