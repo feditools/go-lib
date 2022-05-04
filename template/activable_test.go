@@ -265,10 +265,9 @@ func TestSetActive(t *testing.T) {
 		i := i
 		table := table
 		var localSlice testActivableSlices
-		copy(slices, localSlice)
+		copy(localSlice, slices)
 
 		name := fmt.Sprintf("[%d] Running activation test on %s", i, table.mastchStr)
-		t.Logf("slices memloc %p", &localSlice)
 		t.Run(name, func(t *testing.T) {
 			t.Parallel()
 
@@ -280,6 +279,12 @@ func TestSetActive(t *testing.T) {
 
 func testSlices(t *testing.T, slices testActivableSlices, expectations []map[bool]interface{}, matchStr string, tid, parent, depth int) {
 	for i, s := range slices {
+		if parent == 0 {
+			t.Logf("[%d][%d][%d] checking activation", tid, depth, i)
+		} else {
+			t.Logf("[%d][%d][%d->%d] checkign activation", tid, depth, parent, i)
+		}
+
 		// get keys
 		j := 0
 		keys := make([]bool, len(expectations[i]))
