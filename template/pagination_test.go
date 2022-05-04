@@ -125,6 +125,56 @@ const testPaginationResult3 = `<nav>
   </ul>
 </nav>`
 
+const testPaginationResult4 = `<nav>
+  <ul class="pagination">
+    <li class="page-item">
+      <a class="page-link" href="/test4?page=5&amp;count=15">
+        <span aria-hidden="true"><i class="fas fa-caret-left"></i></span>
+      </a>
+    </li>
+    <li class="page-item">
+      <a class="page-link" href="/test4?page=3&amp;count=15">
+        3
+      </a>
+    </li>
+    <li class="page-item">
+      <a class="page-link" href="/test4?page=4&amp;count=15">
+        4
+      </a>
+    </li>
+    <li class="page-item">
+      <a class="page-link" href="/test4?page=5&amp;count=15">
+        5
+      </a>
+    </li>
+    <li class="page-item active" aria-current="page">
+      <span class="page-link" aria-label="6">
+        6 <span class="sr-only">(current)</span>
+      </span>
+    </li>
+    <li class="page-item">
+      <a class="page-link" href="/test4?page=7&amp;count=15">
+        7
+      </a>
+    </li>
+    <li class="page-item">
+      <a class="page-link" href="/test4?page=8&amp;count=15">
+        8
+      </a>
+    </li>
+    <li class="page-item">
+      <a class="page-link" href="/test4?page=9&amp;count=15">
+        9
+      </a>
+    </li>
+    <li class="page-item">
+      <a class="page-link" href="/test4?page=7&amp;count=15">
+        <span aria-hidden="true"><i class="fas fa-caret-right"></i></span>
+      </a>
+    </li>
+  </ul>
+</nav>`
+
 func TestMakePagination(t *testing.T) {
 	templates, err := New(nil)
 	if err != nil {
@@ -170,6 +220,17 @@ func TestMakePagination(t *testing.T) {
 				Page:          50,
 			},
 			testPaginationResult3,
+		},
+		{
+			&PaginationConfig{
+				Count:         1000,
+				DisplayCount:  15,
+				HRef:          "/test4",
+				HRefCount:     15,
+				MaxPagination: 7,
+				Page:          6,
+			},
+			testPaginationResult4,
 		},
 	}
 
