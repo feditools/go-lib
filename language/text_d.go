@@ -2,7 +2,7 @@ package language
 
 import "github.com/nicksnyder/go-i18n/v2/i18n"
 
-// TextDashboard returns a translated phrase
+// TextDashboard returns a translated phrase.
 func (l *Localizer) TextDashboard(count int) *LocalizedString {
 	lg := logger.WithField("func", "TextDashboard")
 
@@ -23,7 +23,7 @@ func (l *Localizer) TextDashboard(count int) *LocalizedString {
 	}
 }
 
-// TextDescription returns a translated phrase
+// TextDescription returns a translated phrase.
 func (l *Localizer) TextDescription(count int) *LocalizedString {
 	lg := logger.WithField("func", "TextDescription")
 

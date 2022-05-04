@@ -2,7 +2,7 @@ package language
 
 import "github.com/nicksnyder/go-i18n/v2/i18n"
 
-// TextClient returns a translated phrase
+// TextClient returns a translated phrase.
 func (l *Localizer) TextClient(count int) *LocalizedString {
 	lg := logger.WithField("func", "TextClient")
 
@@ -23,7 +23,7 @@ func (l *Localizer) TextClient(count int) *LocalizedString {
 	}
 }
 
-// TextClientID returns a translated phrase
+// TextClientID returns a translated phrase.
 func (l *Localizer) TextClientID(count int) *LocalizedString {
 	lg := logger.WithField("func", "TextClientID")
 
@@ -44,7 +44,7 @@ func (l *Localizer) TextClientID(count int) *LocalizedString {
 	}
 }
 
-// TextClientSecret returns a translated phrase
+// TextClientSecret returns a translated phrase.
 func (l *Localizer) TextClientSecret(count int) *LocalizedString {
 	lg := logger.WithField("func", "TextClientSecret")
 
@@ -65,7 +65,7 @@ func (l *Localizer) TextClientSecret(count int) *LocalizedString {
 	}
 }
 
-// TextCreate returns a translated phrase
+// TextCreate returns a translated phrase.
 func (l *Localizer) TextCreate() *LocalizedString {
 	lg := logger.WithField("func", "TextCreate")
 

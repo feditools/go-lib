@@ -15,7 +15,7 @@ type testActivableSlice struct {
 	Children testActivableSlices
 }
 
-// GetChildren returns the children of the node or nil if no children
+// GetChildren returns the children of the node or nil if no children.
 func (s *testActivableSlices) GetChildren(i int) ActivableSlice {
 	if len(*s) == 0 {
 		return nil
@@ -23,17 +23,17 @@ func (s *testActivableSlices) GetChildren(i int) ActivableSlice {
 	return &(*s)[i].Children
 }
 
-// GetMatcher returns the matcher of the node or nil if no matcher
+// GetMatcher returns the matcher of the node or nil if no matcher.
 func (s *testActivableSlices) GetMatcher(i int) *regexp.Regexp {
 	return (*s)[i].Matcher
 }
 
-// SetActive sets the active bool based on the match regex
+// SetActive sets the active bool based on the match regex.
 func (s *testActivableSlices) SetActive(i int, a bool) {
 	(*s)[i].Active = a
 }
 
-// Len returns the matcher of the node or nil if no matcher
+// Len returns the matcher of the node or nil if no matcher.
 func (s *testActivableSlices) Len() int {
 	return len(*s)
 }

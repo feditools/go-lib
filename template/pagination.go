@@ -5,10 +5,10 @@ import (
 	"math"
 )
 
-// Pagination is a pagination element that can be added to a webpage
+// Pagination is a pagination element that can be added to a webpage.
 type Pagination []PaginationNode
 
-// PaginationNode is an element in a pagination element
+// PaginationNode is an element in a pagination element.
 type PaginationNode struct {
 	Text string
 	Icon string
@@ -18,7 +18,7 @@ type PaginationNode struct {
 	Disabled bool
 }
 
-// PaginationConfig contains the config to construct pagination
+// PaginationConfig contains the config to construct pagination.
 type PaginationConfig struct {
 	Count         int    // item count
 	DisplayCount  int    // how many items to display per page
@@ -28,7 +28,7 @@ type PaginationConfig struct {
 	Page          int    // current page
 }
 
-// MakePagination creates a pagination element from the provided parameters
+// MakePagination creates a pagination element from the provided parameters.
 func MakePagination(c *PaginationConfig) Pagination {
 	displayItems := c.MaxPagination
 	pages := int(math.Ceil(float64(c.Count) / float64(c.DisplayCount)))

@@ -2,7 +2,7 @@ package language
 
 import "github.com/nicksnyder/go-i18n/v2/i18n"
 
-// TextRequired returns a translated phrase
+// TextRequired returns a translated phrase.
 func (l *Localizer) TextRequired() *LocalizedString {
 	lg := logger.WithField("func", "TextRequired")
 
@@ -21,7 +21,7 @@ func (l *Localizer) TextRequired() *LocalizedString {
 	}
 }
 
-// TextRedirectURI returns a translated phrase
+// TextRedirectURI returns a translated phrase.
 func (l *Localizer) TextRedirectURI(count int) *LocalizedString {
 	lg := logger.WithField("func", "TextRedirectURI")
 

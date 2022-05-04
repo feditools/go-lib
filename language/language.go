@@ -13,16 +13,16 @@ import (
 //go:embed locales/active.*.yaml
 var Locales embed.FS
 
-// DefaultLanguage is the default language of the application
+// DefaultLanguage is the default language of the application.
 var DefaultLanguage = language.English
 
-// Module represent the language module for translating text
+// Module represent the language module for translating text.
 type Module struct {
 	lang       language.Tag
 	langBundle *i18n.Bundle
 }
 
-// New creates a new language module
+// New creates a new language module.
 func New() (*Module, error) {
 	l := logger.WithField("func", "New")
 
@@ -65,5 +65,5 @@ func New() (*Module, error) {
 	return &module, nil
 }
 
-// Language returns the default language
+// Language returns the default language.
 func (m Module) Language() language.Tag { return m.lang }

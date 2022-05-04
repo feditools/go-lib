@@ -2,7 +2,7 @@ package language
 
 import "github.com/nicksnyder/go-i18n/v2/i18n"
 
-// TextFediverse returns a translated phrase
+// TextFediverse returns a translated phrase.
 func (l *Localizer) TextFediverse() *LocalizedString {
 	lg := logger.WithField("func", "TextFediverse")
 
