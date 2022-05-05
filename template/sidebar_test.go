@@ -7,6 +7,7 @@ import (
 )
 
 func TestSidebar_ActivateFromPath(t *testing.T) {
+	t.Parallel()
 
 	tables := []struct {
 		mastchStr string
@@ -233,7 +234,7 @@ func TestSidebar_ActivateFromPath(t *testing.T) {
 
 		name := fmt.Sprintf("[%d] Running activation test on %s", i, table.mastchStr)
 		t.Run(name, func(t *testing.T) {
-			//t.Parallel()
+			t.Parallel()
 
 			sidebar.ActivateFromPath(table.mastchStr)
 			testSidebar(t, sidebar, table.results, table.mastchStr, i, 0, 0)
@@ -241,7 +242,10 @@ func TestSidebar_ActivateFromPath(t *testing.T) {
 	}
 }
 
+//revive:disable:argument-limit
 func testSidebar(t *testing.T, sidebar Sidebar, expectations []map[bool]interface{}, matchStr string, tid, parent, depth int) {
+	t.Helper()
+
 	for i, s := range sidebar {
 		if parent == 0 {
 			t.Logf("[%d][%d][%d] checking activation", tid, depth, i)
@@ -269,7 +273,12 @@ func testSidebar(t *testing.T, sidebar Sidebar, expectations []map[bool]interfac
 
 		// run on children
 		if len(s.Children) > 0 {
-			testSidebar(t, s.Children, expectations[i][expected].([]map[bool]interface{}), matchStr, tid, i, depth+1)
+			subExpectations, ok := expectations[i][expected].([]map[bool]interface{})
+			if !ok {
+				t.Errorf("[%d][%d][%d] can't cast expectations", tid, depth, i)
+			} else {
+				testSidebar(t, s.Children, subExpectations, matchStr, tid, i, depth+1)
+			}
 		}
 	}
-}
+} //revive:enable:argument-limit

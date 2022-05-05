@@ -2,156 +2,156 @@ package language
 
 import (
 	"fmt"
-	"golang.org/x/text/language"
 	"testing"
+
+	"golang.org/x/text/language"
 )
 
 func TestLocalizer_TextClient(t *testing.T) {
-	langMod, _ := New()
+	t.Parallel()
 
-	tables := []struct {
-		x language.Tag
-		c int
-		n string
-		l language.Tag
-	}{
-		{language.English, 1, "Client", language.English},
-		{language.English, 2, "Clients", language.English},
+	tables := []testTextTable{
+		{
+			inputLang:    language.English,
+			inputCount:   1,
+			outputString: "Client",
+			outputLang:   language.English,
+		},
+		{
+			inputLang:    language.English,
+			inputCount:   2,
+			outputString: "Clients",
+			outputLang:   language.English,
+		},
 	}
 
+	langMod, _ := New()
 	for i, table := range tables {
 		i := i
 		table := table
 
-		name := fmt.Sprintf("[%d] Translating to %s", i, table.x)
+		name := fmt.Sprintf(testTranslatedTo, i, table.inputLang)
 		t.Run(name, func(t *testing.T) {
 			t.Parallel()
 
-			localizer, err := langMod.NewLocalizer(table.x.String())
+			localizer, err := langMod.NewLocalizer(table.inputLang.String())
 			if err != nil {
-				t.Errorf("[%d] can't get localizer for %s: %s", i, table.x, err.Error())
+				t.Errorf(testCantGetLocalizer, i, table.inputLang, err.Error())
+
 				return
 			}
 
-			result := localizer.TextClient(table.c)
-			if result.String() != table.n {
-				t.Errorf("[%d] got invalid translation for %s, got: %v, want: %v,", i, table.x, result.String(), table.n)
-			}
-			if result.Language() != table.l {
-				t.Errorf("[%d] got invalid language for %s, got: %v, want: %v,", i, table.x, result.Language(), table.l)
-			}
+			testTextWithCount(t, i, localizer.TextClient, table)
 		})
 	}
 }
 
 func TestLocalizer_TextClientID(t *testing.T) {
-	langMod, _ := New()
+	t.Parallel()
 
-	tables := []struct {
-		x language.Tag
-		c int
-		n string
-		l language.Tag
-	}{
-		{language.English, 1, "Client ID", language.English},
-		{language.English, 2, "Client IDs", language.English},
+	tables := []testTextTable{
+		{
+			inputLang:    language.English,
+			inputCount:   1,
+			outputString: "Client ID",
+			outputLang:   language.English,
+		},
+		{
+			inputLang:    language.English,
+			inputCount:   2,
+			outputString: "Client IDs",
+			outputLang:   language.English,
+		},
 	}
 
+	langMod, _ := New()
 	for i, table := range tables {
 		i := i
 		table := table
 
-		name := fmt.Sprintf("[%d] Translating to %s", i, table.x)
+		name := fmt.Sprintf(testTranslatedTo, i, table.inputLang)
 		t.Run(name, func(t *testing.T) {
 			t.Parallel()
 
-			localizer, err := langMod.NewLocalizer(table.x.String())
+			localizer, err := langMod.NewLocalizer(table.inputLang.String())
 			if err != nil {
-				t.Errorf("[%d] can't get localizer for %s: %s", i, table.x, err.Error())
+				t.Errorf(testCantGetLocalizer, i, table.inputLang, err.Error())
+
 				return
 			}
 
-			result := localizer.TextClientID(table.c)
-			if result.String() != table.n {
-				t.Errorf("[%d] got invalid translation for %s, got: %v, want: %v,", i, table.x, result.String(), table.n)
-			}
-			if result.Language() != table.l {
-				t.Errorf("[%d] got invalid language for %s, got: %v, want: %v,", i, table.x, result.Language(), table.l)
-			}
+			testTextWithCount(t, i, localizer.TextClientID, table)
 		})
 	}
 }
 
 func TestLocalizer_TextClientSecret(t *testing.T) {
-	langMod, _ := New()
+	t.Parallel()
 
-	tables := []struct {
-		x language.Tag
-		c int
-		n string
-		l language.Tag
-	}{
-		{language.English, 1, "Client Secret", language.English},
-		{language.English, 2, "Client Secrets", language.English},
+	tables := []testTextTable{
+		{
+			inputLang:    language.English,
+			inputCount:   1,
+			outputString: "Client Secret",
+			outputLang:   language.English,
+		},
+		{
+			inputLang:    language.English,
+			inputCount:   2,
+			outputString: "Client Secrets",
+			outputLang:   language.English,
+		},
 	}
 
+	langMod, _ := New()
 	for i, table := range tables {
 		i := i
 		table := table
 
-		name := fmt.Sprintf("[%d] Translating to %s", i, table.x)
+		name := fmt.Sprintf(testTranslatedTo, i, table.inputLang)
 		t.Run(name, func(t *testing.T) {
 			t.Parallel()
 
-			localizer, err := langMod.NewLocalizer(table.x.String())
+			localizer, err := langMod.NewLocalizer(table.inputLang.String())
 			if err != nil {
-				t.Errorf("[%d] can't get localizer for %s: %s", i, table.x, err.Error())
+				t.Errorf(testCantGetLocalizer, i, table.inputLang, err.Error())
+
 				return
 			}
 
-			result := localizer.TextClientSecret(table.c)
-			if result.String() != table.n {
-				t.Errorf("[%d] got invalid translation for %s, got: %v, want: %v,", i, table.x, result.String(), table.n)
-			}
-			if result.Language() != table.l {
-				t.Errorf("[%d] got invalid language for %s, got: %v, want: %v,", i, table.x, result.Language(), table.l)
-			}
+			testTextWithCount(t, i, localizer.TextClientSecret, table)
 		})
 	}
 }
 
 func TestLocalizer_TextCreate(t *testing.T) {
-	langMod, _ := New()
+	t.Parallel()
 
-	tables := []struct {
-		x language.Tag
-		n string
-		l language.Tag
-	}{
-		{language.English, "Create", language.English},
+	tables := []testTextTable{
+		{
+			inputLang:    language.English,
+			outputString: "Create",
+			outputLang:   language.English,
+		},
 	}
 
+	langMod, _ := New()
 	for i, table := range tables {
 		i := i
 		table := table
 
-		name := fmt.Sprintf("[%d] Translating to %s", i, table.x)
+		name := fmt.Sprintf(testTranslatedTo, i, table.inputLang)
 		t.Run(name, func(t *testing.T) {
 			t.Parallel()
 
-			localizer, err := langMod.NewLocalizer(table.x.String())
+			localizer, err := langMod.NewLocalizer(table.inputLang.String())
 			if err != nil {
-				t.Errorf("[%d] can't get localizer for %s: %s", i, table.x, err.Error())
+				t.Errorf(testCantGetLocalizer, i, table.inputLang, err.Error())
+
 				return
 			}
 
-			result := localizer.TextCreate()
-			if result.String() != table.n {
-				t.Errorf("[%d] got invalid translation for %s, got: %v, want: %v,", i, table.x, result.String(), table.n)
-			}
-			if result.Language() != table.l {
-				t.Errorf("[%d] got invalid language for %s, got: %v, want: %v,", i, table.x, result.Language(), table.l)
-			}
+			testText(t, i, localizer.TextCreate, table)
 		})
 	}
 }

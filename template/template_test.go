@@ -10,48 +10,31 @@ import (
 )
 
 func TestNew(t *testing.T) {
+	t.Parallel()
+
 	templates, err := testNewTestTemplates()
 	if err != nil {
 		t.Errorf("unexpected error creating template: %s", err.Error())
+
 		return
 	}
 	if templates == nil {
 		t.Error("expected templates, got: nil")
+
 		return
 	}
 
 	result, err := testExecuteTemplate(templates, "test_test_func", "foo")
 	if err != nil {
 		t.Errorf("unexpected error creating template: %s", err.Error())
+
 		return
 	}
-	expected := "foo bar"
-	if result != expected {
+	if expected := "foo bar"; result != expected {
 		t.Errorf("unexpected result\n\ngot:\n-------------\n%s\n\nwant:\n-------------\n%s\n", result, expected)
+
 		return
 	}
-}
-
-func addTestTemplates(templates *template.Template) error {
-	// open it
-	file, err := os.Open("../test/templates/test.gohtml")
-	if err != nil {
-		return err
-	}
-
-	// read it
-	tmplData, err := ioutil.ReadAll(file)
-	if err != nil {
-		return err
-	}
-
-	// It can now be parsed as a string.
-	_, err = templates.Parse(string(tmplData))
-	if err != nil {
-		return err
-	}
-
-	return nil
 }
 
 func testExecuteTemplate(templates *template.Template, name string, tmplVars interface{}) (string, error) {
@@ -60,7 +43,8 @@ func testExecuteTemplate(templates *template.Template, name string, tmplVars int
 	if err != nil {
 		return "", err
 	}
-	return string(b.Bytes()), nil
+
+	return b.String(), nil
 }
 
 func testNewTestTemplates() (*template.Template, error) {

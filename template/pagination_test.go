@@ -196,12 +196,16 @@ const testPaginationResult5 = `<nav>
 </nav>`
 
 func TestMakePagination(t *testing.T) {
+	t.Parallel()
+
 	templates, err := testNewTestTemplates()
 	if err != nil {
 		t.Errorf("init: %s", err.Error())
+
 		return
 	}
 
+	//revive:disable:add-constant
 	tables := []struct {
 		config *PaginationConfig
 		result string
@@ -258,6 +262,7 @@ func TestMakePagination(t *testing.T) {
 			testPaginationResult5,
 		},
 	}
+	//revive:enable:add-constant
 
 	for i, table := range tables {
 		i := i
@@ -272,10 +277,12 @@ func TestMakePagination(t *testing.T) {
 			result, err := testExecuteTemplate(templates, "test_pagination", pag)
 			if err != nil {
 				t.Errorf("unexpected error creating template: %s", err.Error())
+
 				return
 			}
 			if result != table.result {
 				t.Errorf("unexpected result\n\ngot:\n-------------\n%s\n\nwant:\n-------------\n%s\n", result, table.result)
+
 				return
 			}
 		})
