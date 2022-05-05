@@ -11,7 +11,7 @@ pipeline {
     stage('Check Formatting') {
       agent {
         docker {
-          image ${BUILD_IMAGE}
+          image '${BUILD_IMAGE}'
           args '-e HOME=${WORKSPACE} -v /var/lib/jenkins/go:/go'
           reuseNode true
         }
@@ -26,7 +26,7 @@ pipeline {
     stage('Test') {
       agent {
         docker {
-          image ${BUILD_IMAGE}
+          image '${BUILD_IMAGE}'
           args '-e HOME=${WORKSPACE} -v /var/lib/jenkins/go:/go'
           reuseNode true
         }
