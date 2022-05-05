@@ -7,7 +7,7 @@ pipeline {
 
   stages {
 
-    stage('Check Linting') {
+    stage('Check Formatting') {
       agent {
         docker {
           image 'gobuild:1.18'
