@@ -1,6 +1,6 @@
 module github.com/feditools/go-lib
 
-go 1.18
+go 1.17
 
 require (
 	github.com/nicksnyder/go-i18n/v2 v2.2.0
