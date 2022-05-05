@@ -1,6 +1,16 @@
 package language
 
-import "testing"
+import (
+	"golang.org/x/text/language"
+	"testing"
+)
+
+const (
+	testCantGetLocalizer      = "[%d] can't get localizer for %s: %s"
+	testGotInvalidLanguage    = "[%d] got invalid language for %s, got: %v, want: %v"
+	testGotInvalidTranslation = "[%d] got invalid translation for %s, got: %v, want: %v"
+	testTranslatedTo          = "[%d] Translating to %s"
+)
 
 func TestNew(t *testing.T) {
 	langMod, err := New()
@@ -22,5 +32,34 @@ func TestNew(t *testing.T) {
 	if langMod.Language() != DefaultLanguage {
 		t.Errorf("got invalid language, got: %v, want: %v,", langMod.Language().String(), DefaultLanguage.String())
 		return
+	}
+}
+
+// text testers
+
+type testTextTable struct {
+	inputLang  language.Tag
+	inputCount int
+
+	outputString string
+	outputLang   language.Tag
+}
+
+func testText(t *testing.T, tid int, translate func() *LocalizedString, table testTextTable) {
+	result := translate()
+	testTextCheckResults(t, tid, result, table)
+}
+
+func testTextWithCount(t *testing.T, tid int, translate func(int) *LocalizedString, table testTextTable) {
+	result := translate(table.inputCount)
+	testTextCheckResults(t, tid, result, table)
+}
+
+func testTextCheckResults(t *testing.T, tid int, result *LocalizedString, table testTextTable) {
+	if result.String() != table.outputString {
+		t.Errorf(testGotInvalidTranslation, tid, table.inputLang, result.String(), table.outputString)
+	}
+	if result.Language() != table.outputLang {
+		t.Errorf(testGotInvalidLanguage, tid, table.inputLang, result.Language(), table.outputLang)
 	}
 }

@@ -7,37 +7,32 @@ import (
 )
 
 func TestLocalizer_TextFediverse(t *testing.T) {
-	langMod, _ := New()
+	t.Parallel()
 
-	tables := []struct {
-		x language.Tag
-		n string
-		l language.Tag
-	}{
-		{language.English, "Fediverse", language.English},
+	tables := []testTextTable{
+		{
+			inputLang:    language.English,
+			outputString: "Fediverse",
+			outputLang:   language.English,
+		},
 	}
 
+	langMod, _ := New()
 	for i, table := range tables {
 		i := i
 		table := table
 
-		name := fmt.Sprintf("[%d] Translating to %s", i, table.x)
+		name := fmt.Sprintf(testTranslatedTo, i, table.inputLang)
 		t.Run(name, func(t *testing.T) {
 			t.Parallel()
 
-			localizer, err := langMod.NewLocalizer(table.x.String())
+			localizer, err := langMod.NewLocalizer(table.inputLang.String())
 			if err != nil {
-				t.Errorf("[%d] can't get localizer for %s: %s", i, table.x, err.Error())
+				t.Errorf(testCantGetLocalizer, i, table.inputLang, err.Error())
 				return
 			}
 
-			result := localizer.TextFediverse()
-			if result.String() != table.n {
-				t.Errorf("[%d] got invalid translation for %s, got: %v, want: %v,", i, table.x, result.String(), table.n)
-			}
-			if result.Language() != table.l {
-				t.Errorf("[%d] got invalid language for %s, got: %v, want: %v,", i, table.x, result.Language(), table.l)
-			}
+			testText(t, i, localizer.TextFediverse, table)
 		})
 	}
 }

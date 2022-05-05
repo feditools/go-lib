@@ -202,6 +202,7 @@ func TestMakePagination(t *testing.T) {
 		return
 	}
 
+	//revive:disable:add-constant
 	tables := []struct {
 		config *PaginationConfig
 		result string
@@ -258,6 +259,7 @@ func TestMakePagination(t *testing.T) {
 			testPaginationResult5,
 		},
 	}
+	//revive:enable:add-constant
 
 	for i, table := range tables {
 		i := i

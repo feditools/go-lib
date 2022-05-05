@@ -6,7 +6,17 @@ import (
 	"strings"
 )
 
-// WithPackageField creates a new logrus entry with the package name added as a field.
+// WithPackageField creates a new logrus entry with the package name added
+// as a field.
 func WithPackageField(m interface{}) *logrus.Entry {
-	return logrus.WithField("module", "go-lib").WithField("package", strings.ReplaceAll(strings.TrimPrefix(reflect.TypeOf(m).PkgPath(), "github.com/feditools/go-lib/"), "/", "."))
+	packageName := strings.ReplaceAll(
+		strings.TrimPrefix(
+			reflect.TypeOf(m).PkgPath(),
+			"github.com/feditools/go-lib/",
+		),
+		"/",
+		".",
+	)
+	return logrus.WithField("module", "go-lib").
+		WithField("package", packageName)
 }

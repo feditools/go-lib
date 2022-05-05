@@ -6,6 +6,7 @@ import (
 )
 
 func TestOffset(t *testing.T) {
+	//revive:disable:add-constant
 	tables := []struct {
 		index  int
 		count  int
@@ -47,6 +48,7 @@ func TestOffset(t *testing.T) {
 			offset: 704,
 		},
 	}
+	//revive:enable:add-constant
 
 	for i, table := range tables {
 		i := i

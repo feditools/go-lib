@@ -15,7 +15,7 @@ func (l *Localizer) TextDashboard(count int) *LocalizedString {
 		PluralCount: count,
 	})
 	if err != nil {
-		lg.Warningf("missing translation: %s", err.Error())
+		lg.Warningf(missingTranslationWarning, err.Error())
 	}
 	return &LocalizedString{
 		language: tag,
@@ -36,7 +36,7 @@ func (l *Localizer) TextDescription(count int) *LocalizedString {
 		PluralCount: count,
 	})
 	if err != nil {
-		lg.Warningf("missing translation: %s", err.Error())
+		lg.Warningf(missingTranslationWarning, err.Error())
 	}
 	return &LocalizedString{
 		language: tag,

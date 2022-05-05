@@ -13,7 +13,7 @@ func (l *Localizer) TextLogin() *LocalizedString {
 		},
 	})
 	if err != nil {
-		lg.Warningf("missing translation: %s", err.Error())
+		lg.Warningf(missingTranslationWarning, err.Error())
 	}
 	return &LocalizedString{
 		language: tag,
@@ -32,7 +32,7 @@ func (l *Localizer) TextLooksGood() *LocalizedString {
 		},
 	})
 	if err != nil {
-		lg.Warningf("missing translation: %s", err.Error())
+		lg.Warningf(missingTranslationWarning, err.Error())
 	}
 	return &LocalizedString{
 		language: tag,

@@ -7,7 +7,6 @@ import (
 )
 
 func TestSidebar_ActivateFromPath(t *testing.T) {
-
 	tables := []struct {
 		mastchStr string
 		results   []map[bool]interface{}
@@ -241,6 +240,7 @@ func TestSidebar_ActivateFromPath(t *testing.T) {
 	}
 }
 
+//revive:disable:argument-limit
 func testSidebar(t *testing.T, sidebar Sidebar, expectations []map[bool]interface{}, matchStr string, tid, parent, depth int) {
 	for i, s := range sidebar {
 		if parent == 0 {
@@ -272,4 +272,4 @@ func testSidebar(t *testing.T, sidebar Sidebar, expectations []map[bool]interfac
 			testSidebar(t, s.Children, expectations[i][expected].([]map[bool]interface{}), matchStr, tid, i, depth+1)
 		}
 	}
-}
+} //revive:enable:argument-limit

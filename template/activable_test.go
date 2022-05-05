@@ -41,7 +41,6 @@ func (s *testActivableSlices) Len() int {
 // tests
 
 func TestSetActive(t *testing.T) {
-
 	tables := []struct {
 		mastchStr string
 		results   []map[bool]interface{}
@@ -275,6 +274,7 @@ func TestSetActive(t *testing.T) {
 	}
 }
 
+//revive:disable:argument-limit
 func testSlices(t *testing.T, slices testActivableSlices, expectations []map[bool]interface{}, matchStr string, tid, parent, depth int) {
 	for i, s := range slices {
 		if parent == 0 {
@@ -306,4 +306,4 @@ func testSlices(t *testing.T, slices testActivableSlices, expectations []map[boo
 			testSlices(t, s.Children, expectations[i][expected].([]map[bool]interface{}), matchStr, tid, i, depth+1)
 		}
 	}
-}
+} //revive:enable:argument-limit

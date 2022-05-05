@@ -10,6 +10,8 @@ import (
 )
 
 func TestNew(t *testing.T) {
+	t.Parallel()
+
 	templates, err := testNewTestTemplates()
 	if err != nil {
 		t.Errorf("unexpected error creating template: %s", err.Error())

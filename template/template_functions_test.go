@@ -12,6 +12,7 @@ func TestTemplateFunctions(t *testing.T) {
 		return
 	}
 
+	//revive:disable:add-constant
 	tables := []struct {
 		templateName string
 		templateVars interface{}
@@ -38,6 +39,7 @@ func TestTemplateFunctions(t *testing.T) {
 			"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789,./;&#39;[]\\`~!@#$%^&amp;*()_&#43;{}|:&#34;&lt;&gt;?",
 		},
 	}
+	//revive:enable:add-constant
 
 	for i, table := range tables {
 		i := i

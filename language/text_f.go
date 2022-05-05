@@ -13,7 +13,7 @@ func (l *Localizer) TextFediverse() *LocalizedString {
 		},
 	})
 	if err != nil {
-		lg.Warningf("missing translation: %s", err.Error())
+		lg.Warningf(missingTranslationWarning, err.Error())
 	}
 	return &LocalizedString{
 		language: tag,
