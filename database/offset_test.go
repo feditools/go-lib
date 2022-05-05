@@ -6,6 +6,8 @@ import (
 )
 
 func TestOffset(t *testing.T) {
+	t.Parallel()
+
 	//revive:disable:add-constant
 	tables := []struct {
 		index  int

@@ -17,6 +17,7 @@ func WithPackageField(m interface{}) *logrus.Entry {
 		"/",
 		".",
 	)
+
 	return logrus.WithField("module", "go-lib").
 		WithField("package", packageName)
 }

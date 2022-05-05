@@ -1,5 +1,9 @@
 ---
 linters-settings:
+  ireturn:
+    allow:
+      - error
+      - github.com\/feditools\/go-lib\/template\.ActivableSlice
   revive:
     rules:
       # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#add-constant
@@ -317,8 +321,14 @@ linters-settings:
 linters:
   enable-all: true
   disable:
+    - cyclop
+    - dupl
+    - exhaustivestruct
     - funlen
+    - gci
+    - gochecknoglobals
     - gomnd
+    - paralleltest
     - testpackage
     - varnamelen
     - wrapcheck

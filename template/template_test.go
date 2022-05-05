@@ -27,8 +27,7 @@ func TestNew(t *testing.T) {
 		t.Errorf("unexpected error creating template: %s", err.Error())
 		return
 	}
-	expected := "foo bar"
-	if result != expected {
+	if expected := "foo bar"; result != expected {
 		t.Errorf("unexpected result\n\ngot:\n-------------\n%s\n\nwant:\n-------------\n%s\n", result, expected)
 		return
 	}

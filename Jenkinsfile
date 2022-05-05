@@ -7,6 +7,21 @@ pipeline {
 
   stages {
 
+    stage('Check Linting') {
+      agent {
+        docker {
+          image 'gobuild:1.18'
+          args '-e HOME=${WORKSPACE} -v /var/lib/jenkins/go:/go'
+          reuseNode true
+        }
+      }
+      steps {
+        script {
+          sh "make check"
+        }
+      }
+    }
+
     stage('Test') {
       agent {
         docker {

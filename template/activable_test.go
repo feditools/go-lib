@@ -41,6 +41,8 @@ func (s *testActivableSlices) Len() int {
 // tests
 
 func TestSetActive(t *testing.T) {
+	t.Parallel()
+
 	tables := []struct {
 		mastchStr string
 		results   []map[bool]interface{}
@@ -266,7 +268,7 @@ func TestSetActive(t *testing.T) {
 
 		name := fmt.Sprintf("[%d] Running activation test on %s", i, table.mastchStr)
 		t.Run(name, func(t *testing.T) {
-			//t.Parallel()
+			t.Parallel()
 
 			SetActive(&slices, table.mastchStr)
 			testSlices(t, slices, table.results, table.mastchStr, i, 0, 0)

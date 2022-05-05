@@ -6,6 +6,8 @@ import (
 )
 
 func TestIsEmptyYaml(t *testing.T) {
+	t.Parallel()
+
 	tables := []struct {
 		input  string
 		output bool

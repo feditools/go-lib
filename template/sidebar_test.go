@@ -7,6 +7,8 @@ import (
 )
 
 func TestSidebar_ActivateFromPath(t *testing.T) {
+	t.Parallel()
+
 	tables := []struct {
 		mastchStr string
 		results   []map[bool]interface{}
@@ -232,7 +234,7 @@ func TestSidebar_ActivateFromPath(t *testing.T) {
 
 		name := fmt.Sprintf("[%d] Running activation test on %s", i, table.mastchStr)
 		t.Run(name, func(t *testing.T) {
-			//t.Parallel()
+			t.Parallel()
 
 			sidebar.ActivateFromPath(table.mastchStr)
 			testSidebar(t, sidebar, table.results, table.mastchStr, i, 0, 0)

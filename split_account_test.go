@@ -1,6 +1,7 @@
 package lib
 
 import (
+	"fmt"
 	"testing"
 )
 
@@ -8,22 +9,22 @@ func TestSplitAccount(t *testing.T) {
 	t.Parallel()
 
 	tables := []struct {
-		name     string
 		account  string
 		username string
 		domain   string
 		error    error
 	}{
-		{"testing test@example.com", "test@example.com", "test", "example.com", nil},
-		{"testing @test@example.com", "@test@example.com", "test", "example.com", nil},
-		{"testing example.com", "example.com", "", "", ErrInvalidAccountFormat},
+		{"test@example.com", "test", "example.com", nil},
+		{"@test@example.com", "test", "example.com", nil},
+		{"example.com", "", "", ErrInvalidAccountFormat},
 	}
 
 	for i, table := range tables {
 		i := i
 		table := table
 
-		t.Run(table.name, func(t *testing.T) {
+		name := fmt.Sprintf("[%d] Running SplitAccount on %s", i, table.account)
+		t.Run(name, func(t *testing.T) {
 			t.Parallel()
 
 			username, domain, err := SplitAccount(table.account)

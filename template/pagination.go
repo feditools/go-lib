@@ -34,13 +34,14 @@ func MakePagination(c *PaginationConfig) Pagination {
 	pages := int(math.Ceil(float64(c.Count) / float64(c.DisplayCount)))
 	startingNumber := 1
 
-	if pages < displayItems {
+	switch {
+	case pages < displayItems:
 		// less than
 		displayItems = pages
-	} else if c.Page > pages-displayItems/2 {
+	case c.Page > pages-displayItems/2:
 		// end of the
 		startingNumber = pages - displayItems + 1
-	} else if c.Page > displayItems/2 {
+	case c.Page > displayItems/2:
 		// center active
 		startingNumber = c.Page - displayItems/2
 	}
