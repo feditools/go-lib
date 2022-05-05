@@ -1,8 +1,9 @@
 package language
 
 import (
-	"golang.org/x/text/language"
 	"testing"
+
+	"golang.org/x/text/language"
 )
 
 const (
@@ -16,21 +17,25 @@ func TestNew(t *testing.T) {
 	langMod, err := New()
 	if err != nil {
 		t.Errorf("can't get new language module: %s", err.Error())
+
 		return
 	}
 
 	if langMod == nil {
 		t.Errorf("language module is nil")
+
 		return
 	}
 
 	if langMod.langBundle == nil {
 		t.Errorf("language module's bundle is nil")
+
 		return
 	}
 
 	if langMod.Language() != DefaultLanguage {
 		t.Errorf("got invalid language, got: %v, want: %v,", langMod.Language().String(), DefaultLanguage.String())
+
 		return
 	}
 }
@@ -46,16 +51,22 @@ type testTextTable struct {
 }
 
 func testText(t *testing.T, tid int, translate func() *LocalizedString, table testTextTable) {
+	t.Helper()
+
 	result := translate()
 	testTextCheckResults(t, tid, result, table)
 }
 
 func testTextWithCount(t *testing.T, tid int, translate func(int) *LocalizedString, table testTextTable) {
+	t.Helper()
+
 	result := translate(table.inputCount)
 	testTextCheckResults(t, tid, result, table)
 }
 
 func testTextCheckResults(t *testing.T, tid int, result *LocalizedString, table testTextTable) {
+	t.Helper()
+
 	if result.String() != table.outputString {
 		t.Errorf(testGotInvalidTranslation, tid, table.inputLang, result.String(), table.outputString)
 	}

@@ -15,6 +15,7 @@ func (l *Localizer) TextLogin() *LocalizedString {
 	if err != nil {
 		lg.Warningf(missingTranslationWarning, err.Error())
 	}
+
 	return &LocalizedString{
 		language: tag,
 		string:   text,
@@ -34,6 +35,7 @@ func (l *Localizer) TextLooksGood() *LocalizedString {
 	if err != nil {
 		lg.Warningf(missingTranslationWarning, err.Error())
 	}
+
 	return &LocalizedString{
 		language: tag,
 		string:   text,

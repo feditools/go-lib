@@ -15,6 +15,7 @@ func (s *Sidebar) GetChildren(i int) ActivableSlice {
 	if len(*s) == 0 {
 		return nil
 	}
+
 	return &(*s)[i].Children
 }
 

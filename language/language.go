@@ -2,11 +2,12 @@ package language
 
 import (
 	"embed"
+	"io/ioutil"
+	"strings"
+
 	"github.com/nicksnyder/go-i18n/v2/i18n"
 	"golang.org/x/text/language"
 	"gopkg.in/yaml.v2"
-	"io/ioutil"
-	"strings"
 )
 
 // Locales contains static files required by the application

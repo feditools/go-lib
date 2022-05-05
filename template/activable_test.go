@@ -6,20 +6,23 @@ import (
 	"testing"
 )
 
-type testActivableSlices []testActivableSlice
-type testActivableSlice struct {
-	Matcher *regexp.Regexp
+type (
+	testActivableSlices []testActivableSlice
+	testActivableSlice  struct {
+		Matcher *regexp.Regexp
 
-	Active bool
+		Active bool
 
-	Children testActivableSlices
-}
+		Children testActivableSlices
+	}
+)
 
 // GetChildren returns the children of the node or nil if no children.
 func (s *testActivableSlices) GetChildren(i int) ActivableSlice {
 	if len(*s) == 0 {
 		return nil
 	}
+
 	return &(*s)[i].Children
 }
 
@@ -278,6 +281,8 @@ func TestSetActive(t *testing.T) {
 
 //revive:disable:argument-limit
 func testSlices(t *testing.T, slices testActivableSlices, expectations []map[bool]interface{}, matchStr string, tid, parent, depth int) {
+	t.Helper()
+
 	for i, s := range slices {
 		if parent == 0 {
 			t.Logf("[%d][%d][%d] checking activation", tid, depth, i)
@@ -305,7 +310,12 @@ func testSlices(t *testing.T, slices testActivableSlices, expectations []map[boo
 
 		// run on children
 		if len(s.Children) > 0 {
-			testSlices(t, s.Children, expectations[i][expected].([]map[bool]interface{}), matchStr, tid, i, depth+1)
+			subExpectations, ok := expectations[i][expected].([]map[bool]interface{})
+			if !ok {
+				t.Errorf("[%d][%d][%d] can't cast expectations", tid, depth, i)
+			} else {
+				testSlices(t, s.Children, subExpectations, matchStr, tid, i, depth+1)
+			}
 		}
 	}
 } //revive:enable:argument-limit

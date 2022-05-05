@@ -15,6 +15,7 @@ func (l *Localizer) TextRequired() *LocalizedString {
 	if err != nil {
 		lg.Warningf(missingTranslationWarning, err.Error())
 	}
+
 	return &LocalizedString{
 		language: tag,
 		string:   text,
@@ -36,6 +37,7 @@ func (l *Localizer) TextRedirectURI(count int) *LocalizedString {
 	if err != nil {
 		lg.Warningf(missingTranslationWarning, err.Error())
 	}
+
 	return &LocalizedString{
 		language: tag,
 		string:   text,

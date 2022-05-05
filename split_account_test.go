@@ -1,6 +1,7 @@
 package lib
 
 import (
+	"errors"
 	"fmt"
 	"testing"
 )
@@ -28,7 +29,7 @@ func TestSplitAccount(t *testing.T) {
 			t.Parallel()
 
 			username, domain, err := SplitAccount(table.account)
-			if err != table.error {
+			if !errors.Is(err, table.error) {
 				t.Errorf("[%d] invalid error, got: '%v', want: '%v'", i, err, table.error)
 			}
 			if username != table.username {

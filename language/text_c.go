@@ -17,6 +17,7 @@ func (l *Localizer) TextClient(count int) *LocalizedString {
 	if err != nil {
 		lg.Warningf(missingTranslationWarning, err.Error())
 	}
+
 	return &LocalizedString{
 		language: tag,
 		string:   text,
@@ -38,6 +39,7 @@ func (l *Localizer) TextClientID(count int) *LocalizedString {
 	if err != nil {
 		lg.Warningf(missingTranslationWarning, err.Error())
 	}
+
 	return &LocalizedString{
 		language: tag,
 		string:   text,
@@ -59,6 +61,7 @@ func (l *Localizer) TextClientSecret(count int) *LocalizedString {
 	if err != nil {
 		lg.Warningf(missingTranslationWarning, err.Error())
 	}
+
 	return &LocalizedString{
 		language: tag,
 		string:   text,
@@ -78,6 +81,7 @@ func (l *Localizer) TextCreate() *LocalizedString {
 	if err != nil {
 		lg.Warningf(missingTranslationWarning, err.Error())
 	}
+
 	return &LocalizedString{
 		language: tag,
 		string:   text,

@@ -11,6 +11,7 @@ func TestTemplateFunctions(t *testing.T) {
 	templates, err := testNewTestTemplates()
 	if err != nil {
 		t.Errorf("init: %s", err.Error())
+
 		return
 	}
 
@@ -54,10 +55,12 @@ func TestTemplateFunctions(t *testing.T) {
 			result, err := testExecuteTemplate(templates, table.templateName, table.templateVars)
 			if err != nil {
 				t.Errorf("unexpected error creating template: %s", err.Error())
+
 				return
 			}
 			if result != table.output {
 				t.Errorf("[%d] unexpected result\n\ngot:\n-------------\n%s\n\nwant:\n-------------\n%s\n", i, result, table.output)
+
 				return
 			}
 		})

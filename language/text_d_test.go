@@ -2,8 +2,9 @@ package language
 
 import (
 	"fmt"
-	"golang.org/x/text/language"
 	"testing"
+
+	"golang.org/x/text/language"
 )
 
 func TestLocalizer_TextDashboard(t *testing.T) {
@@ -36,6 +37,7 @@ func TestLocalizer_TextDashboard(t *testing.T) {
 			localizer, err := langMod.NewLocalizer(table.inputLang.String())
 			if err != nil {
 				t.Errorf(testCantGetLocalizer, i, table.inputLang, err.Error())
+
 				return
 			}
 
@@ -74,6 +76,7 @@ func TestLocalizer_TextDescription(t *testing.T) {
 			localizer, err := langMod.NewLocalizer(table.inputLang.String())
 			if err != nil {
 				t.Errorf(testCantGetLocalizer, i, table.inputLang, err.Error())
+
 				return
 			}
 

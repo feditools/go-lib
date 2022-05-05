@@ -15,20 +15,24 @@ func TestNew(t *testing.T) {
 	templates, err := testNewTestTemplates()
 	if err != nil {
 		t.Errorf("unexpected error creating template: %s", err.Error())
+
 		return
 	}
 	if templates == nil {
 		t.Error("expected templates, got: nil")
+
 		return
 	}
 
 	result, err := testExecuteTemplate(templates, "test_test_func", "foo")
 	if err != nil {
 		t.Errorf("unexpected error creating template: %s", err.Error())
+
 		return
 	}
 	if expected := "foo bar"; result != expected {
 		t.Errorf("unexpected result\n\ngot:\n-------------\n%s\n\nwant:\n-------------\n%s\n", result, expected)
+
 		return
 	}
 }
@@ -39,6 +43,7 @@ func testExecuteTemplate(templates *template.Template, name string, tmplVars int
 	if err != nil {
 		return "", err
 	}
+
 	return b.String(), nil
 }
 

@@ -19,7 +19,7 @@ linters-settings:
       - name: argument-limit
         severity: warning
         disabled: false
-        arguments: [3]
+        arguments: [4]
       # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#atomic
       - name: atomic
         severity: warning
@@ -323,12 +323,18 @@ linters:
   disable:
     - cyclop
     - dupl
+    - errorlint
     - exhaustivestruct
     - funlen
     - gci
     - gochecknoglobals
+    - golint # deprecated
     - gomnd
+    - interfacer # deprecated
+    - lll
+    - maligned # deprecated
     - paralleltest
+    - scopelint # deprecated
     - testpackage
     - varnamelen
     - wrapcheck

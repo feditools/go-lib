@@ -53,11 +53,12 @@ func MakePagination(c *PaginationConfig) Pagination {
 		Text: "Previous",
 		Icon: "caret-left",
 	}
-	if c.Page == 1 {
+	switch {
+	case c.Page == 1:
 		prevItem.Disabled = true
-	} else if c.HRefCount > 0 {
+	case c.HRefCount > 0:
 		prevItem.HRef = fmt.Sprintf("%s?page=%d&count=%d", c.HRef, c.Page-1, c.HRefCount)
-	} else {
+	default:
 		prevItem.HRef = fmt.Sprintf("%s?page=%d", c.HRef, c.Page-1)
 	}
 	items = append(items, prevItem)
@@ -68,11 +69,12 @@ func MakePagination(c *PaginationConfig) Pagination {
 			Text: fmt.Sprintf("%d", startingNumber+i),
 		}
 
-		if c.Page == startingNumber+i {
+		switch {
+		case c.Page == startingNumber+i:
 			newItem.Active = true
-		} else if c.HRefCount > 0 {
+		case c.HRefCount > 0:
 			newItem.HRef = fmt.Sprintf("%s?page=%d&count=%d", c.HRef, startingNumber+i, c.HRefCount)
-		} else {
+		default:
 			newItem.HRef = fmt.Sprintf("%s?page=%d", c.HRef, startingNumber+i)
 		}
 
@@ -84,11 +86,12 @@ func MakePagination(c *PaginationConfig) Pagination {
 		Text: "Next",
 		Icon: "caret-right",
 	}
-	if c.Page == pages {
+	switch {
+	case c.Page == pages:
 		nextItem.Disabled = true
-	} else if c.HRefCount > 0 {
+	case c.HRefCount > 0:
 		nextItem.HRef = fmt.Sprintf("%s?page=%d&count=%d", c.HRef, c.Page+1, c.HRefCount)
-	} else {
+	default:
 		nextItem.HRef = fmt.Sprintf("%s?page=%d", c.HRef, c.Page+1)
 	}
 	items = append(items, nextItem)

@@ -17,6 +17,7 @@ func (l *Localizer) TextInstance(count int) *LocalizedString {
 	if err != nil {
 		lg.Warningf(missingTranslationWarning, err.Error())
 	}
+
 	return &LocalizedString{
 		language: tag,
 		string:   text,
@@ -38,6 +39,7 @@ func (l *Localizer) TextInvalidURI(count int) *LocalizedString {
 	if err != nil {
 		lg.Warningf(missingTranslationWarning, err.Error())
 	}
+
 	return &LocalizedString{
 		language: tag,
 		string:   text,

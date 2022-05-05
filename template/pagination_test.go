@@ -201,6 +201,7 @@ func TestMakePagination(t *testing.T) {
 	templates, err := testNewTestTemplates()
 	if err != nil {
 		t.Errorf("init: %s", err.Error())
+
 		return
 	}
 
@@ -276,10 +277,12 @@ func TestMakePagination(t *testing.T) {
 			result, err := testExecuteTemplate(templates, "test_pagination", pag)
 			if err != nil {
 				t.Errorf("unexpected error creating template: %s", err.Error())
+
 				return
 			}
 			if result != table.result {
 				t.Errorf("unexpected result\n\ngot:\n-------------\n%s\n\nwant:\n-------------\n%s\n", result, table.result)
+
 				return
 			}
 		})

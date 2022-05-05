@@ -1,9 +1,10 @@
 package log
 
 import (
-	"github.com/sirupsen/logrus"
 	"reflect"
 	"strings"
+
+	"github.com/sirupsen/logrus"
 )
 
 // WithPackageField creates a new logrus entry with the package name added
