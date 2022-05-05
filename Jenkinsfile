@@ -12,7 +12,7 @@ pipeline {
       agent {
         docker {
           image "${BUILD_IMAGE}"
-          args '-e HOME=${WORKSPACE} -v /var/lib/jenkins/go:/go'
+          args '-e HOME=${WORKSPACE}'
           reuseNode true
         }
       }
@@ -27,7 +27,7 @@ pipeline {
       agent {
         docker {
           image "${BUILD_IMAGE}"
-          args '-e HOME=${WORKSPACE} -v /var/lib/jenkins/go:/go'
+          args '-e HOME=${WORKSPACE}'
           reuseNode true
         }
       }
