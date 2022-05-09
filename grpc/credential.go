@@ -23,7 +23,7 @@ func (c *Credential) GetRequestMetadata(ctx context.Context, _ ...string) (map[s
 	ri, _ := credentials.RequestInfoFromContext(ctx)
 	fmt.Printf("request info: %+v\n", ri)
 
-	if err := credentials.CheckSecurityLevel(ri.AuthInfo, credentials.PrivacyAndIntegrity); err != nil {
+	if err := credentials.CheckSecurityLevel(ri.AuthInfo, credentials.IntegrityOnly); err != nil {
 		return nil, fmt.Errorf("security %s level too low: %s", ri.AuthInfo, err.Error())
 	}
 
