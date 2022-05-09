@@ -1,5 +1,7 @@
 package grpc
 
+//revive:disable:add-constant
+
 import (
 	"context"
 	"testing"
@@ -10,6 +12,7 @@ func TestNewCredential(t *testing.T) {
 
 	if c == nil {
 		t.Errorf("expected credentials. got: nil")
+
 		return
 	}
 	if c.token != "test" {
@@ -29,11 +32,13 @@ func TestCredential_GetRequestMetadata(t *testing.T) {
 
 	if headers == nil {
 		t.Errorf("expected headers. got: nil")
+
 		return
 	}
 	resp, ok := headers["authorization"]
 	if !ok {
 		t.Errorf("expected authorization header. got: nil")
+
 		return
 	}
 	if resp != "test" {
@@ -47,7 +52,9 @@ func TestCredential_RequireTransportSecurity(t *testing.T) {
 	}
 
 	result := c.RequireTransportSecurity()
-	if result != false {
+	if result {
 		t.Errorf("unexpected bool: got: %v, want: %v", result, false)
 	}
 }
+
+//revive:enable:add-constant
