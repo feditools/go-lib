@@ -2,8 +2,6 @@ package grpc
 
 import (
 	"context"
-	"fmt"
-	"google.golang.org/grpc/credentials"
 )
 
 // Credential contains feditools grpc token
@@ -19,14 +17,7 @@ func NewCredential(token string) *Credential {
 }
 
 // GetRequestMetadata add the token to the request
-func (c *Credential) GetRequestMetadata(ctx context.Context, _ ...string) (map[string]string, error) {
-	ri, _ := credentials.RequestInfoFromContext(ctx)
-	fmt.Printf("request info: %+v\n", ri)
-
-	if err := credentials.CheckSecurityLevel(ri.AuthInfo, credentials.IntegrityOnly); err != nil {
-		return nil, fmt.Errorf("security %s level too low: %s", ri.AuthInfo, err.Error())
-	}
-
+func (c *Credential) GetRequestMetadata(_ context.Context, _ ...string) (map[string]string, error) {
 	return map[string]string{
 		"authorization": c.token,
 	}, nil
