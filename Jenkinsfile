@@ -43,8 +43,12 @@ pipeline {
       }
       steps {
         script {
-          warnError {
-            sh "make check"
+          def ret = sh(
+            script: "make check",
+            returnStatus: true
+          )
+          if (ret != 0) {
+            currentBuild.result = 'UNSTABLE'
           }
         }
       }
