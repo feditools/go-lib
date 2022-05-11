@@ -2,8 +2,9 @@ package language
 
 import (
 	"fmt"
-	"golang.org/x/text/language"
 	"testing"
+
+	"golang.org/x/text/language"
 )
 
 func TestLocalizer_TextToken(t *testing.T) {
