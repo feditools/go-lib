@@ -1,6 +1,7 @@
 pipeline {
   environment {
     BUILD_IMAGE = 'gobuild:1.17'
+    BUILD_ARGS = '-e HOME=${WORKSPACE} -v /var/lib/jenkins/go/pkg:/go/pkg'
     PATH = '/go/bin:~/go/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/usr/local/go/bin'
   }
 
@@ -12,7 +13,7 @@ pipeline {
       agent {
         docker {
           image "${BUILD_IMAGE}"
-          args '-e HOME=${WORKSPACE}'
+          args "${BUILD_ARGS}"
           reuseNode true
         }
       }
@@ -36,7 +37,7 @@ pipeline {
       agent {
         docker {
           image "${BUILD_IMAGE}"
-          args '-e HOME=${WORKSPACE}'
+          args "${BUILD_ARGS}"
           reuseNode true
         }
       }
