@@ -31,7 +31,7 @@ func (m *Module) NewHTTPRequest(method, path string) metrics.HTTPRequest {
 }
 
 // Done is called when the db query is complete.
-func (h *HTTPRequest) Done(status int) {
+func (h *HTTPRequest) Done(status int) time.Duration {
 	l := logger.WithField("type", "HTTPRequest").WithField("func", "Done")
 
 	t := time.Since(h.start)
@@ -59,4 +59,6 @@ func (h *HTTPRequest) Done(status int) {
 	if err != nil {
 		l.WithField("kind", "count").Warn(err.Error())
 	}
+
+	return t
 }

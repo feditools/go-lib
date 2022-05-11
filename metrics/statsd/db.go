@@ -30,7 +30,7 @@ func (m *Module) NewDBCacheQuery(name string) metrics.DBCacheQuery {
 }
 
 // Done is called when the db cache query is complete.
-func (d *DBCacheQuery) Done(hit, isError bool) {
+func (d *DBCacheQuery) Done(hit, isError bool) time.Duration {
 	l := logger.WithField("type", "DBCacheQuery").WithField("func", "Done")
 
 	t := time.Since(d.start)
@@ -58,6 +58,8 @@ func (d *DBCacheQuery) Done(hit, isError bool) {
 	if err != nil {
 		l.WithField("kind", "count").Warn(err.Error())
 	}
+
+	return t
 }
 
 // DBQuery is a database query metric measurer.
@@ -81,7 +83,7 @@ func (m *Module) NewDBQuery(name string) metrics.DBQuery {
 }
 
 // Done is called when the db query is complete.
-func (d *DBQuery) Done(isError bool) {
+func (d *DBQuery) Done(isError bool) time.Duration {
 	l := logger.WithField("type", "DBQuery").WithField("func", "Done")
 
 	t := time.Since(d.start)
@@ -107,4 +109,6 @@ func (d *DBQuery) Done(isError bool) {
 	if err != nil {
 		l.WithField("kind", "count").Warn(err.Error())
 	}
+
+	return t
 }

@@ -29,7 +29,7 @@ func (m *Module) NewGRPCRequest(method string) metrics.GRPCRequest {
 }
 
 // Done is called when the grpc request is complete.
-func (g *GRPCRequest) Done(isError bool) {
+func (g *GRPCRequest) Done(isError bool) time.Duration {
 	l := logger.WithField("type", "GRPCRequest").WithField("func", "Done")
 
 	t := time.Since(g.start)
@@ -55,4 +55,6 @@ func (g *GRPCRequest) Done(isError bool) {
 	if err != nil {
 		l.WithField("kind", "count").Warn(err.Error())
 	}
+
+	return t
 }
