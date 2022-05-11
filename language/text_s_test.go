@@ -7,13 +7,20 @@ import (
 	"golang.org/x/text/language"
 )
 
-func TestLocalizer_TextFediverse(t *testing.T) {
+func TestLocalizer_TextSystem(t *testing.T) {
 	t.Parallel()
 
 	tables := []testTextTable{
 		{
 			inputLang:    language.English,
-			outputString: "Fediverse",
+			inputCount:   1,
+			outputString: "System",
+			outputLang:   language.English,
+		},
+		{
+			inputLang:    language.English,
+			inputCount:   2,
+			outputString: "Systems",
 			outputLang:   language.English,
 		},
 	}
@@ -34,7 +41,7 @@ func TestLocalizer_TextFediverse(t *testing.T) {
 				return
 			}
 
-			testText(t, i, localizer.TextFediverse, table)
+			testTextWithCount(t, i, localizer.TextSystem, table)
 		})
 	}
 }
