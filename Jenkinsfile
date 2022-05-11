@@ -23,6 +23,7 @@ pipeline {
             string(credentialsId: 'codecov-feditools-go-lib', variable: 'CODECOV_TOKEN')
           ]) {
             sh """#!/bin/bash
+            go get -t -v ./...
             go test -race -coverprofile=coverage.txt -covermode=atomic ./...
             RESULT=\$?
             bash <(curl -s https://codecov.io/bash)
