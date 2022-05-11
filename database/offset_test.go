@@ -1,4 +1,4 @@
-package libdatabase
+package database
 
 import (
 	"fmt"
