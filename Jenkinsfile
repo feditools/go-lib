@@ -1,7 +1,7 @@
 pipeline {
   environment {
     BUILD_IMAGE = 'gobuild:1.17'
-    BUILD_ARGS = '-e HOME=${WORKSPACE} -v /var/lib/jenkins/go/pkg:/go/pkg'
+    BUILD_ARGS = '-e GOCACHE=/gocache -e HOME=${WORKSPACE} -v /var/lib/jenkins/gocache:/gocache'
     PATH = '/go/bin:~/go/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/usr/local/go/bin'
   }
 
