@@ -1,7 +1,7 @@
 package statsd
 
 import (
-	"fmt"
+	"strconv"
 	"time"
 
 	"github.com/cactus/go-statsd-client/v5/statsd"
@@ -38,8 +38,8 @@ func (g *GRPCRequest) Done(isError bool) {
 		metrics.StatGRPCRequestTiming,
 		t,
 		g.rate,
-		statsd.Tag{"method", g.method},
-		statsd.Tag{"error", fmt.Sprintf("%v", isError)},
+		statsd.Tag{metrics.TagMethod, g.method},
+		statsd.Tag{metrics.TagError, strconv.FormatBool(isError)},
 	)
 	if err != nil {
 		l.WithField("kind", "timing").Warn(err.Error())
@@ -49,8 +49,8 @@ func (g *GRPCRequest) Done(isError bool) {
 		metrics.StatGRPCRequestCount,
 		1,
 		g.rate,
-		statsd.Tag{"method", g.method},
-		statsd.Tag{"error", fmt.Sprintf("%v", isError)},
+		statsd.Tag{metrics.TagMethod, g.method},
+		statsd.Tag{metrics.TagError, strconv.FormatBool(isError)},
 	)
 	if err != nil {
 		l.WithField("kind", "count").Warn(err.Error())

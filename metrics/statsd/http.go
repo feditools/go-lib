@@ -40,9 +40,9 @@ func (h *HTTPRequest) Done(status int) {
 		metrics.StatHTTPRequestTiming,
 		t,
 		h.rate,
-		statsd.Tag{"status", strconv.Itoa(status)},
-		statsd.Tag{"method", h.method},
-		statsd.Tag{"path", h.path},
+		statsd.Tag{metrics.TagStatus, strconv.Itoa(status)},
+		statsd.Tag{metrics.TagMethod, h.method},
+		statsd.Tag{metrics.TagPath, h.path},
 	)
 	if err != nil {
 		l.WithField("kind", "timing").Warn(err.Error())
@@ -52,9 +52,9 @@ func (h *HTTPRequest) Done(status int) {
 		metrics.StatHTTPRequestCount,
 		1,
 		h.rate,
-		statsd.Tag{"status", strconv.Itoa(status)},
-		statsd.Tag{"method", h.method},
-		statsd.Tag{"path", h.path},
+		statsd.Tag{metrics.TagStatus, strconv.Itoa(status)},
+		statsd.Tag{metrics.TagMethod, h.method},
+		statsd.Tag{metrics.TagPath, h.path},
 	)
 	if err != nil {
 		l.WithField("kind", "count").Warn(err.Error())

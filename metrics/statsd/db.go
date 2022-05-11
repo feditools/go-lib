@@ -2,6 +2,7 @@ package statsd
 
 import (
 	"fmt"
+	"strconv"
 	"time"
 
 	"github.com/cactus/go-statsd-client/v5/statsd"
@@ -38,9 +39,9 @@ func (d *DBCacheQuery) Done(hit, isError bool) {
 		metrics.StatDBCacheQueryTiming,
 		t,
 		d.rate,
-		statsd.Tag{"name", d.name},
-		statsd.Tag{"hit", fmt.Sprintf("%v", hit)},
-		statsd.Tag{"error", fmt.Sprintf("%v", isError)},
+		statsd.Tag{metrics.TagName, d.name},
+		statsd.Tag{metrics.TagHit, strconv.FormatBool(hit)},
+		statsd.Tag{metrics.TagError, strconv.FormatBool(isError)},
 	)
 	if err != nil {
 		l.WithField("kind", "timing").Warn(err.Error())
@@ -50,9 +51,9 @@ func (d *DBCacheQuery) Done(hit, isError bool) {
 		metrics.StatDBCacheQueryCount,
 		1,
 		d.rate,
-		statsd.Tag{"name", d.name},
-		statsd.Tag{"hit", fmt.Sprintf("%v", hit)},
-		statsd.Tag{"error", fmt.Sprintf("%v", isError)},
+		statsd.Tag{metrics.TagName, d.name},
+		statsd.Tag{metrics.TagHit, strconv.FormatBool(hit)},
+		statsd.Tag{metrics.TagError, strconv.FormatBool(isError)},
 	)
 	if err != nil {
 		l.WithField("kind", "count").Warn(err.Error())
@@ -89,8 +90,8 @@ func (d *DBQuery) Done(isError bool) {
 		metrics.StatDBQueryTiming,
 		t,
 		d.rate,
-		statsd.Tag{"name", d.name},
-		statsd.Tag{"error", fmt.Sprintf("%v", isError)},
+		statsd.Tag{metrics.TagName, d.name},
+		statsd.Tag{metrics.TagError, strconv.FormatBool(isError)},
 	)
 	if err != nil {
 		l.WithField("kind", "timing").Warn(err.Error())
@@ -100,8 +101,8 @@ func (d *DBQuery) Done(isError bool) {
 		metrics.StatDBQueryCount,
 		1,
 		d.rate,
-		statsd.Tag{"name", d.name},
-		statsd.Tag{"error", fmt.Sprintf("%v", isError)},
+		statsd.Tag{metrics.TagName, d.name},
+		statsd.Tag{metrics.TagError, fmt.Sprintf("%v", isError)},
 	)
 	if err != nil {
 		l.WithField("kind", "count").Warn(err.Error())

@@ -51,4 +51,17 @@ const (
 	StatSysMemNumGC = StatSysMem + ".num-gc"
 	// StatSysRoutines is the gauge for the number of active go routines.
 	StatSysRoutines = StatBaseSys + ".goroutines"
+
+	// TagError is an error tag.
+	TagError = "error"
+	// TagHit is a hit tag (caching).
+	TagHit = "hit"
+	// TagMethod is a method tag.
+	TagMethod = "method"
+	// TagName is a name tag.
+	TagName = "name"
+	// TagPath is a path tag.
+	TagPath = "path"
+	// TagStatus is a status tag.
+	TagStatus = "status"
 )

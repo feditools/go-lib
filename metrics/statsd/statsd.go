@@ -8,6 +8,11 @@ import (
 	"github.com/feditools/go-lib/metrics"
 )
 
+const (
+	defaultRate                 = 1.0
+	defaultSystemCollectionRate = 10 * time.Second
+)
+
 // Module represents a statsd metrics collector.
 type Module struct {
 	s statsd.Statter
@@ -33,8 +38,8 @@ func New(address, prefix string) (metrics.Collector, error) {
 	m := &Module{
 		s: client,
 
-		rate:                 1.0,
-		systemCollectionRate: 10 * time.Second,
+		rate:                 defaultRate,
+		systemCollectionRate: defaultSystemCollectionRate,
 
 		done: make(chan bool),
 	}
