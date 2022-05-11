@@ -8,21 +8,6 @@ pipeline {
 
   stages {
 
-    stage('Check Formatting') {
-      agent {
-        docker {
-          image "${BUILD_IMAGE}"
-          args '-e HOME=${WORKSPACE}'
-          reuseNode true
-        }
-      }
-      steps {
-        script {
-          sh "make check"
-        }
-      }
-    }
-
     stage('Test') {
       agent {
         docker {
@@ -42,6 +27,23 @@ pipeline {
             bash <(curl -s https://codecov.io/bash)
             exit \$RESULT
             """
+          }
+        }
+      }
+    }
+
+    stage('Check Formatting') {
+      agent {
+        docker {
+          image "${BUILD_IMAGE}"
+          args '-e HOME=${WORKSPACE}'
+          reuseNode true
+        }
+      }
+      steps {
+        script {
+          warnError {
+            sh "make check"
           }
         }
       }
