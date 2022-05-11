@@ -1,4 +1,4 @@
-package grpc
+package libgrpc
 
 //revive:disable:add-constant
 
