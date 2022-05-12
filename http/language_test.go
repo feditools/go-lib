@@ -2,8 +2,9 @@ package http
 
 import (
 	"fmt"
-	"golang.org/x/text/language"
 	"testing"
+
+	"golang.org/x/text/language"
 )
 
 func TestGetPageLang(t *testing.T) {
