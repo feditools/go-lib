@@ -3,6 +3,7 @@ module github.com/feditools/go-lib
 go 1.17
 
 require (
+	github.com/cactus/go-statsd-client/v5 v5.0.0
 	github.com/nicksnyder/go-i18n/v2 v2.2.0
 	github.com/sirupsen/logrus v1.8.1
 	golang.org/x/text v0.3.7
