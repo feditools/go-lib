@@ -46,6 +46,26 @@ func (l *Localizer) TextAddOauth20Client(count int) *LocalizedString {
 	}
 }
 
+// TextAllow returns a translated phrase.
+func (l *Localizer) TextAllow() *LocalizedString {
+	lg := logger.WithField("func", "TextAllow")
+
+	text, tag, err := l.localizer.LocalizeWithTag(&i18n.LocalizeConfig{
+		DefaultMessage: &i18n.Message{
+			ID:    "Allow",
+			Other: "Allow",
+		},
+	})
+	if err != nil {
+		lg.Warningf(missingTranslationWarning, err.Error())
+	}
+
+	return &LocalizedString{
+		language: tag,
+		string:   text,
+	}
+}
+
 // TextApplicationToken returns a translated phrase.
 func (l *Localizer) TextApplicationToken(count int) *LocalizedString {
 	lg := logger.WithField("func", "TextApplicationToken")
