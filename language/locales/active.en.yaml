@@ -9,6 +9,7 @@ Allow: Allow
 ApplicationToken:
   one: Application Token
   other: Application Tokens
+Authorize: Authorize
 AuthorizeApplicationDescription: Authorize {{.Description}}
 Client:
   one: Client
