@@ -155,3 +155,42 @@ func TestLocalizer_TextApplicationToken(t *testing.T) {
 		})
 	}
 }
+
+func TestLocalizer_TextAuthorizeApplicationDescription(t *testing.T) {
+	t.Parallel()
+
+	tables := []testTextTable{
+		{
+			inputLang:    language.English,
+			inputStrings: []string{"test1"},
+			outputString: "Authorize test1",
+			outputLang:   language.English,
+		},
+		{
+			inputLang:    language.English,
+			inputStrings: []string{"test2"},
+			outputString: "Authorize test2",
+			outputLang:   language.English,
+		},
+	}
+
+	langMod, _ := New()
+	for i, table := range tables {
+		i := i
+		table := table
+
+		name := fmt.Sprintf(testTranslatedTo, i, table.inputLang)
+		t.Run(name, func(t *testing.T) {
+			t.Parallel()
+
+			localizer, err := langMod.NewLocalizer(table.inputLang.String())
+			if err != nil {
+				t.Errorf(testCantGetLocalizer, i, table.inputLang, err.Error())
+
+				return
+			}
+
+			testTextWith1String(t, i, localizer.TextAuthorizeApplicationDescription, table)
+		})
+	}
+}
