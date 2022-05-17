@@ -333,8 +333,10 @@ linters:
     - golint # deprecated
     - gomnd
     - interfacer # deprecated
+    - ireturn
     - lll
     - maligned # deprecated
+    - nilnil
     - paralleltest
     - scopelint # deprecated
     - testpackage
