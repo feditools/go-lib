@@ -4,8 +4,9 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"github.com/feditools/go-lib/fedihelper"
 	"time"
+
+	"github.com/feditools/go-lib/fedihelper"
 )
 
 // GetCurrentAccount retrieves the current federated account.

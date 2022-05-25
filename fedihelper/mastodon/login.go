@@ -2,8 +2,9 @@ package mastodon
 
 import (
 	"context"
-	"github.com/feditools/go-lib/fedihelper"
 	"net/url"
+
+	"github.com/feditools/go-lib/fedihelper"
 )
 
 // GetAccessToken gets an access token for a account from a returned code.

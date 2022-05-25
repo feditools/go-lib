@@ -5,7 +5,11 @@ import (
 	"testing"
 )
 
+//revive:disable:add-constant
+
 func TestContainsString(t *testing.T) {
+	t.Parallel()
+
 	stack := []string{
 		"one",
 		"two",
@@ -40,6 +44,8 @@ func TestContainsString(t *testing.T) {
 }
 
 func TestContainsOneOfStrings(t *testing.T) {
+	t.Parallel()
+
 	stack := []string{
 		"one",
 		"two",
@@ -72,3 +78,5 @@ func TestContainsOneOfStrings(t *testing.T) {
 		})
 	}
 }
+
+//revive:enable:add-constant

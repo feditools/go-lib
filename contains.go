@@ -7,6 +7,7 @@ func ContainsString(stack []string, needle string) bool {
 			return true
 		}
 	}
+
 	return false
 }
 
@@ -19,5 +20,6 @@ func ContainsOneOfStrings(stack []string, needles []string) bool {
 			}
 		}
 	}
+
 	return false
 }

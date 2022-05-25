@@ -2,8 +2,9 @@ package mastodon
 
 import (
 	"context"
-	"github.com/feditools/go-lib/fedihelper"
 	"net/http"
+
+	"github.com/feditools/go-lib/fedihelper"
 
 	mastodon "github.com/mattn/go-mastodon"
 )
@@ -11,8 +12,7 @@ import (
 // RegisterApp registers fedihelper with mastodon and returns the client id and client secret.
 func (h *Helper) RegisterApp(ctx context.Context, instance fedihelper.Instance) (clientID string, clientSecret string, err error) {
 	l := logger.WithField("func", "RegisterApp")
-	var v interface{}
-	v, err, _ = h.registerAppGroup.Do(instance.GetDomain(), func() (interface{}, error) {
+	v, serr, _ := h.registerAppGroup.Do(instance.GetDomain(), func() (interface{}, error) {
 		instanceToken := h.fedi.GetTokenHandler(ctx, instance)
 		app, merr := mastodon.RegisterApp(ctx, &mastodon.AppConfig{
 			Client: http.Client{
@@ -39,15 +39,12 @@ func (h *Helper) RegisterApp(ctx context.Context, instance fedihelper.Instance) 
 		return &keys, nil
 	})
 
-	if err != nil {
+	if serr != nil {
 		l.Errorf("singleflight: %s", err.Error())
 
-		return
+		return "", "", serr
 	}
-
 	keys := v.(*[]string)
-	clientID = (*keys)[0]
-	clientSecret = (*keys)[1]
 
-	return
+	return (*keys)[0], (*keys)[1], nil
 }
