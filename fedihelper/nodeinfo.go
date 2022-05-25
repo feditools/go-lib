@@ -3,7 +3,6 @@ package fedihelper
 import (
 	"context"
 	"encoding/json"
-	"fmt"
 	"io"
 	nethttp "net/http"
 	"net/url"
@@ -27,7 +26,7 @@ func findNodeInfo20URI(nodeinfo *models.NodeInfo) (*url.URL, error) {
 
 	nodeinfoURI, err := url.Parse(nodeinfoURIstr)
 	if err != nil {
-		return nil, fmt.Errorf("invalid nodeinfo 2.0 uri: %s", err.Error())
+		return nil, NewErrorf("invalid nodeinfo 2.0 uri: %s", err.Error())
 	}
 
 	return nodeinfoURI, err
@@ -40,9 +39,10 @@ func (f *FediHelper) GetNodeInfo20(ctx context.Context, domain string, infoURI *
 		// check cache
 		cache, err := f.kv.GetFediNodeInfo(ctx, domain)
 		if err != nil && err.Error() != "redis: nil" {
-			l.Errorf("redis get: %s", err.Error())
+			fhErr := NewErrorf("redis get: %s", err.Error())
+			l.Error(fhErr.Error())
 
-			return nil, err
+			return nil, fhErr
 		}
 		if err == nil {
 			return unmarshalNodeInfo20(cache)
@@ -51,48 +51,56 @@ func (f *FediHelper) GetNodeInfo20(ctx context.Context, domain string, infoURI *
 		// get nodeinfo
 		resp, err := f.http.Get(ctx, infoURI.String())
 		if err != nil {
-			l.Errorf("http get: %s", err.Error())
+			fhErr := NewErrorf("http get: %s", err.Error())
+			l.Error(fhErr.Error())
 
-			return nil, err
+			return nil, fhErr
 		}
 		if resp.StatusCode != nethttp.StatusOK {
-			return nil, fmt.Errorf("http status %s %d", infoURI, resp.StatusCode)
+			return nil, NewErrorf("http status %s %d", infoURI, resp.StatusCode)
 		}
 		defer resp.Body.Close()
 		bodyBytes, err := io.ReadAll(resp.Body)
 		if err != nil {
-			l.Errorf("read body: %s", err.Error())
+			fhErr := NewErrorf("read body: %s", err.Error())
+			l.Error(fhErr.Error())
 
-			return nil, err
+			return nil, fhErr
 		}
 		bodyString := string(bodyBytes)
 
 		// marshal
 		nodeinfo, err := unmarshalNodeInfo20(bodyString)
 		if err != nil {
-			l.Errorf("marshal: %s", err.Error())
+			fhErr := NewErrorf("marshal: %s", err.Error())
+			l.Error(fhErr.Error())
 
-			return nil, err
+			return nil, fhErr
 		}
 
 		// write cache
 		err = f.kv.SetFediNodeInfo(ctx, domain, bodyString, f.nodeinfoCacheExp)
 		if err != nil {
-			l.Errorf("redis get: %s", err.Error())
+			fhErr := NewErrorf("redis set: %s", err.Error())
+			l.Error(fhErr.Error())
 
-			return nil, err
+			return nil, fhErr
 		}
 
 		return nodeinfo, nil
 	})
 
 	if err != nil {
-		l.Errorf("singleflight: %s", err.Error())
+		fhErr := NewErrorf("singleflight: %s", err.Error())
+		l.Error(fhErr.Error())
 
-		return nil, err
+		return nil, fhErr
 	}
 
-	nodeinfo := v.(*models.NodeInfo2)
+	nodeinfo, ok := v.(*models.NodeInfo2)
+	if !ok {
+		return nil, NewError("invalid response type from single flight")
+	}
 
 	return nodeinfo, nil
 }
@@ -100,7 +108,7 @@ func (f *FediHelper) GetNodeInfo20(ctx context.Context, domain string, infoURI *
 func unmarshalNodeInfo20(body string) (*models.NodeInfo2, error) {
 	var nodeinfo *models.NodeInfo2
 	if err := json.Unmarshal([]byte(body), &nodeinfo); err != nil {
-		return nil, err
+		return nil, NewErrorf("unmarshal: %s", err.Error())
 	}
 
 	return nodeinfo, nil

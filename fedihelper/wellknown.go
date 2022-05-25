@@ -41,7 +41,10 @@ func (f *FediHelper) GetWellknownNodeInfo(ctx context.Context, domain string) (*
 		return nil, err
 	}
 
-	nodeinfo := v.(*models.NodeInfo)
+	nodeinfo, ok := v.(*models.NodeInfo)
+	if !ok {
+		return nil, NewError("invalid response type from single flight")
+	}
 
 	return nodeinfo, nil
 }
@@ -77,7 +80,10 @@ func (f *FediHelper) GetWellknownWebFinger(ctx context.Context, username, domain
 		return nil, err
 	}
 
-	webfinger := v.(*models.WebFinger)
+	webfinger, ok := v.(*models.WebFinger)
+	if !ok {
+		return nil, NewError("invalid response type from single flight")
+	}
 
 	return webfinger, nil
 }
@@ -98,7 +104,7 @@ func FindActorURI(webfinger *models.WebFinger) (*url.URL, error) {
 
 	actorURI, err := url.Parse(actorURIstr)
 	if err != nil {
-		return nil, fmt.Errorf("invalid actor uri: %s", err.Error())
+		return nil, NewErrorf("invalid actor uri: %s", err.Error())
 	}
 
 	return actorURI, err

@@ -2,7 +2,6 @@ package fedihelper
 
 import (
 	"context"
-	"errors"
 )
 
 type Instance interface {
@@ -41,28 +40,35 @@ func (f *FediHelper) GenerateFediInstanceFromDomain(ctx context.Context, domain 
 		return err
 	}
 	if nodeinfoURI == nil {
-		return errors.New("missing nodeinfo 2.0 uri")
+		return NewError("missing nodeinfo 2.0 uri")
 	}
 
 	// get nodeinfo from
 	nodeinfo, err := f.GetNodeInfo20(ctx, domain, nodeinfoURI)
 	if err != nil {
-		l.Errorf("get nodeinfo 2.0: %s", err.Error())
+		fhErr := NewErrorf("get nodeinfo 2.0: %s", err.Error())
+		l.Error(fhErr.Error())
 
-		return err
+		return fhErr
 	}
 
 	// get actor uri
 	webfinger, err := f.GetWellknownWebFinger(ctx, domain, domain)
 	if err != nil {
-		return err
+		fhErr := NewErrorf("get wellknown webfinger: %s", err.Error())
+		l.Error(fhErr.Error())
+
+		return fhErr
 	}
 	actorURI, err := FindActorURI(webfinger)
 	if err != nil {
-		return err
+		fhErr := NewErrorf("find actor url: %s", err.Error())
+		l.Error(fhErr.Error())
+
+		return fhErr
 	}
 	if actorURI == nil {
-		return errors.New("missing actor uri")
+		return NewError("missing actor uri")
 	}
 
 	instance.SetActorURI(actorURI.String())

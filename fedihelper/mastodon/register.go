@@ -44,7 +44,10 @@ func (h *Helper) RegisterApp(ctx context.Context, instance fedihelper.Instance) 
 
 		return "", "", serr
 	}
-	keys := v.(*[]string)
+	keys, ok := v.(*[]string)
+	if !ok {
+		return "", "", fedihelper.NewError("invalid response type from single flight")
+	}
 
 	return (*keys)[0], (*keys)[1], nil
 }

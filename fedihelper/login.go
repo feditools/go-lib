@@ -2,7 +2,6 @@ package fedihelper
 
 import (
 	"context"
-	"fmt"
 	"net/url"
 
 	"github.com/feditools/go-lib"
@@ -64,30 +63,33 @@ func (f *FediHelper) loginURLForInstance(ctx context.Context, instance Instance)
 	l := logger.WithField("func", "loginURLForInstance")
 
 	if _, ok := f.helpers[Software(instance.GetSoftware())]; !ok {
-		return nil, fmt.Errorf("no helper for '%s'", instance.GetSoftware())
+		return nil, NewErrorf("no helper for '%s'", instance.GetSoftware())
 	}
 
 	if !instance.IsOAuthSet() {
 		clientID, clientSecret, err := f.helpers[SoftwareMastodon].RegisterApp(ctx, instance)
 		if err != nil {
-			l.Errorf("registering app: %s", err.Error())
+			fhErr := NewErrorf("registering app: %s", err.Error())
+			l.Error(fhErr.Error())
 
-			return nil, err
+			return nil, fhErr
 		}
 		l.Debugf("got app: %s, %s", clientID, clientSecret)
 		instance.SetClientID(clientID)
 		err = instance.SetClientSecret(clientSecret)
 		if err != nil {
-			l.Errorf("setting secret: %s", err.Error())
+			fhErr := NewErrorf("setting secret: %s", err.Error())
+			l.Error(fhErr.Error())
 
-			return nil, err
+			return nil, fhErr
 		}
 
 		err = f.UpdateInstanceHandler(ctx, instance)
 		if err != nil {
-			l.Errorf("db update: %s", err.Error())
+			fhErr := NewErrorf("db update: %s", err.Error())
+			l.Error(fhErr.Error())
 
-			return nil, err
+			return nil, fhErr
 		}
 	}
 

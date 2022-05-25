@@ -2,8 +2,6 @@ package mastodon
 
 import (
 	"context"
-	"errors"
-	"fmt"
 	"time"
 
 	"github.com/feditools/go-lib/fedihelper"
@@ -16,40 +14,43 @@ func (h *Helper) GetCurrentAccount(ctx context.Context, instance fedihelper.Inst
 	// create mastodon client
 	client, err := h.newClient(instance, accessToken)
 	if err != nil {
-		l.Errorf("creating client: %s", err.Error())
+		fhErr := fedihelper.NewErrorf("find actor url: %s", err.Error())
+		l.Error(fhErr.Error())
 
-		return nil, err
+		return nil, fhErr
 	}
 
 	// retrieve current account from
 	retrievedAccount, err := client.GetAccountCurrentUser(ctx)
 	if err != nil {
-		l.Errorf("getting current account: %s", err.Error())
+		fhErr := fedihelper.NewErrorf("getting current account: %s", err.Error())
+		l.Error(fhErr.Error())
 
-		return nil, err
+		return nil, fhErr
 	}
 
 	// check if account is locked
 	if retrievedAccount.Locked {
-		return nil, fmt.Errorf("account '@%s@%s' locked", retrievedAccount.Username, instance.GetDomain())
+		return nil, fedihelper.NewErrorf("account '@%s@%s' locked", retrievedAccount.Username, instance.GetDomain())
 	}
 
 	// check if account is a bot
 	if retrievedAccount.Bot {
-		return nil, fmt.Errorf("account '@%s@%s' is a bot", retrievedAccount.Username, instance.GetDomain())
+		return nil, fedihelper.NewErrorf("account '@%s@%s' is a bot", retrievedAccount.Username, instance.GetDomain())
 	}
 
 	// check if account has moved
 	if retrievedAccount.Moved != nil {
-		return nil, fmt.Errorf("account '@%s@%s' has moved to '@%s'", retrievedAccount.Username, instance.GetDomain(), retrievedAccount.Moved.Acct)
+		return nil, fedihelper.NewErrorf("account '@%s@%s' has moved to '@%s'", retrievedAccount.Username, instance.GetDomain(), retrievedAccount.Moved.Acct)
 	}
 
 	// try to retrieve federated account
 	account, err := h.fedi.GetAccountHandler(ctx, instance, retrievedAccount.Username)
 	if err != nil {
-		l.Errorf("db read: %s", err.Error())
+		fhErr := fedihelper.NewErrorf("get account: %s", err.Error())
+		l.Error(fhErr.Error())
 
-		return nil, err
+		return nil, fhErr
 	}
 	if account != nil {
 		return account, nil
@@ -58,29 +59,32 @@ func (h *Helper) GetCurrentAccount(ctx context.Context, instance fedihelper.Inst
 	// do webfinger
 	webFinger, err := h.fedi.GetWellknownWebFinger(ctx, retrievedAccount.Username, instance.GetDomain())
 	if err != nil {
-		l.Debugf("webfinger %s@%s: %s", retrievedAccount.Username, instance.GetDomain(), err.Error())
+		fhErr := fedihelper.NewErrorf("webfinger %s@%s: %s", retrievedAccount.Username, instance.GetDomain(), err.Error())
+		l.Debug(fhErr.Error())
 
-		return nil, err
+		return nil, fhErr
 	}
 	actorURI, err := fedihelper.FindActorURI(webFinger)
 	if err != nil {
-		l.Debugf("webfinger %s@%s: %s", retrievedAccount.Username, instance.GetDomain(), err.Error())
+		fhErr := fedihelper.NewErrorf("finding actor uri %s@%s: %s", retrievedAccount.Username, instance.GetDomain(), err.Error())
+		l.Debug(fhErr.Error())
 
-		return nil, err
+		return nil, fhErr
 	}
 	if actorURI == nil {
-		msg := fmt.Sprintf("can't find actor uri for %s@%s", retrievedAccount.Username, instance.GetDomain())
-		l.Debug(msg)
+		fhErr := fedihelper.NewErrorf("didn't find actor uri for %s@%s", retrievedAccount.Username, instance.GetDomain())
+		l.Debug(fhErr.Error())
 
-		return nil, errors.New(msg)
+		return nil, fhErr
 	}
 
 	// create new federated account
 	newFediAccount, err := h.fedi.NewAccountHandler(ctx)
 	if err != nil {
-		l.Warnf("new account: %s", err.Error())
+		fhErr := fedihelper.NewErrorf("new account: %s", err.Error())
+		l.Warn(fhErr.Error())
 
-		return nil, err
+		return nil, fhErr
 	}
 	newFediAccount.SetActorURI(actorURI.String())
 	newFediAccount.SetDisplayName(retrievedAccount.DisplayName)
@@ -89,17 +93,19 @@ func (h *Helper) GetCurrentAccount(ctx context.Context, instance fedihelper.Inst
 	newFediAccount.SetUsername(retrievedAccount.Username)
 	err = account.SetAccessToken(accessToken)
 	if err != nil {
-		l.Errorf("set access token: %s", err.Error())
+		fhErr := fedihelper.NewErrorf("set access token: %s", err.Error())
+		l.Error(fhErr.Error())
 
-		return nil, err
+		return nil, fhErr
 	}
 
 	// write new federated account to database
 	err = h.fedi.CreateAccountHandler(ctx, newFediAccount)
 	if err != nil {
-		l.Errorf("db create: %s", err.Error())
+		fhErr := fedihelper.NewErrorf("db create: %s", err.Error())
+		l.Error(fhErr.Error())
 
-		return nil, err
+		return nil, fhErr
 	}
 
 	return newFediAccount, nil
