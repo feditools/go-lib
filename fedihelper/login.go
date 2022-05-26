@@ -18,13 +18,13 @@ func (f *FediHelper) GetLoginURL(ctx context.Context, act string) (*url.URL, err
 	}
 
 	// try to get instance from the database
-	instance, err := f.GetInstanceHandler(ctx, domain)
+	instance, found, err := f.GetInstanceHandler(ctx, domain)
 	if err != nil {
 		l.Errorf("db read: %s", err.Error())
 
 		return nil, err
 	}
-	if instance != nil {
+	if found {
 		u, err := f.loginURLForInstance(ctx, instance)
 		if err != nil {
 			l.Errorf("get login url: %s", err.Error())

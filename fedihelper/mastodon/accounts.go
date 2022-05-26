@@ -45,14 +45,14 @@ func (h *Helper) GetCurrentAccount(ctx context.Context, instance fedihelper.Inst
 	}
 
 	// try to retrieve federated account
-	account, err := h.fedi.GetAccountHandler(ctx, instance, retrievedAccount.Username)
+	account, found, err := h.fedi.GetAccountHandler(ctx, instance, retrievedAccount.Username)
 	if err != nil {
 		fhErr := fedihelper.NewErrorf("get account: %s", err.Error())
 		l.Error(fhErr.Error())
 
 		return nil, fhErr
 	}
-	if account != nil {
+	if found {
 		return account, nil
 	}
 
