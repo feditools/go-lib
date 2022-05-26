@@ -36,20 +36,27 @@ func (f *FediHelper) GetLoginURL(ctx context.Context, act string) (*url.URL, err
 	}
 
 	// get instance data from instance apis
-	err = f.GenerateFediInstanceFromDomain(ctx, domain, instance)
+	newInstance, err := f.NewInstanceHandler(ctx)
+	if err != nil {
+		fhErr := NewErrorf("new instance: %s", err.Error())
+		l.Warn(fhErr.Error())
+
+		return nil, fhErr
+	}
+	err = f.GenerateFediInstanceFromDomain(ctx, domain, newInstance)
 	if err != nil {
 		l.Errorf("get nodeinfo: %s", err.Error())
 
 		return nil, err
 	}
-	err = f.CreateInstanceHandler(ctx, instance)
+	err = f.CreateInstanceHandler(ctx, newInstance)
 	if err != nil {
 		l.Errorf("db create: %s", err.Error())
 
 		return nil, err
 	}
 
-	u, err := f.loginURLForInstance(ctx, instance)
+	u, err := f.loginURLForInstance(ctx, newInstance)
 	if err != nil {
 		l.Errorf("get login url: %s", err.Error())
 
