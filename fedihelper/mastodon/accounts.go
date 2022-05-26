@@ -91,7 +91,7 @@ func (h *Helper) GetCurrentAccount(ctx context.Context, instance fedihelper.Inst
 	newFediAccount.SetInstance(instance)
 	newFediAccount.SetLastFinger(time.Now())
 	newFediAccount.SetUsername(retrievedAccount.Username)
-	err = account.SetAccessToken(accessToken)
+	err = newFediAccount.SetAccessToken(accessToken)
 	if err != nil {
 		fhErr := fedihelper.NewErrorf("set access token: %s", err.Error())
 		l.Error(fhErr.Error())
