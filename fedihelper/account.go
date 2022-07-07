@@ -5,6 +5,7 @@ import "time"
 type Account interface {
 	GetActorURI() (actorURI string)
 	GetDisplayName() (displayName string)
+	GetID() (id int64)
 	GetInstance() (instance Instance)
 	GetLastFinger() (lastFinger time.Time)
 	GetUsername() (username string)

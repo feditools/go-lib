@@ -36,13 +36,11 @@ type FediHelper struct {
 
 	CreateAccountHandler  CreateAccountHandler
 	CreateInstanceHandler CreateInstanceHandler
-	GetAccessTokenHandler GetAccessTokenHandler
 	GetAccountHandler     GetAccountHandler
 	GetInstanceHandler    GetInstanceHandler
 	GetTokenHandler       GetTokenHandler
 	NewAccountHandler     NewAccountHandler
 	NewInstanceHandler    NewInstanceHandler
-	SetAccessTokenHandler SetAccessTokenHandler
 	UpdateInstanceHandler UpdateInstanceHandler
 
 	helpers map[Software]Helper
@@ -64,10 +62,6 @@ func (f *FediHelper) SetCreateInstanceHandler(handler CreateInstanceHandler) {
 	f.CreateInstanceHandler = handler
 }
 
-func (f *FediHelper) SetGetAccessTokenHandler(handler GetAccessTokenHandler) {
-	f.GetAccessTokenHandler = handler
-}
-
 func (f *FediHelper) SetGetAccountHandler(handler GetAccountHandler) {
 	f.GetAccountHandler = handler
 }
@@ -86,10 +80,6 @@ func (f *FediHelper) SetNewAccountHandler(handler NewAccountHandler) {
 
 func (f *FediHelper) SetNewInstanceHandler(handler NewInstanceHandler) {
 	f.NewInstanceHandler = handler
-}
-
-func (f *FediHelper) SetSetAccessTokenHandler(handler SetAccessTokenHandler) {
-	f.SetAccessTokenHandler = handler
 }
 
 func (f *FediHelper) SetUpdateInstanceHandler(handler UpdateInstanceHandler) {
