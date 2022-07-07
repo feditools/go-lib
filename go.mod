@@ -7,6 +7,7 @@ require (
 	github.com/mattn/go-mastodon v0.0.5-0.20211214115546-7745e19ff787
 	github.com/nicksnyder/go-i18n/v2 v2.2.0
 	github.com/sirupsen/logrus v1.8.1
+	github.com/tmthrgd/go-hex v0.0.0-20190904060850-447a3041c3bc
 	golang.org/x/sync v0.0.0-20220513210516-0976fa681c29
 	golang.org/x/text v0.3.7
 	gopkg.in/yaml.v2 v2.4.0
