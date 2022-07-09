@@ -69,7 +69,7 @@ func (f *FediHelper) GenerateFediInstanceFromDomain(ctx context.Context, domain 
 	}
 
 	// get actor uri
-	webfinger, err := f.GetWellknownWebFinger(ctx, hostMetaURI.Host, domain)
+	webfinger, err := f.GetWellknownWebFinger(ctx, hostMetaURI.Host, domain, domain)
 	if err != nil {
 		fhErr := NewErrorf("get wellknown webfinger: %s", err.Error())
 		l.Error(fhErr.Error())
