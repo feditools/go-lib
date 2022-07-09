@@ -29,8 +29,22 @@ type Account interface {
 func (f *FediHelper) GenerateFediAccountFromUsername(ctx context.Context, username string, instance Instance, account Account) error {
 	l := logger.WithField("func", "GenerateFediAccountFromUsername")
 
+	// get host meta
+	hostMeta, err := f.GetHostMeta(ctx, instance.GetDomain())
+	if err != nil {
+		l.Errorf("get host meta: %s", err.Error())
+
+		return err
+	}
+	hostMetaFTemplate, err := f.WebfingerURIFromHostMeta(hostMeta)
+	if err != nil {
+		l.Errorf("get webfinger uri: %s", err.Error())
+
+		return err
+	}
+
 	// get actor uri
-	webfinger, err := f.GetWellknownWebFinger(ctx, username, instance.GetDomain())
+	webfinger, err := f.webFinger(ctx, hostMetaFTemplate, username, instance.GetDomain())
 	if err != nil {
 		fhErr := NewErrorf("get wellknown webfinger: %s", err.Error())
 		l.Error(fhErr.Error())
