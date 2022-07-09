@@ -7,6 +7,7 @@ import (
 	"time"
 
 	"github.com/feditools/go-lib/fedihelper/models"
+	httplib "github.com/feditools/go-lib/http"
 )
 
 type Account interface {
@@ -51,6 +52,7 @@ func (f *FediHelper) GenerateFediAccountFromUsername(ctx context.Context, userna
 	v, err, _ := f.requestGroup.Do(actorURI.String(), func() (interface{}, error) {
 		// do request
 		req, err := f.http.NewRequest(ctx, http.MethodGet, actorURI.String(), nil)
+		req.Header.Add(httplib.HeaderAccept, string(httplib.MimeAppJSON))
 		if err != nil {
 			l.Errorf("new http request: %s", err.Error())
 
