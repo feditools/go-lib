@@ -13,6 +13,8 @@ func (f *FediHelper) webFinger(ctx context.Context, fTemplate, username, domain 
 	l := logger.WithField("func", "webFinger")
 	webfingerURI := fmt.Sprintf(fTemplate, username, domain)
 	v, err, _ := f.requestGroup.Do(webfingerURI, func() (interface{}, error) {
+		l.Tracef("webfingering %s", webfingerURI)
+
 		// do request
 		resp, err := f.http.Get(ctx, webfingerURI)
 		if err != nil {
