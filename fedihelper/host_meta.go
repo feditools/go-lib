@@ -72,7 +72,7 @@ func (*FediHelper) WebfingerURIFromHostMeta(hostMeta *models.HostMeta) (string, 
 	}
 
 	// replace url template with golang f template
-	if strings.Contains(hostMetaURITemplate, "{uri}") {
+	if !strings.Contains(hostMetaURITemplate, "{uri}") {
 		return "", NewError("web finger template invalid format")
 	}
 	hostMetaURIFTemplate := strings.ReplaceAll(hostMetaURITemplate, "{uri}", "acct:%s@%s")
