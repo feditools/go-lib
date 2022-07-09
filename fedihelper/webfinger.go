@@ -11,7 +11,7 @@ import (
 // webFinger retrieves web finger resource from a federated instance.
 func (f *FediHelper) webFinger(ctx context.Context, fTemplate, username, domain string) (*models.WebFinger, error) {
 	l := logger.WithField("func", "webFinger")
-	webfingerURI := fmt.Sprintf(fTemplate, domain, username, domain)
+	webfingerURI := fmt.Sprintf(fTemplate, username, domain)
 	v, err, _ := f.requestGroup.Do(webfingerURI, func() (interface{}, error) {
 		// do request
 		resp, err := f.http.Get(ctx, webfingerURI)
