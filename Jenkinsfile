@@ -34,26 +34,26 @@ pipeline {
       }
     }
 
-    stage('Check Formatting') {
-      agent {
-        docker {
-          image "${BUILD_IMAGE}"
-          args "${BUILD_ARGS}"
-          reuseNode true
-        }
-      }
-      steps {
-        script {
-          def ret = sh(
-            script: "make check",
-            returnStatus: true
-          )
-          if (ret != 0) {
-            currentBuild.result = 'UNSTABLE'
-          }
-        }
-      }
-    }
+//    stage('Check Formatting') {
+//      agent {
+//        docker {
+//          image "${BUILD_IMAGE}"
+//          args "${BUILD_ARGS}"
+//          reuseNode true
+//        }
+//      }
+//      steps {
+//        script {
+//          def ret = sh(
+//            script: "make check",
+//            returnStatus: true
+//          )
+//          if (ret != 0) {
+//            currentBuild.result = 'UNSTABLE'
+//          }
+//        }
+//      }
+//    }
 
   }
 
