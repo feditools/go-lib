@@ -43,8 +43,9 @@ func TestNew(t *testing.T) {
 // text testers
 
 type testTextTable struct {
-	inputLang  language.Tag
-	inputCount int
+	inputLang    language.Tag
+	inputCount   int
+	inputStrings []string
 
 	outputString string
 	outputLang   language.Tag
@@ -61,6 +62,13 @@ func testTextWithCount(t *testing.T, tid int, translate func(int) *LocalizedStri
 	t.Helper()
 
 	result := translate(table.inputCount)
+	testTextCheckResults(t, tid, result, table)
+}
+
+func testTextWith1String(t *testing.T, tid int, translate func(string) *LocalizedString, table testTextTable) {
+	t.Helper()
+
+	result := translate(table.inputStrings[0])
 	testTextCheckResults(t, tid, result, table)
 }
 

@@ -326,6 +326,7 @@ linters:
     - dupl
     - errorlint
     - exhaustivestruct
+    - exhaustruct
     - funlen
     - gci
     - gochecknoglobals
@@ -333,8 +334,11 @@ linters:
     - golint # deprecated
     - gomnd
     - interfacer # deprecated
+    - ireturn
     - lll
     - maligned # deprecated
+    - nilnil
+    - nonamedreturns
     - paralleltest
     - scopelint # deprecated
     - testpackage
