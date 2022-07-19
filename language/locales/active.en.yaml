@@ -11,6 +11,12 @@ ApplicationToken:
   other: Application Tokens
 Authorize: Authorize
 AuthorizeApplicationDescription: Authorize {{.Description}}
+Block:
+  one: Block
+  other: Blocks
+BlockedInstance:
+  one: Blocked Instance
+  other: Blocked Instances
 Client:
   one: Client
   other: Clients
