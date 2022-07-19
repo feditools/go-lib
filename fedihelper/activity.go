@@ -52,7 +52,7 @@ func (a Activity) ObjectID() (string, error) {
 	}
 }
 
-func (a Activity) ObjectType() (string, error) {
+func (a Activity) ObjectType() (ActivityType, error) {
 	objecti, ok := a["object"]
 	if !ok {
 		return "", errors.New("activity is missing object")
@@ -71,5 +71,18 @@ func (a Activity) ObjectType() (string, error) {
 		return "", errors.New("activity object is wrong type")
 	}
 
-	return aType, nil
+	return ActivityType(aType), nil
+}
+
+func (a Activity) Type() (ActivityType, error) {
+	aTypei, ok := a["type"]
+	if !ok {
+		return "", errors.New("activity is missing type")
+	}
+	aType, ok := aTypei.(string)
+	if !ok {
+		return "", errors.New("activity type is wrong type")
+	}
+
+	return ActivityType(aType), nil
 }
