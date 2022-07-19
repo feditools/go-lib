@@ -21,6 +21,9 @@ func (s SoftwareName) String() string {
 }
 
 const (
+	// ContextActivityStreams contains the context document for activity streams
+	ContextActivityStreams = "https://www.w3.org/ns/activitystreams"
+	// HostMetaWebFingerTemplateRel matches a webfinger link relationship.
 	HostMetaWebFingerTemplateRel = "lrdd"
 	// NodeInfo20Schema the schema url for nodeinfo 2.0.
 	NodeInfo20Schema = "http://nodeinfo.diaspora.software/ns/schema/2.0"
