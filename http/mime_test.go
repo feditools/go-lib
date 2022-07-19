@@ -18,6 +18,7 @@ var testMimeTables = []struct {
 	{mime: "image/svg+xml", suffix: "svg"},
 	{mime: "image/webp", suffix: "webp"},
 	{mime: "text/html", suffix: "html"},
+	{mime: "text/plain", suffix: "txt"},
 }
 
 func TestToMime(t *testing.T) {

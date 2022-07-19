@@ -37,6 +37,8 @@ const (
 	MimeImageWebP Mime = `image/webp`
 	// MimeTextHTML represents a html type.
 	MimeTextHTML Mime = `text/html`
+	// MimeTextPlain represents a plain text type.
+	MimeTextPlain Mime = `text/plain`
 
 	// SuffixImageGIF represents a gif image suffix.
 	SuffixImageGIF Suffix = `gif`
@@ -50,6 +52,8 @@ const (
 	SuffixImageWebP Suffix = `webp`
 	// SuffixTextHTML represents a html suffix.
 	SuffixTextHTML Suffix = `html`
+	// SuffixTextPlain represents a plain text suffix.
+	SuffixTextPlain Suffix = `txt`
 )
 
 var (
@@ -60,6 +64,7 @@ var (
 		SuffixImageSVG:  MimeImageSVG,
 		SuffixImageWebP: MimeImageWebP,
 		SuffixTextHTML:  MimeTextHTML,
+		SuffixTextPlain: MimeTextPlain,
 	}
 
 	mimeToSuffix = map[Mime]Suffix{
@@ -69,6 +74,7 @@ var (
 		MimeImageSVG:  SuffixImageSVG,
 		MimeImageWebP: SuffixImageWebP,
 		MimeTextHTML:  SuffixTextHTML,
+		MimeTextPlain: SuffixTextPlain,
 	}
 )
 
