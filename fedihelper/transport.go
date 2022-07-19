@@ -86,7 +86,7 @@ func (t *Transport) InstanceGet(ctx context.Context, uri *url.URL, accepts ...li
 	return ioutil.ReadAll(resp.Body)
 }
 
-func (t *Transport) InstancePost(ctx context.Context, uri *url.URL, body []byte, contentType string, accepts ...string) ([]byte, error) {
+func (t *Transport) InstancePost(ctx context.Context, uri *url.URL, body []byte, contentType libhttp.Mime, accepts ...libhttp.Mime) ([]byte, error) {
 	bodyReader := bytes.NewReader(body)
 	req, err := http.NewRequestWithContext(ctx, http.MethodPost, uri.String(), bodyReader)
 	if err != nil {
@@ -94,11 +94,11 @@ func (t *Transport) InstancePost(ctx context.Context, uri *url.URL, body []byte,
 	}
 
 	for _, accept := range accepts {
-		req.Header.Add("Accept", accept)
+		req.Header.Add("Accept", accept.String())
 	}
 	req.Header.Add("Date", t.clock.Now().UTC().Format(rfc1123WithoutZone)+" GMT")
 	req.Header.Set("Host", uri.Host)
-	req.Header.Set("Content-Type", contentType)
+	req.Header.Set("Content-Type", contentType.String())
 
 	t.doSign(func() {
 		err = t.postSigner.SignRequest(t.privKey, t.keyID, req, body)
