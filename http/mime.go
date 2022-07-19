@@ -5,6 +5,14 @@ type (
 	Suffix string
 )
 
+func (m Mime) String() string {
+	return string(m)
+}
+
+func (s Suffix) String() string {
+	return string(s)
+}
+
 const (
 	// MimeAll matches any mime type.
 	MimeAll Mime = `*/*`
