@@ -36,13 +36,9 @@ type FediHelper struct {
 	http *Transport
 	kv   KV
 
-	CreateAccountHandler  CreateAccountHandler
-	CreateInstanceHandler CreateInstanceHandler
-	GetAccountHandler     GetAccountHandler
-	GetInstanceHandler    GetInstanceHandler
-	NewAccountHandler     NewAccountHandler
-	NewInstanceHandler    NewInstanceHandler
-	UpdateInstanceHandler UpdateInstanceHandler
+	CreateAccountHandler CreateAccountHandler
+	GetAccountHandler    GetAccountHandler
+	NewAccountHandler    NewAccountHandler
 
 	helpers map[SoftwareName]Helper
 
@@ -56,26 +52,10 @@ func (f *FediHelper) SetCreateAccountHandler(handler CreateAccountHandler) {
 	f.CreateAccountHandler = handler
 }
 
-func (f *FediHelper) SetCreateInstanceHandler(handler CreateInstanceHandler) {
-	f.CreateInstanceHandler = handler
-}
-
 func (f *FediHelper) SetGetAccountHandler(handler GetAccountHandler) {
 	f.GetAccountHandler = handler
 }
 
-func (f *FediHelper) SetGetInstanceHandler(handler GetInstanceHandler) {
-	f.GetInstanceHandler = handler
-}
-
 func (f *FediHelper) SetNewAccountHandler(handler NewAccountHandler) {
 	f.NewAccountHandler = handler
-}
-
-func (f *FediHelper) SetNewInstanceHandler(handler NewInstanceHandler) {
-	f.NewInstanceHandler = handler
-}
-
-func (f *FediHelper) SetUpdateInstanceHandler(handler UpdateInstanceHandler) {
-	f.UpdateInstanceHandler = handler
 }
