@@ -8,7 +8,7 @@ import (
 )
 
 // GetLoginURL retrieves an oauth url for a federated instance.
-func (f *FediHelper) GetLoginURL(ctx context.Context, act string) (*url.URL, error) {
+func (f *FediHelper) GetLoginURL(ctx context.Context, redirectURI *url.URL, act string) (*url.URL, error) {
 	l := logger.WithField("func", "GetLoginURL")
 	_, domain, err := lib.SplitAccount(act)
 	if err != nil {
@@ -25,7 +25,7 @@ func (f *FediHelper) GetLoginURL(ctx context.Context, act string) (*url.URL, err
 		return nil, err
 	}
 	if found {
-		u, err := f.loginURLForInstance(ctx, instance)
+		u, err := f.loginURLForInstance(ctx, redirectURI, instance)
 		if err != nil {
 			l.Errorf("get login url: %s", err.Error())
 
@@ -56,7 +56,7 @@ func (f *FediHelper) GetLoginURL(ctx context.Context, act string) (*url.URL, err
 		return nil, err
 	}
 
-	u, err := f.loginURLForInstance(ctx, newInstance)
+	u, err := f.loginURLForInstance(ctx, redirectURI, newInstance)
 	if err != nil {
 		l.Errorf("get login url: %s", err.Error())
 
@@ -66,7 +66,7 @@ func (f *FediHelper) GetLoginURL(ctx context.Context, act string) (*url.URL, err
 	return u, nil
 }
 
-func (f *FediHelper) loginURLForInstance(ctx context.Context, instance Instance) (*url.URL, error) {
+func (f *FediHelper) loginURLForInstance(ctx context.Context, redirectURI *url.URL, instance Instance) (*url.URL, error) {
 	l := logger.WithField("func", "loginURLForInstance")
 
 	if _, ok := f.helpers[SoftwareName(instance.GetSoftware())]; !ok {
@@ -83,7 +83,7 @@ func (f *FediHelper) loginURLForInstance(ctx context.Context, instance Instance)
 		}
 
 		var newClientID, newClientSecret string
-		newClientID, newClientSecret, err = f.helpers[SoftwareMastodon].RegisterApp(ctx, instance)
+		newClientID, newClientSecret, err = f.helpers[SoftwareMastodon].RegisterApp(ctx, redirectURI, instance)
 		if err != nil {
 			fhErr := NewErrorf("registering app: %s", err.Error())
 			l.Error(fhErr.Error())
@@ -100,5 +100,5 @@ func (f *FediHelper) loginURLForInstance(ctx context.Context, instance Instance)
 		}
 	}
 
-	return f.helpers[SoftwareMastodon].MakeLoginURI(ctx, instance)
+	return f.helpers[SoftwareMastodon].MakeLoginURI(ctx, redirectURI, instance)
 }
