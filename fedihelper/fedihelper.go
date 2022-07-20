@@ -40,7 +40,6 @@ type FediHelper struct {
 	CreateInstanceHandler CreateInstanceHandler
 	GetAccountHandler     GetAccountHandler
 	GetInstanceHandler    GetInstanceHandler
-	GetTokenHandler       GetTokenHandler
 	NewAccountHandler     NewAccountHandler
 	NewInstanceHandler    NewInstanceHandler
 	UpdateInstanceHandler UpdateInstanceHandler
@@ -52,10 +51,6 @@ type FediHelper struct {
 	nodeinfoCacheExp time.Duration
 	requestGroup     singleflight.Group
 }
-
-/*func (f *FediHelper) HTTP() HTTP {
-	return f.http
-}*/
 
 func (f *FediHelper) SetCreateAccountHandler(handler CreateAccountHandler) {
 	f.CreateAccountHandler = handler
@@ -71,10 +66,6 @@ func (f *FediHelper) SetGetAccountHandler(handler GetAccountHandler) {
 
 func (f *FediHelper) SetGetInstanceHandler(handler GetInstanceHandler) {
 	f.GetInstanceHandler = handler
-}
-
-func (f *FediHelper) SetGetTokenHandler(handler GetTokenHandler) {
-	f.GetTokenHandler = handler
 }
 
 func (f *FediHelper) SetNewAccountHandler(handler NewAccountHandler) {
