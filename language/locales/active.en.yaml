@@ -2,6 +2,9 @@
 Account:
   one: Account
   other: Accounts
+AddBlock:
+  one: Add Block
+  other: Add Blocks
 AddOauth20Client:
   one: Add OAuth 2.0 Client
   other: Add OAuth 2.0 Clients
@@ -15,6 +18,10 @@ AuthorizeApplicationDescription: Authorize {{.Description}}
 Block:
   one: Block
   other: Blocks
+BlockExists: Block for domain {{.Domain}} already exists.
+BlockSubdomain:
+  one: Block Subdomain
+  other: Block Subdomains
 BlockedInstance:
   one: Blocked Instance
   other: Blocked Instances
@@ -27,6 +34,7 @@ ClientID:
 ClientSecret:
   one: Client Secret
   other: Client Secrets
+Close: Close
 Create: Create
 Dashboard:
   one: Dashboard
@@ -35,6 +43,10 @@ Democrablock: Democrablock
 Description:
   one: Description
   other: Descriptions
+Domain:
+  one: Domain
+  other: Domains
+EditBlockDomain: Edit Block {{.Domain}}
 Fediverse: Fediverse
 HomeWeb: Home
 HowToJoin: How to Join
@@ -56,6 +68,9 @@ Oauth20Client:
   one: OAuth 2.0 Client
   other: OAuth 2.0 Clients
 Oauth20Settings: OAuth 2.0 Settings
+ObfuscatedDomain:
+  one: Obfuscated Domain
+  other: Obfuscated Domains
 RedirectURI:
   one: Redirect URI
   other: Redirect URIs
@@ -70,3 +85,6 @@ Token:
   one: Token
   other: Tokens
 Unauthorized: Unauthorized
+Update:
+  one: Update
+  other: Updates
