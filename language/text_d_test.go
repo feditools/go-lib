@@ -46,6 +46,38 @@ func TestLocalizer_TextDashboard(t *testing.T) {
 	}
 }
 
+func TestLocalizer_TextDelete(t *testing.T) {
+	t.Parallel()
+
+	tables := []testTextTable{
+		{
+			inputLang:    language.English,
+			outputString: "Delete",
+			outputLang:   language.English,
+		},
+	}
+
+	langMod, _ := New()
+	for i, table := range tables {
+		i := i
+		table := table
+
+		name := fmt.Sprintf(testTranslatedTo, i, table.inputLang)
+		t.Run(name, func(t *testing.T) {
+			t.Parallel()
+
+			localizer, err := langMod.NewLocalizer(table.inputLang.String())
+			if err != nil {
+				t.Errorf(testCantGetLocalizer, i, table.inputLang, err.Error())
+
+				return
+			}
+
+			testText(t, i, localizer.TextDelete, table)
+		})
+	}
+}
+
 func TestLocalizer_TextDemocrablock(t *testing.T) {
 	t.Parallel()
 

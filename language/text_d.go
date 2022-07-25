@@ -24,6 +24,26 @@ func (l *Localizer) TextDashboard(count int) *LocalizedString {
 	}
 }
 
+// TextDelete returns a translated phrase.
+func (l *Localizer) TextDelete() *LocalizedString {
+	lg := logger.WithField("func", "TextDelete")
+
+	text, tag, err := l.localizer.LocalizeWithTag(&i18n.LocalizeConfig{
+		DefaultMessage: &i18n.Message{
+			ID:    "Delete",
+			Other: "Delete",
+		},
+	})
+	if err != nil {
+		lg.Warningf(missingTranslationWarning, err.Error())
+	}
+
+	return &LocalizedString{
+		language: tag,
+		string:   text,
+	}
+}
+
 // TextDemocrablock returns a translated phrase.
 func (l *Localizer) TextDemocrablock() *LocalizedString {
 	lg := logger.WithField("func", "TextDemocrablock")
