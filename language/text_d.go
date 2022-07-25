@@ -44,6 +44,52 @@ func (l *Localizer) TextDelete() *LocalizedString {
 	}
 }
 
+// TextDeleteBlockDomain returns a translated phrase.
+func (l *Localizer) TextDeleteBlockDomain(domain string) *LocalizedString {
+	lg := logger.WithField("func", "TextDeleteBlockDomain")
+
+	text, tag, err := l.localizer.LocalizeWithTag(&i18n.LocalizeConfig{
+		DefaultMessage: &i18n.Message{
+			ID:    "DeleteBlockDomain",
+			Other: "Delete Block {{.Domain}}",
+		},
+		TemplateData: map[string]interface{}{
+			"Domain": domain,
+		},
+	})
+	if err != nil {
+		lg.Warningf(missingTranslationWarning, err.Error())
+	}
+
+	return &LocalizedString{
+		language: tag,
+		string:   text,
+	}
+}
+
+// TextDeleteBlockConfirmDomain returns a translated phrase.
+func (l *Localizer) TextDeleteBlockConfirmDomain(domain string) *LocalizedString {
+	lg := logger.WithField("func", "TextDeleteBlockConfirmDomain")
+
+	text, tag, err := l.localizer.LocalizeWithTag(&i18n.LocalizeConfig{
+		DefaultMessage: &i18n.Message{
+			ID:    "DeleteBlockConfirmDomain",
+			Other: "Are you sure you want to delete the block for {{.Domain}}?",
+		},
+		TemplateData: map[string]interface{}{
+			"Domain": domain,
+		},
+	})
+	if err != nil {
+		lg.Warningf(missingTranslationWarning, err.Error())
+	}
+
+	return &LocalizedString{
+		language: tag,
+		string:   text,
+	}
+}
+
 // TextDemocrablock returns a translated phrase.
 func (l *Localizer) TextDemocrablock() *LocalizedString {
 	lg := logger.WithField("func", "TextDemocrablock")
