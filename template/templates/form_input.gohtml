@@ -1,5 +1,5 @@
 {{ define "form_input" -}}
-{{ if ne .Type "checkbox" }}{{ template "form_input_label" . }}{{ end }}
+{{ if ne .Type "checkbox" }}{{ if ne .Type "hidden" }}{{ template "form_input_label" . }}{{ end }}{{ end }}
 {{ if .WrappedClass }}<div class="{{ .WrappedClass }}">{{ end }}
 {{ if .WrappedClass }}  {{ end }}<input type="{{ .Type }}" class="{{ if eq .Type "checkbox" }}form-check-input{{ else }}form-control{{ end }}{{ if .Validation}}{{ if .Validation.Valid}} is-valid{{ else }} is-invalid{{ end }}{{ end }}" id="{{ .ID }}" name="{{ .Name }}"{{ if ne .Placeholder "" }} placeholder="{{ .Placeholder }}"{{ end }}{{ if ne .Value "" }} value="{{ .Value }}"{{ end }}{{ if .Checked }} checked{{ end }}{{ if .Disabled }} disabled{{ end }}{{ if .Required }} required{{ end }}>
 {{ if eq .Type "checkbox" }}{{ template "form_input_label" . }}{{ end }}
