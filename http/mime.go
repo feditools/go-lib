@@ -35,11 +35,15 @@ const (
 	MimeImageSVG Mime = `image/svg+xml`
 	// MimeImageWebP represents a webp image type.
 	MimeImageWebP Mime = `image/webp`
+	// MimeTextCSV represents a csv type.
+	MimeTextCSV Mime = `text/csv`
 	// MimeTextHTML represents a html type.
 	MimeTextHTML Mime = `text/html`
 	// MimeTextPlain represents a plain text type.
 	MimeTextPlain Mime = `text/plain`
 
+	// SuffixAppJSON represents a JavaScript Object Notation suffix.
+	SuffixAppJSON Suffix = `json`
 	// SuffixImageGIF represents a gif image suffix.
 	SuffixImageGIF Suffix = `gif`
 	// SuffixImageJPG represents a jpg image suffix.
@@ -50,6 +54,8 @@ const (
 	SuffixImageSVG Suffix = `svg`
 	// SuffixImageWebP represents a webp image suffix.
 	SuffixImageWebP Suffix = `webp`
+	// SuffixTextCSV represents a csv suffix.
+	SuffixTextCSV Suffix = `csv`
 	// SuffixTextHTML represents a html suffix.
 	SuffixTextHTML Suffix = `html`
 	// SuffixTextPlain represents a plain text suffix.
@@ -58,21 +64,25 @@ const (
 
 var (
 	suffixToMime = map[Suffix]Mime{
+		SuffixAppJSON:   MimeAppJSON,
 		SuffixImageGIF:  MimeImageGIF,
 		SuffixImageJPG:  MimeImageJPG,
 		SuffixImagePNG:  MimeImagePNG,
 		SuffixImageSVG:  MimeImageSVG,
 		SuffixImageWebP: MimeImageWebP,
+		SuffixTextCSV:   MimeTextCSV,
 		SuffixTextHTML:  MimeTextHTML,
 		SuffixTextPlain: MimeTextPlain,
 	}
 
 	mimeToSuffix = map[Mime]Suffix{
+		MimeAppJSON:   SuffixAppJSON,
 		MimeImageGIF:  SuffixImageGIF,
 		MimeImageJPG:  SuffixImageJPG,
 		MimeImagePNG:  SuffixImagePNG,
 		MimeImageSVG:  SuffixImageSVG,
 		MimeImageWebP: SuffixImageWebP,
+		MimeTextCSV:   SuffixTextCSV,
 		MimeTextHTML:  SuffixTextHTML,
 		MimeTextPlain: SuffixTextPlain,
 	}
