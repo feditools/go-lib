@@ -39,6 +39,9 @@ Create: Create
 Dashboard:
   one: Dashboard
   other: Dashboards
+Delete: Delete
+DeleteBlockConfirmDomain: Are you sure you want to delete the block for {{.Domain}}?
+DeleteBlockDomain: Delete Block {{.Domain}}
 Democrablock: Democrablock
 Description:
   one: Description
@@ -50,6 +53,10 @@ EditBlockDomain: Edit Block {{.Domain}}
 Fediverse: Fediverse
 HomeWeb: Home
 HowToJoin: How to Join
+Import: Import
+ImportBlockList:
+  one: Import Block List
+  other: Import Block Lists
 Instance:
   one: Instance
   other: Instances
