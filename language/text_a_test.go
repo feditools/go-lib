@@ -46,6 +46,45 @@ func TestLocalizer_TextAccount(t *testing.T) {
 	}
 }
 
+func TestLocalizer_TextAddBlock(t *testing.T) {
+	t.Parallel()
+
+	tables := []testTextTable{
+		{
+			inputLang:    language.English,
+			inputCount:   1,
+			outputString: "Add Block",
+			outputLang:   language.English,
+		},
+		{
+			inputLang:    language.English,
+			inputCount:   2,
+			outputString: "Add Blocks",
+			outputLang:   language.English,
+		},
+	}
+
+	langMod, _ := New()
+	for i, table := range tables {
+		i := i
+		table := table
+
+		name := fmt.Sprintf(testTranslatedTo, i, table.inputLang)
+		t.Run(name, func(t *testing.T) {
+			t.Parallel()
+
+			localizer, err := langMod.NewLocalizer(table.inputLang.String())
+			if err != nil {
+				t.Errorf(testCantGetLocalizer, i, table.inputLang, err.Error())
+
+				return
+			}
+
+			testTextWithCount(t, i, localizer.TextAddBlock, table)
+		})
+	}
+}
+
 func TestLocalizer_TextAddOauth20Client(t *testing.T) {
 	t.Parallel()
 
@@ -81,6 +120,38 @@ func TestLocalizer_TextAddOauth20Client(t *testing.T) {
 			}
 
 			testTextWithCount(t, i, localizer.TextAddOauth20Client, table)
+		})
+	}
+}
+
+func TestLocalizer_TextAdmin(t *testing.T) {
+	t.Parallel()
+
+	tables := []testTextTable{
+		{
+			inputLang:    language.English,
+			outputString: "Admin",
+			outputLang:   language.English,
+		},
+	}
+
+	langMod, _ := New()
+	for i, table := range tables {
+		i := i
+		table := table
+
+		name := fmt.Sprintf(testTranslatedTo, i, table.inputLang)
+		t.Run(name, func(t *testing.T) {
+			t.Parallel()
+
+			localizer, err := langMod.NewLocalizer(table.inputLang.String())
+			if err != nil {
+				t.Errorf(testCantGetLocalizer, i, table.inputLang, err.Error())
+
+				return
+			}
+
+			testText(t, i, localizer.TextAdmin, table)
 		})
 	}
 }

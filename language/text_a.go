@@ -24,6 +24,28 @@ func (l *Localizer) TextAccount(count int) *LocalizedString {
 	}
 }
 
+// TextAddBlock returns a translated phrase.
+func (l *Localizer) TextAddBlock(count int) *LocalizedString {
+	lg := logger.WithField("func", "TextAddBlock")
+
+	text, tag, err := l.localizer.LocalizeWithTag(&i18n.LocalizeConfig{
+		DefaultMessage: &i18n.Message{
+			ID:    "AddBlock",
+			One:   "Add Block",
+			Other: "Add Blocks",
+		},
+		PluralCount: count,
+	})
+	if err != nil {
+		lg.Warningf(missingTranslationWarning, err.Error())
+	}
+
+	return &LocalizedString{
+		language: tag,
+		string:   text,
+	}
+}
+
 // TextAddOauth20Client returns a translated phrase.
 func (l *Localizer) TextAddOauth20Client(count int) *LocalizedString {
 	lg := logger.WithField("func", "TextAddOauth20Client")
@@ -35,6 +57,26 @@ func (l *Localizer) TextAddOauth20Client(count int) *LocalizedString {
 			Other: "Add OAuth 2.0 Clients",
 		},
 		PluralCount: count,
+	})
+	if err != nil {
+		lg.Warningf(missingTranslationWarning, err.Error())
+	}
+
+	return &LocalizedString{
+		language: tag,
+		string:   text,
+	}
+}
+
+// TextAdmin returns a translated phrase.
+func (l *Localizer) TextAdmin() *LocalizedString {
+	lg := logger.WithField("func", "TextAdmin")
+
+	text, tag, err := l.localizer.LocalizeWithTag(&i18n.LocalizeConfig{
+		DefaultMessage: &i18n.Message{
+			ID:    "Admin",
+			Other: "Admin",
+		},
 	})
 	if err != nil {
 		lg.Warningf(missingTranslationWarning, err.Error())

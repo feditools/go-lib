@@ -12,12 +12,15 @@ var testMimeTables = []struct {
 	suffix Suffix
 }{
 	{Mime(""), Suffix("")},
+	{mime: "application/json", suffix: "json"},
 	{mime: "image/gif", suffix: "gif"},
 	{mime: "image/jpeg", suffix: "jpg"},
 	{mime: "image/png", suffix: "png"},
 	{mime: "image/svg+xml", suffix: "svg"},
 	{mime: "image/webp", suffix: "webp"},
+	{mime: "text/csv", suffix: "csv"},
 	{mime: "text/html", suffix: "html"},
+	{mime: "text/plain", suffix: "txt"},
 }
 
 func TestToMime(t *testing.T) {

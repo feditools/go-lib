@@ -21,3 +21,23 @@ func (l *Localizer) TextHomeWeb() *LocalizedString {
 		string:   text,
 	}
 }
+
+// TextHowToJoin returns a translated phrase.
+func (l *Localizer) TextHowToJoin() *LocalizedString {
+	lg := logger.WithField("func", "TextHowToJoin")
+
+	text, tag, err := l.localizer.LocalizeWithTag(&i18n.LocalizeConfig{
+		DefaultMessage: &i18n.Message{
+			ID:    "HowToJoin",
+			Other: "How to Join",
+		},
+	})
+	if err != nil {
+		lg.Warningf(missingTranslationWarning, err.Error())
+	}
+
+	return &LocalizedString{
+		language: tag,
+		string:   text,
+	}
+}

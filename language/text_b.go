@@ -2,15 +2,15 @@ package language
 
 import "github.com/nicksnyder/go-i18n/v2/i18n"
 
-// TextClient returns a translated phrase.
-func (l *Localizer) TextClient(count int) *LocalizedString {
-	lg := logger.WithField("func", "TextClient")
+// TextBlock returns a translated phrase.
+func (l *Localizer) TextBlock(count int) *LocalizedString {
+	lg := logger.WithField("func", "TextBlock")
 
 	text, tag, err := l.localizer.LocalizeWithTag(&i18n.LocalizeConfig{
 		DefaultMessage: &i18n.Message{
-			ID:    "Client",
-			One:   "Client",
-			Other: "Clients",
+			ID:    "Block",
+			One:   "Block",
+			Other: "Blocks",
 		},
 		PluralCount: count,
 	})
@@ -24,15 +24,38 @@ func (l *Localizer) TextClient(count int) *LocalizedString {
 	}
 }
 
-// TextClientID returns a translated phrase.
-func (l *Localizer) TextClientID(count int) *LocalizedString {
-	lg := logger.WithField("func", "TextClientID")
+// TextBlockExists returns a translated phrase.
+func (l *Localizer) TextBlockExists(domain string) *LocalizedString {
+	lg := logger.WithField("func", "TextBlockExists")
 
 	text, tag, err := l.localizer.LocalizeWithTag(&i18n.LocalizeConfig{
 		DefaultMessage: &i18n.Message{
-			ID:    "ClientID",
-			One:   "Client ID",
-			Other: "Client IDs",
+			ID:    "BlockExists",
+			Other: "Block for domain {{.Domain}} already exists.",
+		},
+		TemplateData: map[string]interface{}{
+			"Domain": domain,
+		},
+	})
+	if err != nil {
+		lg.Warningf(missingTranslationWarning, err.Error())
+	}
+
+	return &LocalizedString{
+		language: tag,
+		string:   text,
+	}
+}
+
+// TextBlockSubdomain returns a translated phrase.
+func (l *Localizer) TextBlockSubdomain(count int) *LocalizedString {
+	lg := logger.WithField("func", "TextBlockSubdomain")
+
+	text, tag, err := l.localizer.LocalizeWithTag(&i18n.LocalizeConfig{
+		DefaultMessage: &i18n.Message{
+			ID:    "BlockSubdomain",
+			One:   "Block Subdomain",
+			Other: "Block Subdomains",
 		},
 		PluralCount: count,
 	})
@@ -46,57 +69,37 @@ func (l *Localizer) TextClientID(count int) *LocalizedString {
 	}
 }
 
-// TextClientSecret returns a translated phrase.
-func (l *Localizer) TextClientSecret(count int) *LocalizedString {
-	lg := logger.WithField("func", "TextClientSecret")
+// TextBlocked returns a translated phrase.
+func (l *Localizer) TextBlocked() *LocalizedString {
+	lg := logger.WithField("func", "TextBlocked")
 
 	text, tag, err := l.localizer.LocalizeWithTag(&i18n.LocalizeConfig{
 		DefaultMessage: &i18n.Message{
-			ID:    "ClientSecret",
-			One:   "Client Secret",
-			Other: "Client Secrets",
+			ID:    "Blocked",
+			Other: "Blocked",
+		},
+	})
+	if err != nil {
+		lg.Warningf(missingTranslationWarning, err.Error())
+	}
+
+	return &LocalizedString{
+		language: tag,
+		string:   text,
+	}
+}
+
+// TextBlockedInstance returns a translated phrase.
+func (l *Localizer) TextBlockedInstance(count int) *LocalizedString {
+	lg := logger.WithField("func", "TextBlockedInstance")
+
+	text, tag, err := l.localizer.LocalizeWithTag(&i18n.LocalizeConfig{
+		DefaultMessage: &i18n.Message{
+			ID:    "BlockedInstance",
+			One:   "Blocked Instance",
+			Other: "Blocked Instances",
 		},
 		PluralCount: count,
-	})
-	if err != nil {
-		lg.Warningf(missingTranslationWarning, err.Error())
-	}
-
-	return &LocalizedString{
-		language: tag,
-		string:   text,
-	}
-}
-
-// TextClose returns a translated phrase.
-func (l *Localizer) TextClose() *LocalizedString {
-	lg := logger.WithField("func", "TextClose")
-
-	text, tag, err := l.localizer.LocalizeWithTag(&i18n.LocalizeConfig{
-		DefaultMessage: &i18n.Message{
-			ID:    "Close",
-			Other: "Close",
-		},
-	})
-	if err != nil {
-		lg.Warningf(missingTranslationWarning, err.Error())
-	}
-
-	return &LocalizedString{
-		language: tag,
-		string:   text,
-	}
-}
-
-// TextCreate returns a translated phrase.
-func (l *Localizer) TextCreate() *LocalizedString {
-	lg := logger.WithField("func", "TextCreate")
-
-	text, tag, err := l.localizer.LocalizeWithTag(&i18n.LocalizeConfig{
-		DefaultMessage: &i18n.Message{
-			ID:    "Create",
-			Other: "Create",
-		},
 	})
 	if err != nil {
 		lg.Warningf(missingTranslationWarning, err.Error())

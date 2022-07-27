@@ -1,16 +1,30 @@
----
 Account:
   one: Account
   other: Accounts
+AddBlock:
+  one: Add Block
+  other: Add Blocks
 AddOauth20Client:
   one: Add OAuth 2.0 Client
   other: Add OAuth 2.0 Clients
+Admin: Admin
 Allow: Allow
 ApplicationToken:
   one: Application Token
   other: Application Tokens
 Authorize: Authorize
 AuthorizeApplicationDescription: Authorize {{.Description}}
+Block:
+  one: Block
+  other: Blocks
+BlockExists: Block for domain {{.Domain}} already exists.
+BlockSubdomain:
+  one: Block Subdomain
+  other: Block Subdomains
+Blocked: Blocked
+BlockedInstance:
+  one: Blocked Instance
+  other: Blocked Instances
 Client:
   one: Client
   other: Clients
@@ -20,16 +34,30 @@ ClientID:
 ClientSecret:
   one: Client Secret
   other: Client Secrets
+Close: Close
 Create: Create
 Dashboard:
   one: Dashboard
   other: Dashboards
+Delete: Delete
+DeleteBlockConfirmDomain: Are you sure you want to delete the block for {{.Domain}}?
+DeleteBlockDomain: Delete Block {{.Domain}}
 Democrablock: Democrablock
 Description:
   one: Description
   other: Descriptions
+Domain:
+  one: Domain
+  other: Domains
+EditBlockDomain: Edit Block {{.Domain}}
 Fediverse: Fediverse
+Following: Following
 HomeWeb: Home
+HowToJoin: How to Join
+Import: Import
+ImportBlockList:
+  one: Import Block List
+  other: Import Block Lists
 Instance:
   one: Instance
   other: Instances
@@ -40,15 +68,23 @@ List:
   one: List
   other: Lists
 Login: Login
+Logout: Logout
 LooksGood: Looks Good!
+Moderation: Moderation
 Oauth: OAuth
 Oauth20Client:
   one: OAuth 2.0 Client
   other: OAuth 2.0 Clients
 Oauth20Settings: OAuth 2.0 Settings
+ObfuscatedDomain:
+  one: Obfuscated Domain
+  other: Obfuscated Domains
 RedirectURI:
   one: Redirect URI
   other: Redirect URIs
+Relay:
+  one: Relay
+  other: Relays
 Required: Required
 System:
   one: System
@@ -57,3 +93,6 @@ Token:
   one: Token
   other: Tokens
 Unauthorized: Unauthorized
+Update:
+  one: Update
+  other: Updates
