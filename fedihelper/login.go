@@ -5,21 +5,22 @@ import (
 	"net/url"
 )
 
-// GetLoginURL retrieves an oauth url for a federated instance.
-func (f *FediHelper) GetLoginURL(ctx context.Context, redirectURI *url.URL, instance Instance) (*url.URL, error) {
+// GetLoginURL retrieves an oauth url for a federated instance, returns true if instance was updated.
+func (f *FediHelper) GetLoginURL(ctx context.Context, redirectURI *url.URL, instance Instance) (*url.URL, bool, error) {
 	l := logger.WithField("func", "loginURLForInstance")
 
 	if _, ok := f.helpers[SoftwareName(instance.GetSoftware())]; !ok {
-		return nil, NewErrorf("no helper for '%s'", instance.GetSoftware())
+		return nil, false, NewErrorf("no helper for '%s'", instance.GetSoftware())
 	}
 
+	instanceUpdated := false
 	if instance.GetOAuthClientID() == "" {
 		newClientID, newClientSecret, err := f.helpers[SoftwareMastodon].RegisterApp(ctx, redirectURI, instance)
 		if err != nil {
 			fhErr := NewErrorf("registering app: %s", err.Error())
 			l.Error(fhErr.Error())
 
-			return nil, fhErr
+			return nil, false, fhErr
 		}
 
 		instance.SetOAuthClientID(newClientID)
@@ -28,11 +29,14 @@ func (f *FediHelper) GetLoginURL(ctx context.Context, redirectURI *url.URL, inst
 			fhErr := NewErrorf("kv set: %s", err.Error())
 			l.Error(fhErr.Error())
 
-			return nil, fhErr
+			return nil, false, fhErr
 		}
-	}
 
-	return f.helpers[SoftwareMastodon].MakeLoginURI(ctx, redirectURI, instance)
+		instanceUpdated = true
+	}
+	loginURL, err := f.helpers[SoftwareMastodon].MakeLoginURI(ctx, redirectURI, instance)
+
+	return loginURL, instanceUpdated, err
 }
 
 /*func (f *FediHelper) loginURLForInstance(ctx context.Context, redirectURI *url.URL, instance Instance) (*url.URL, error) {
