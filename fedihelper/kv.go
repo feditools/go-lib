@@ -24,12 +24,6 @@ type KV interface {
 	GetHostMeta(ctx context.Context, domain string) (hostmeta []byte, err error)
 	SetHostMeta(ctx context.Context, domain string, hostmeta []byte, expire time.Duration) (err error)
 
-	// instance oauth
-
-	DeleteInstanceOAuth(ctx context.Context, instanceID int64) (err error)
-	GetInstanceOAuth(ctx context.Context, instanceID int64) (clientID string, clientSecret string, err error)
-	SetInstanceOAuth(ctx context.Context, instanceID int64, clientID string, clientSecret string) (err error)
-
 	// federated instance node info
 
 	DeleteFediNodeInfo(ctx context.Context, domain string) (err error)

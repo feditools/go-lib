@@ -7,12 +7,16 @@ import (
 
 type Instance interface {
 	GetActorURI() (actorURI string)
+	GetOAuthClientID() (clientID string)
+	GetOAuthClientSecret() (clientSecret string, err error)
 	GetDomain() (domain string)
 	GetID() (id int64)
 	GetServerHostname() (hostname string)
 	GetSoftware() (software string)
 
 	SetActorURI(actorURI string)
+	SetOAuthClientID(clientID string)
+	SetOAuthClientSecret(clientSecret string) error
 	SetDomain(domain string)
 	SetInboxURI(inboxURI string)
 	SetServerHostname(hostname string)
