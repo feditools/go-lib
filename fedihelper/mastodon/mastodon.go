@@ -37,10 +37,10 @@ func New(k fedihelper.KV, t *fedihelper.Transport, appClientName, appWebsite, ex
 func (h *Helper) newClient(ctx context.Context, instance fedihelper.Instance, accessToken string) (*mastodon.Client, error) {
 	l := logger.WithField("func", "newClient")
 
-	// get oauth config
-	clientID, clientSecret, err := h.kv.GetInstanceOAuth(ctx, instance.GetID())
+	// get client secret
+	clientSecret, err := instance.GetOAuthClientSecret()
 	if err != nil {
-		l.Errorf("kv get: %s", err.Error())
+		l.Errorf("get client secret: %s", err.Error())
 
 		return nil, err
 	}
@@ -48,7 +48,7 @@ func (h *Helper) newClient(ctx context.Context, instance fedihelper.Instance, ac
 	// create client
 	client := mastodon.NewClient(&mastodon.Config{
 		Server:       "https://" + instance.GetServerHostname(),
-		ClientID:     clientID,
+		ClientID:     instance.GetOAuthClientID(),
 		ClientSecret: clientSecret,
 		AccessToken:  accessToken,
 	})
