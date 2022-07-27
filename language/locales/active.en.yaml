@@ -22,6 +22,7 @@ BlockExists: Block for domain {{.Domain}} already exists.
 BlockSubdomain:
   one: Block Subdomain
   other: Block Subdomains
+Blocked: Blocked
 BlockedInstance:
   one: Blocked Instance
   other: Blocked Instances
@@ -51,6 +52,7 @@ Domain:
   other: Domains
 EditBlockDomain: Edit Block {{.Domain}}
 Fediverse: Fediverse
+Following: Following
 HomeWeb: Home
 HowToJoin: How to Join
 Import: Import

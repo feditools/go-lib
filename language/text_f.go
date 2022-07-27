@@ -21,3 +21,23 @@ func (l *Localizer) TextFediverse() *LocalizedString {
 		string:   text,
 	}
 }
+
+// TextFollowing returns a translated phrase.
+func (l *Localizer) TextFollowing() *LocalizedString {
+	lg := logger.WithField("func", "TextFollowing")
+
+	text, tag, err := l.localizer.LocalizeWithTag(&i18n.LocalizeConfig{
+		DefaultMessage: &i18n.Message{
+			ID:    "Following",
+			Other: "Following",
+		},
+	})
+	if err != nil {
+		lg.Warningf(missingTranslationWarning, err.Error())
+	}
+
+	return &LocalizedString{
+		language: tag,
+		string:   text,
+	}
+}

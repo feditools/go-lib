@@ -69,6 +69,26 @@ func (l *Localizer) TextBlockSubdomain(count int) *LocalizedString {
 	}
 }
 
+// TextBlocked returns a translated phrase.
+func (l *Localizer) TextBlocked() *LocalizedString {
+	lg := logger.WithField("func", "TextBlocked")
+
+	text, tag, err := l.localizer.LocalizeWithTag(&i18n.LocalizeConfig{
+		DefaultMessage: &i18n.Message{
+			ID:    "Blocked",
+			Other: "Blocked",
+		},
+	})
+	if err != nil {
+		lg.Warningf(missingTranslationWarning, err.Error())
+	}
+
+	return &LocalizedString{
+		language: tag,
+		string:   text,
+	}
+}
+
 // TextBlockedInstance returns a translated phrase.
 func (l *Localizer) TextBlockedInstance(count int) *LocalizedString {
 	lg := logger.WithField("func", "TextBlockedInstance")
