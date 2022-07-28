@@ -36,6 +36,9 @@ ClientSecret:
   one: Client Secret
   other: Client Secrets
 Close: Close
+Config:
+  one: Config
+  other: Configs
 Create: Create
 Dashboard:
   one: Dashboard

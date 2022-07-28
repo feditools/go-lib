@@ -107,3 +107,25 @@ func (l *Localizer) TextCreate() *LocalizedString {
 		string:   text,
 	}
 }
+
+// TextConfig returns a translated phrase.
+func (l *Localizer) TextConfig(count int) *LocalizedString {
+	lg := logger.WithField("func", "TextConfig")
+
+	text, tag, err := l.localizer.LocalizeWithTag(&i18n.LocalizeConfig{
+		DefaultMessage: &i18n.Message{
+			ID:    "Config",
+			One:   "Config",
+			Other: "Configs",
+		},
+		PluralCount: count,
+	})
+	if err != nil {
+		lg.Warningf(missingTranslationWarning, err.Error())
+	}
+
+	return &LocalizedString{
+		language: tag,
+		string:   text,
+	}
+}
