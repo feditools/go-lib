@@ -54,6 +54,7 @@ Domain:
   one: Domain
   other: Domains
 EditBlockDomain: Edit Block {{.Domain}}
+ErrorDatabase: database error
 Fediverse: Fediverse
 Following: Following
 General: General
