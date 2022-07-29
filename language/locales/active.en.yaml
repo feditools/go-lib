@@ -23,9 +23,9 @@ BlockSubdomain:
   one: Block Subdomain
   other: Block Subdomains
 Blocked: Blocked
-BlockedInstance:
-  one: Blocked Instance
-  other: Blocked Instances
+BlockedDomain:
+  one: Blocked Domain
+  other: Blocked Domains
 Client:
   one: Client
   other: Clients
