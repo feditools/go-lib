@@ -78,6 +78,9 @@ Login: Login
 Logout: Logout
 LooksGood: Looks Good!
 Moderation: Moderation
+Notification:
+  one: Notification
+  other: Notifications
 Oauth: OAuth
 Oauth20Client:
   one: OAuth 2.0 Client
