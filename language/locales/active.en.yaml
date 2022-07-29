@@ -1,3 +1,4 @@
+---
 Account:
   one: Account
   other: Accounts
@@ -35,6 +36,9 @@ ClientSecret:
   one: Client Secret
   other: Client Secrets
 Close: Close
+Config:
+  one: Config
+  other: Configs
 Create: Create
 Dashboard:
   one: Dashboard
@@ -50,8 +54,11 @@ Domain:
   one: Domain
   other: Domains
 EditBlockDomain: Edit Block {{.Domain}}
+ErrorDatabase: database error
 Fediverse: Fediverse
 Following: Following
+General: General
+HomePageBody: Home Page Body
 HomeWeb: Home
 HowToJoin: How to Join
 Import: Import
@@ -86,6 +93,7 @@ Relay:
   one: Relay
   other: Relays
 Required: Required
+Save: Save
 System:
   one: System
   other: Systems
