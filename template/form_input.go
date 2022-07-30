@@ -1,7 +1,5 @@
 package template
 
-import liblanguage "github.com/feditools/go-lib/language"
-
 type FormInputType string
 
 const (
@@ -19,19 +17,16 @@ const (
 
 // FormInput is a templated form input.
 type FormInput struct {
-	ID           string
-	Type         FormInputType
-	Name         string
-	Placeholder  string
-	Label        *liblanguage.LocalizedString
-	LabelBadge   *Badge
-	LabelClass   string
-	Value        string
-	WrappedClass string
-	Disabled     bool
-	Required     bool
-	Checked      bool
-	Validation   *FormValidation
+	ID          string
+	Type        FormInputType
+	Name        string
+	Placeholder string
+	Label       *FormLabel
+	Value       string
+	Disabled    bool
+	Required    bool
+	Checked     bool
+	Validation  *FormValidation
 }
 
 // FormValidation is a validation response to a form input.

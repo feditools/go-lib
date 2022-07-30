@@ -1,17 +1,12 @@
 {{ define "form_input" -}}
-{{- if ne .Type "checkbox" }}{{ if ne .Type "hidden" }}{{ template "form_input_label" . }}{{ end }}{{ end }}
-{{- if .WrappedClass }}
-<div class="{{ .WrappedClass }}">{{ end }}
-{{ if .WrappedClass }}  {{ end }}<input type="{{ .Type }}" class="{{ if eq .Type "checkbox" }}form-check-input{{ else }}form-control{{ end }}{{ if .Validation}}{{ if .Validation.Valid}} is-valid{{ else }} is-invalid{{ end }}{{ end }}" id="{{ .ID }}" name="{{ .Name }}"{{ if ne .Placeholder "" }} placeholder="{{ .Placeholder }}"{{ end }}{{ if ne .Value "" }} value="{{ .Value }}"{{ end }}{{ if .Checked }} checked{{ end }}{{ if .Disabled }} disabled{{ end }}{{ if .Required }} required{{ end }}>
-{{- if eq .Type "checkbox" }}
-{{ template "form_input_label" . }}{{ end }}
+{{- if .Label }}{{ if ne .Type "checkbox" }}{{ if ne .Type "hidden" }}
+{{ template "form_label" . }}{{ end }}{{ end }}{{ end }}
+<input type="{{ .Type }}" class="{{ if eq .Type "checkbox" }}form-check-input{{ else }}form-control{{ end }}{{ if .Validation}}{{ if .Validation.Valid}} is-valid{{ else }} is-invalid{{ end }}{{ end }}" id="{{ .ID }}" name="{{ .Name }}"{{ if ne .Placeholder "" }} placeholder="{{ .Placeholder }}"{{ end }}{{ if ne .Value "" }} value="{{ .Value }}"{{ end }}{{ if .Checked }} checked{{ end }}{{ if .Disabled }} disabled{{ end }}{{ if .Required }} required{{ end }}>
+{{- if .Label }}{{ if eq .Type "checkbox" }}
+{{ template "form_label" . }}{{ end }}{{ end }}
 {{- if .Validation}}
-{{ if .WrappedClass }}  {{ end }}<div class="{{ if .Validation.Valid}}valid-feedback{{ else }}invalid-feedback{{ end }}">
-{{ if .WrappedClass }}  {{ end }}  {{ .Validation.Response }}
-{{ if .WrappedClass }}  {{ end }}</div>
+<div class="{{ if .Validation.Valid}}valid-feedback{{ else }}invalid-feedback{{ end }}">
+  {{ .Validation.Response }}
+</div>
 {{- end }}
-{{- if .WrappedClass }}
-</div>{{ end }}
 {{- end }}
-
-{{ define "form_input_label" }}<label class="{{ .LabelClass }}" for="{{ .ID }}" lang="{{ .Label.Language }}">{{ .Label }}{{ if .LabelBadge }} {{ template "badge" .LabelBadge }}{{ end }}</label>{{- end }}
