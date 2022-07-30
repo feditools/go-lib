@@ -24,6 +24,7 @@ type FormInput struct {
 	Name         string
 	Placeholder  string
 	Label        *liblanguage.LocalizedString
+	LabelBadge   *Badge
 	LabelClass   string
 	Value        string
 	WrappedClass string

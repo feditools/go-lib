@@ -2,8 +2,8 @@ package template
 
 // Alert is a page alert.
 type Alert struct {
+	Color  Color
 	Header string
-	Level  string
 	Text   string
 }
 

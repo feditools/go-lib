@@ -14,4 +14,4 @@
 </div>{{ end }}
 {{- end }}
 
-{{ define "form_input_label" }}<label class="{{ .LabelClass }}" for="{{ .ID }}" lang="{{ .Label.Language }}">{{ .Label }}</label>{{- end }}
+{{ define "form_input_label" }}<label class="{{ .LabelClass }}" for="{{ .ID }}" lang="{{ .Label.Language }}">{{ .Label }}{{ if .LabelBadge }} {{ template "badge" .LabelBadge }}{{ end }}</label>{{- end }}
