@@ -11,6 +11,8 @@ const (
 	FormInputTypeHidden FormInputType = "hidden"
 	// FormInputTypePassword is a password html input field.
 	FormInputTypePassword FormInputType = "password"
+	// FormInputTypeRadio is a radio html input field.
+	FormInputTypeRadio FormInputType = "radio"
 	// FormInputTypeText is a text html input field.
 	FormInputTypeText FormInputType = "text"
 )

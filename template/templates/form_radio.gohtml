@@ -1,0 +1,8 @@
+{{ define "form_radio" -}}
+{{- $index := 1 -}}
+{{- range .GetFormInputs }}
+<div class="form-check">
+{{ template "form_input" . }}
+</div>
+{{ end }}
+{{- end }}
