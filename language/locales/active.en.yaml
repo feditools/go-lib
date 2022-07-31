@@ -26,6 +26,10 @@ Blocked: Blocked
 BlockedDomain:
   one: Blocked Domain
   other: Blocked Domains
+ChatID:
+  one: Chat ID
+  other: Chat IDs
+ChatIDOrUsername: Chat ID or Username
 Client:
   one: Client
   other: Clients

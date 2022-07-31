@@ -2,6 +2,48 @@ package language
 
 import "github.com/nicksnyder/go-i18n/v2/i18n"
 
+// TextChatID returns a translated phrase.
+func (l *Localizer) TextChatID(count int) *LocalizedString {
+	lg := logger.WithField("func", "TextChatID")
+
+	text, tag, err := l.localizer.LocalizeWithTag(&i18n.LocalizeConfig{
+		DefaultMessage: &i18n.Message{
+			ID:    "ChatID",
+			One:   "Chat ID",
+			Other: "Chat IDs",
+		},
+		PluralCount: count,
+	})
+	if err != nil {
+		lg.Warningf(missingTranslationWarning, err.Error())
+	}
+
+	return &LocalizedString{
+		language: tag,
+		string:   text,
+	}
+}
+
+// TextChatIDOrUsername returns a translated phrase.
+func (l *Localizer) TextChatIDOrUsername() *LocalizedString {
+	lg := logger.WithField("func", "TextChatIDOrUsername")
+
+	text, tag, err := l.localizer.LocalizeWithTag(&i18n.LocalizeConfig{
+		DefaultMessage: &i18n.Message{
+			ID:    "ChatIDOrUsername",
+			Other: "Chat ID or Username",
+		},
+	})
+	if err != nil {
+		lg.Warningf(missingTranslationWarning, err.Error())
+	}
+
+	return &LocalizedString{
+		language: tag,
+		string:   text,
+	}
+}
+
 // TextClient returns a translated phrase.
 func (l *Localizer) TextClient(count int) *LocalizedString {
 	lg := logger.WithField("func", "TextClient")
@@ -88,26 +130,6 @@ func (l *Localizer) TextClose() *LocalizedString {
 	}
 }
 
-// TextCreate returns a translated phrase.
-func (l *Localizer) TextCreate() *LocalizedString {
-	lg := logger.WithField("func", "TextCreate")
-
-	text, tag, err := l.localizer.LocalizeWithTag(&i18n.LocalizeConfig{
-		DefaultMessage: &i18n.Message{
-			ID:    "Create",
-			Other: "Create",
-		},
-	})
-	if err != nil {
-		lg.Warningf(missingTranslationWarning, err.Error())
-	}
-
-	return &LocalizedString{
-		language: tag,
-		string:   text,
-	}
-}
-
 // TextConfig returns a translated phrase.
 func (l *Localizer) TextConfig(count int) *LocalizedString {
 	lg := logger.WithField("func", "TextConfig")
@@ -119,6 +141,26 @@ func (l *Localizer) TextConfig(count int) *LocalizedString {
 			Other: "Configs",
 		},
 		PluralCount: count,
+	})
+	if err != nil {
+		lg.Warningf(missingTranslationWarning, err.Error())
+	}
+
+	return &LocalizedString{
+		language: tag,
+		string:   text,
+	}
+}
+
+// TextCreate returns a translated phrase.
+func (l *Localizer) TextCreate() *LocalizedString {
+	lg := logger.WithField("func", "TextCreate")
+
+	text, tag, err := l.localizer.LocalizeWithTag(&i18n.LocalizeConfig{
+		DefaultMessage: &i18n.Message{
+			ID:    "Create",
+			Other: "Create",
+		},
 	})
 	if err != nil {
 		lg.Warningf(missingTranslationWarning, err.Error())
