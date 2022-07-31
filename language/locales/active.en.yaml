@@ -98,6 +98,9 @@ Relay:
   other: Relays
 Required: Required
 Save: Save
+Setting:
+  one: Setting
+  other: Settings
 System:
   one: System
   other: Systems
