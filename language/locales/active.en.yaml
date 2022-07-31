@@ -115,3 +115,6 @@ Unauthorized: Unauthorized
 Update:
   one: Update
   other: Updates
+Username:
+  one: Username
+  other: Usernames
