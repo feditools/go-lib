@@ -26,9 +26,9 @@ var (
 		string(FormInputTypeCheckbox),
 		string(FormInputTypeRadio),
 	}
-	funcFormInputClass = func(t string) string {
+	funcFormInputClass = func(t FormInputType) string {
 		switch {
-		case lib.ContainsString(funcFormInputClassCheckType, t):
+		case lib.ContainsString(funcFormInputClassCheckType, string(t)):
 			return "form-check-input"
 		default:
 			return "form-control"
