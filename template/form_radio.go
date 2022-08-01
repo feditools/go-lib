@@ -35,8 +35,14 @@ func (f *FormRadio) GetFormInputs() *[]FormInput {
 			Required: f.Required,
 		}
 
-		if index == lastInput {
-			formInputs[index].Validation = f.Validation
+		if f.Validation != nil {
+			validation := FormValidation{
+				Valid: f.Validation.Valid,
+			}
+			if index == lastInput {
+				validation.Response = f.Validation.Response
+			}
+			formInputs[index].Validation = &validation
 		}
 
 		index++

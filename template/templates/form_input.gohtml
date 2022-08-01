@@ -1,12 +1,20 @@
 {{ define "form_input" -}}
-{{- if .Label }}{{ if formInputLabelDisplayTop .Type }}
-{{ template "form_label" . }}{{ end }}{{ end }}
+  {{- if .Label }}
+    {{- if formInputLabelDisplayTop .Type }}
+{{ template "form_label" . }}
+    {{- end }}
+  {{- end }}
 <input type="{{ .Type }}" class="{{ formInputClass .Type }}{{ if .Validation}}{{ if .Validation.Valid}} is-valid{{ else }} is-invalid{{ end }}{{ end }}" id="{{ .ID }}" name="{{ .Name }}"{{ if ne .Placeholder "" }} placeholder="{{ .Placeholder }}"{{ end }}{{ if ne .Value "" }} value="{{ .Value }}"{{ end }}{{ if .Checked }} checked{{ end }}{{ if .Disabled }} disabled{{ end }}{{ if .Required }} required{{ end }}>
-{{- if .Label }}{{ if formInputLabelDisplayBottom .Type }}
-{{ template "form_label" . }}{{ end }}{{ end }}
-{{- if .Validation}}
+  {{- if .Label }}
+    {{- if formInputLabelDisplayBottom .Type }}
+{{ template "form_label" . }}
+    {{- end }}
+  {{- end }}
+  {{- if .Validation}}
+    {{- if .Validation.Response }}
 <div class="{{ if .Validation.Valid}}valid-feedback{{ else }}invalid-feedback{{ end }}">
   {{ .Validation.Response }}
 </div>
-{{- end }}
+    {{- end }}
+  {{- end }}
 {{- end }}
