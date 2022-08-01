@@ -39,8 +39,8 @@ var (
 		string(FormInputTypeCheckbox),
 		string(FormInputTypeRadio),
 	}
-	funcFormInputLabelDisplayBottom = func(t string) bool {
-		return lib.ContainsString(formInputLabelDisplayBottomTypes, t)
+	funcFormInputLabelDisplayBottom = func(t FormInputType) bool {
+		return lib.ContainsString(formInputLabelDisplayBottomTypes, string(t))
 	}
 
 	formInputLabelDisplayTopTypes = []string{
@@ -48,8 +48,8 @@ var (
 		string(FormInputTypePassword),
 		string(FormInputTypeText),
 	}
-	funcFormInputLabelDisplayTop = func(t string) bool {
-		return lib.ContainsString(formInputLabelDisplayTopTypes, t)
+	funcFormInputLabelDisplayTop = func(t FormInputType) bool {
+		return lib.ContainsString(formInputLabelDisplayTopTypes, string(t))
 	}
 
 	funcHTMLSafe = func(html string) template.HTML {
