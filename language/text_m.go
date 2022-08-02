@@ -21,3 +21,25 @@ func (l *Localizer) TextModeration() *LocalizedString {
 		string:   text,
 	}
 }
+
+// TextModerator returns a translated phrase.
+func (l *Localizer) TextModerator(count int) *LocalizedString {
+	lg := logger.WithField("func", "TextModerator")
+
+	text, tag, err := l.localizer.LocalizeWithTag(&i18n.LocalizeConfig{
+		DefaultMessage: &i18n.Message{
+			ID:    "Moderator",
+			One:   "Moderator",
+			Other: "Moderators",
+		},
+		PluralCount: count,
+	})
+	if err != nil {
+		lg.Warningf(missingTranslationWarning, err.Error())
+	}
+
+	return &LocalizedString{
+		language: tag,
+		string:   text,
+	}
+}
