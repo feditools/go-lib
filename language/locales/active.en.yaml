@@ -83,6 +83,9 @@ Login: Login
 Logout: Logout
 LooksGood: Looks Good!
 Moderation: Moderation
+Moderator:
+  one: Moderator
+  other: Moderators
 Notification:
   one: Notification
   other: Notifications
