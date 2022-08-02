@@ -4,7 +4,7 @@
 {{ template "form_label" . }}
     {{- end }}
   {{- end }}
-<input type="{{ .Type }}" class="{{ formInputClass .Type }}{{ if .Validation}}{{ if .Validation.Valid}} is-valid{{ else }} is-invalid{{ end }}{{ end }}" id="{{ .ID }}" name="{{ .Name }}"{{ if ne .Placeholder "" }} placeholder="{{ .Placeholder }}"{{ end }}{{ if ne .Value "" }} value="{{ .Value }}"{{ end }}{{ if .Checked }} checked{{ end }}{{ if .Disabled }} disabled{{ end }}{{ if .Required }} required{{ end }}>
+<input type="{{ .Type }}" class="{{ formInputClass .Type }}{{ if .Validation }}{{ if .Validation.Valid }} is-valid{{ else }} is-invalid{{ end }}{{ end }}" id="{{ .ID }}"{{ if .Name }} name="{{ .Name }}"{{ end }}{{ if .Placeholder }} placeholder="{{ .Placeholder }}"{{ end }}{{ if .Value }} value="{{ .Value }}"{{ end }}{{ if .Checked }} checked{{ end }}{{ if .Disabled }} disabled{{ end }}{{ if .Required }} required{{ end }}>
   {{- if .Label }}
     {{- if formInputLabelDisplayBottom .Type }}
 {{ template "form_label" . }}
