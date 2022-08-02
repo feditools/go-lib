@@ -155,20 +155,20 @@ func TestLocalizer_TextBlocked(t *testing.T) {
 	}
 }
 
-func TestLocalizer_TextBlockedInstance(t *testing.T) {
+func TestLocalizer_TextBlockedDomain(t *testing.T) {
 	t.Parallel()
 
 	tables := []testTextTable{
 		{
 			inputLang:    language.English,
 			inputCount:   1,
-			outputString: "Blocked Instance",
+			outputString: "Blocked Domain",
 			outputLang:   language.English,
 		},
 		{
 			inputLang:    language.English,
 			inputCount:   2,
-			outputString: "Blocked Instances",
+			outputString: "Blocked Domains",
 			outputLang:   language.English,
 		},
 	}
@@ -189,7 +189,7 @@ func TestLocalizer_TextBlockedInstance(t *testing.T) {
 				return
 			}
 
-			testTextWithCount(t, i, localizer.TextBlockedInstance, table)
+			testTextWithCount(t, i, localizer.TextBlockedDomain, table)
 		})
 	}
 }

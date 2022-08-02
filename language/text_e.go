@@ -25,6 +25,26 @@ func (l *Localizer) TextEditBlockDomain(domain string) *LocalizedString {
 	}
 }
 
+// TextEnabled returns a translated phrase.
+func (l *Localizer) TextEnabled() *LocalizedString {
+	lg := logger.WithField("func", "TextEnabled")
+
+	text, tag, err := l.localizer.LocalizeWithTag(&i18n.LocalizeConfig{
+		DefaultMessage: &i18n.Message{
+			ID:    "Enabled",
+			Other: "Enabled",
+		},
+	})
+	if err != nil {
+		lg.Warningf(missingTranslationWarning, err.Error())
+	}
+
+	return &LocalizedString{
+		language: tag,
+		string:   text,
+	}
+}
+
 // TextErrorDatabase returns a translated phrase.
 func (l *Localizer) TextErrorDatabase() *LocalizedString {
 	lg := logger.WithField("func", "TextErrorDatabase")

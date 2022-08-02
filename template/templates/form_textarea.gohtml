@@ -1,5 +1,5 @@
 {{ define "form_textarea" -}}
-{{ template "form_input_label" . }}
+{{ if .Label }}{{ template "form_label" . }}{{ end }}
 <textarea class="form-control{{ if .Validation}}{{ if .Validation.Valid}} is-valid{{ else }} is-invalid{{ end }}{{ end }}" id="{{ .ID }}" name="{{ .Name }}" rows="{{ .Rows }}"{{ if .Disabled }} disabled{{ end }}{{ if .Required }} required{{ end }}>{{ if .Value }}{{ .Value }}{{ end }}</textarea>
 {{- if .Validation}}
 <div class="{{ if .Validation.Valid}}valid-feedback{{ else }}invalid-feedback{{ end }}">

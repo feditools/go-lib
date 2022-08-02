@@ -1,7 +1,5 @@
 package template
 
-import liblanguage "github.com/feditools/go-lib/language"
-
 type FormInputType string
 
 const (
@@ -13,24 +11,24 @@ const (
 	FormInputTypeHidden FormInputType = "hidden"
 	// FormInputTypePassword is a password html input field.
 	FormInputTypePassword FormInputType = "password"
+	// FormInputTypeRadio is a radio html input field.
+	FormInputTypeRadio FormInputType = "radio"
 	// FormInputTypeText is a text html input field.
 	FormInputTypeText FormInputType = "text"
 )
 
 // FormInput is a templated form input.
 type FormInput struct {
-	ID           string
-	Type         FormInputType
-	Name         string
-	Placeholder  string
-	Label        *liblanguage.LocalizedString
-	LabelClass   string
-	Value        string
-	WrappedClass string
-	Disabled     bool
-	Required     bool
-	Checked      bool
-	Validation   *FormValidation
+	ID          string
+	Type        FormInputType
+	Name        string
+	Placeholder string
+	Label       *FormLabel
+	Value       string
+	Disabled    bool
+	Required    bool
+	Checked     bool
+	Validation  *FormValidation
 }
 
 // FormValidation is a validation response to a form input.

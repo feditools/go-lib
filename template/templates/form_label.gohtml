@@ -1,0 +1,1 @@
+{{ define "form_label" }}<label class="{{ .Label.Class }}" for="{{ .ID }}" lang="{{ .Label.Text.Language }}">{{ .Label.Text }}{{ if .Label.Badge }} {{ template "badge" .Label.Badge }}{{ end }}</label>{{- end }}

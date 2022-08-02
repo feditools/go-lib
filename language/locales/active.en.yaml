@@ -23,9 +23,13 @@ BlockSubdomain:
   one: Block Subdomain
   other: Block Subdomains
 Blocked: Blocked
-BlockedInstance:
-  one: Blocked Instance
-  other: Blocked Instances
+BlockedDomain:
+  one: Blocked Domain
+  other: Blocked Domains
+ChatID:
+  one: Chat ID
+  other: Chat IDs
+ChatIDOrUsername: Chat ID or Username
 Client:
   one: Client
   other: Clients
@@ -54,6 +58,7 @@ Domain:
   one: Domain
   other: Domains
 EditBlockDomain: Edit Block {{.Domain}}
+Enabled: Enabled
 ErrorDatabase: database error
 Fediverse: Fediverse
 Following: Following
@@ -78,6 +83,9 @@ Login: Login
 Logout: Logout
 LooksGood: Looks Good!
 Moderation: Moderation
+Notification:
+  one: Notification
+  other: Notifications
 Oauth: OAuth
 Oauth20Client:
   one: OAuth 2.0 Client
@@ -94,6 +102,9 @@ Relay:
   other: Relays
 Required: Required
 Save: Save
+Setting:
+  one: Setting
+  other: Settings
 System:
   one: System
   other: Systems
@@ -104,3 +115,6 @@ Unauthorized: Unauthorized
 Update:
   one: Update
   other: Updates
+Username:
+  one: Username
+  other: Usernames

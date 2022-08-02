@@ -43,3 +43,25 @@ func (l *Localizer) TextUpdate(count int) *LocalizedString {
 		string:   text,
 	}
 }
+
+// TextUsername returns a translated phrase.
+func (l *Localizer) TextUsername(count int) *LocalizedString {
+	lg := logger.WithField("func", "TextUsername")
+
+	text, tag, err := l.localizer.LocalizeWithTag(&i18n.LocalizeConfig{
+		DefaultMessage: &i18n.Message{
+			ID:    "Username",
+			One:   "Username",
+			Other: "Usernames",
+		},
+		PluralCount: count,
+	})
+	if err != nil {
+		lg.Warningf(missingTranslationWarning, err.Error())
+	}
+
+	return &LocalizedString{
+		language: tag,
+		string:   text,
+	}
+}

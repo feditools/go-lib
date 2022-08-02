@@ -89,15 +89,15 @@ func (l *Localizer) TextBlocked() *LocalizedString {
 	}
 }
 
-// TextBlockedInstance returns a translated phrase.
-func (l *Localizer) TextBlockedInstance(count int) *LocalizedString {
-	lg := logger.WithField("func", "TextBlockedInstance")
+// TextBlockedDomain returns a translated phrase.
+func (l *Localizer) TextBlockedDomain(count int) *LocalizedString {
+	lg := logger.WithField("func", "TextBlockedDomain")
 
 	text, tag, err := l.localizer.LocalizeWithTag(&i18n.LocalizeConfig{
 		DefaultMessage: &i18n.Message{
-			ID:    "BlockedInstance",
-			One:   "Blocked Instance",
-			Other: "Blocked Instances",
+			ID:    "BlockedDomain",
+			One:   "Blocked Domain",
+			Other: "Blocked Domains",
 		},
 		PluralCount: count,
 	})

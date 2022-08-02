@@ -7,6 +7,77 @@ import (
 	"golang.org/x/text/language"
 )
 
+func TestLocalizer_TextChatID(t *testing.T) {
+	t.Parallel()
+
+	tables := []testTextTable{
+		{
+			inputLang:    language.English,
+			inputCount:   1,
+			outputString: "Chat ID",
+			outputLang:   language.English,
+		},
+		{
+			inputLang:    language.English,
+			inputCount:   2,
+			outputString: "Chat IDs",
+			outputLang:   language.English,
+		},
+	}
+
+	langMod, _ := New()
+	for i, table := range tables {
+		i := i
+		table := table
+
+		name := fmt.Sprintf(testTranslatedTo, i, table.inputLang)
+		t.Run(name, func(t *testing.T) {
+			t.Parallel()
+
+			localizer, err := langMod.NewLocalizer(table.inputLang.String())
+			if err != nil {
+				t.Errorf(testCantGetLocalizer, i, table.inputLang, err.Error())
+
+				return
+			}
+
+			testTextWithCount(t, i, localizer.TextChatID, table)
+		})
+	}
+}
+
+func TestLocalizer_TextChatIDOrUsername(t *testing.T) {
+	t.Parallel()
+
+	tables := []testTextTable{
+		{
+			inputLang:    language.English,
+			outputString: "Chat ID or Username",
+			outputLang:   language.English,
+		},
+	}
+
+	langMod, _ := New()
+	for i, table := range tables {
+		i := i
+		table := table
+
+		name := fmt.Sprintf(testTranslatedTo, i, table.inputLang)
+		t.Run(name, func(t *testing.T) {
+			t.Parallel()
+
+			localizer, err := langMod.NewLocalizer(table.inputLang.String())
+			if err != nil {
+				t.Errorf(testCantGetLocalizer, i, table.inputLang, err.Error())
+
+				return
+			}
+
+			testText(t, i, localizer.TextChatIDOrUsername, table)
+		})
+	}
+}
+
 func TestLocalizer_TextClient(t *testing.T) {
 	t.Parallel()
 
@@ -156,38 +227,6 @@ func TestLocalizer_TextClose(t *testing.T) {
 	}
 }
 
-func TestLocalizer_TextCreate(t *testing.T) {
-	t.Parallel()
-
-	tables := []testTextTable{
-		{
-			inputLang:    language.English,
-			outputString: "Create",
-			outputLang:   language.English,
-		},
-	}
-
-	langMod, _ := New()
-	for i, table := range tables {
-		i := i
-		table := table
-
-		name := fmt.Sprintf(testTranslatedTo, i, table.inputLang)
-		t.Run(name, func(t *testing.T) {
-			t.Parallel()
-
-			localizer, err := langMod.NewLocalizer(table.inputLang.String())
-			if err != nil {
-				t.Errorf(testCantGetLocalizer, i, table.inputLang, err.Error())
-
-				return
-			}
-
-			testText(t, i, localizer.TextCreate, table)
-		})
-	}
-}
-
 func TestLocalizer_TextConfig(t *testing.T) {
 	t.Parallel()
 
@@ -223,6 +262,38 @@ func TestLocalizer_TextConfig(t *testing.T) {
 			}
 
 			testTextWithCount(t, i, localizer.TextConfig, table)
+		})
+	}
+}
+
+func TestLocalizer_TextCreate(t *testing.T) {
+	t.Parallel()
+
+	tables := []testTextTable{
+		{
+			inputLang:    language.English,
+			outputString: "Create",
+			outputLang:   language.English,
+		},
+	}
+
+	langMod, _ := New()
+	for i, table := range tables {
+		i := i
+		table := table
+
+		name := fmt.Sprintf(testTranslatedTo, i, table.inputLang)
+		t.Run(name, func(t *testing.T) {
+			t.Parallel()
+
+			localizer, err := langMod.NewLocalizer(table.inputLang.String())
+			if err != nil {
+				t.Errorf(testCantGetLocalizer, i, table.inputLang, err.Error())
+
+				return
+			}
+
+			testText(t, i, localizer.TextCreate, table)
 		})
 	}
 }
