@@ -10,18 +10,24 @@ type Account interface {
 	GetDisplayName() (displayName string)
 	GetID() (id int64)
 	GetInstance() (instance Instance)
-	GetLastFinger() (lastFinger time.Time)
+	GetLastInfoUpdate() (lastInfoUpdate time.Time)
 	GetUsername() (username string)
 
 	SetActorURI(actorURI string)
+	SetAvatar(avatar string)
+	SetAvatarStatic(avatarStatic string)
+	SetBot(bot bool)
 	SetDisplayName(displayName string)
 	SetInstance(instance Instance)
-	SetLastFinger(lastFinger time.Time)
+	SetLastInfoUpdate(lastInfoUpdate time.Time)
+	SetLocked(locked bool)
+	SetMoved(account Account)
+	SetURL(url string)
 	SetUsername(username string)
 }
 
-// GenerateFediAccountFromUsername creates an Account object by querying the apis of the federated instance.
-func (f *FediHelper) GenerateFediAccountFromUsername(ctx context.Context, username string, instance Instance, account Account) error {
+// GenerateAccountFromUsername creates an Account object by querying the apis of the federated instance.
+func (f *FediHelper) GenerateAccountFromUsername(ctx context.Context, username string, instance Instance, account Account) error {
 	l := logger.WithField("func", "GenerateFediAccountFromUsername")
 
 	// get host meta
@@ -68,7 +74,6 @@ func (f *FediHelper) GenerateFediAccountFromUsername(ctx context.Context, userna
 	account.SetUsername(actor.PreferredUsername)
 	account.SetInstance(instance)
 	account.SetDisplayName(actor.Name)
-	account.SetLastFinger(time.Now())
 
 	return nil
 }
