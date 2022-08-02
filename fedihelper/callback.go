@@ -1,13 +1,14 @@
 package fedihelper
 
 import (
+	"context"
 	"errors"
 	"fmt"
 	"net/http"
 	"net/url"
 )
 
-func (f *FediHelper) HandleCallback(r *http.Request, instance Instance, callbackURI *url.URL) (Account, int, error) {
+func (f *FediHelper) HandleCallback(ctx context.Context, r *http.Request, instance Instance, callbackURI *url.URL) (Account, int, error) {
 	l := logger.WithField("func", "HandleCallback")
 
 	switch SoftwareName(instance.GetSoftware()) {
@@ -24,7 +25,7 @@ func (f *FediHelper) HandleCallback(r *http.Request, instance Instance, callback
 		// retrieve access token
 		var accessToken string
 		accessToken, err := f.Helper(SoftwareMastodon).GetAccessToken(
-			r.Context(),
+			ctx,
 			callbackURI,
 			instance,
 			code[0],
@@ -38,7 +39,7 @@ func (f *FediHelper) HandleCallback(r *http.Request, instance Instance, callback
 
 		// retrieve current account
 		account, err := f.Helper(SoftwareMastodon).GetCurrentAccount(
-			r.Context(),
+			ctx,
 			instance,
 			accessToken,
 		)
