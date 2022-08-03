@@ -27,21 +27,28 @@ type Account interface {
 }
 
 // GenerateAccountFromUsername creates an Account object by querying the apis of the federated instance.
-func (f *FediHelper) GenerateAccountFromUsername(ctx context.Context, username string, instance Instance, account Account) error {
+func (f *FediHelper) GenerateAccountFromUsername(ctx context.Context, username string, instance Instance) (Account, error) {
 	l := logger.WithField("func", "GenerateFediAccountFromUsername")
+
+	account, err := f.NewAccountHandler(ctx)
+	if err != nil {
+		l.Errorf("get host meta: %s", err.Error())
+
+		return nil, err
+	}
 
 	// get host meta
 	hostMeta, err := f.FetchHostMeta(ctx, instance.GetDomain())
 	if err != nil {
 		l.Errorf("get host meta: %s", err.Error())
 
-		return err
+		return nil, err
 	}
 	webfingerURI := hostMeta.WebfingerURI()
 	if webfingerURI == "" {
 		l.Errorf("host meta missing web finger url")
 
-		return NewError("host meta missing web finger url")
+		return nil, NewError("host meta missing web finger url")
 	}
 
 	// get actor uri
@@ -50,24 +57,24 @@ func (f *FediHelper) GenerateAccountFromUsername(ctx context.Context, username s
 		fhErr := NewErrorf("get wellknown webfinger: %s", err.Error())
 		l.Error(fhErr.Error())
 
-		return fhErr
+		return nil, fhErr
 	}
 	actorURI, err := webfinger.ActorURI()
 	if err != nil {
 		fhErr := NewErrorf("find actor url: %s", err.Error())
 		l.Error(fhErr.Error())
 
-		return fhErr
+		return nil, fhErr
 	}
 	if actorURI == nil {
-		return NewError("missing actor uri")
+		return nil, NewError("missing actor uri")
 	}
 
 	actor, err := f.FetchActor(ctx, actorURI)
 	if err != nil {
 		l.Errorf("decode json: %s", err.Error())
 
-		return err
+		return nil, err
 	}
 
 	account.SetActorURI(actorURI.String())
@@ -75,5 +82,5 @@ func (f *FediHelper) GenerateAccountFromUsername(ctx context.Context, username s
 	account.SetInstance(instance)
 	account.SetDisplayName(actor.Name)
 
-	return nil
+	return account, nil
 }
