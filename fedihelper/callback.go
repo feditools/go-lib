@@ -4,12 +4,16 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"github.com/sirupsen/logrus"
 	"net/http"
 	"net/url"
 )
 
 func (f *FediHelper) HandleCallback(ctx context.Context, r *http.Request, instance Instance, callbackURI *url.URL) (Account, int, error) {
-	l := logger.WithField("func", "HandleCallback")
+	l := logger.WithFields(logrus.Fields{
+		"func":     "HandleCallback",
+		"software": instance.GetSoftware(),
+	})
 
 	switch SoftwareName(instance.GetSoftware()) {
 	case SoftwareMastodon:
